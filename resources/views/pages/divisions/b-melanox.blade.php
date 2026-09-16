@@ -18,21 +18,21 @@
 
     $products = [
       [
-        'image' => 'https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-01.jpeg',
+        'image' => '/img/products/bmelanox-01.jpeg',
         'alt' => 'B-Melanox pigment cream product presentation',
         'label' => '01 · Current expression',
         'title' => 'B-Melanox Pigment Cream',
         'text' => 'Primary intensive pigment-management formulation. Product claims, availability, and protocols remain subject to formal validation.',
       ],
       [
-        'image' => 'https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-03.jpeg',
+        'image' => '/img/products/bmelanox-03.jpeg',
         'alt' => 'B-Melanox supportive cleansing system',
         'label' => '02 · Support system',
         'title' => 'B-Melanox Cleanser',
         'text' => 'Supportive cleansing system designed to complement pigment-management protocols without compromising barrier integrity.',
       ],
       [
-        'image' => 'https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-06.jpeg',
+        'image' => '/img/products/bmelanox-06.jpeg',
         'alt' => 'B-Melanox exfoliant product system',
         'label' => '03 · Support system',
         'title' => 'B-Melanox Exfoliant',
@@ -57,7 +57,7 @@
     title="Pigmentation is"
     accent="biology."
     intro="B-Melanox is ORIGINA's pigmentation-science division — with skin of colour as its starting population, not its limit."
-    image="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-01.jpeg"
+    image="/img/products/bmelanox-01.jpeg"
     alt="B-Melanox Night Intensive Pigment Corrector product presentation"
     caption="B-Melanox™ · Institutional product preview"
   />
@@ -111,10 +111,10 @@
   <section class="product-dossier">
     <div class="site-shell product-dossier__grid">
       <div class="product-gallery">
-        <img class="product-gallery__primary" src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-01.jpeg" alt="B-Melanox Night Intensive Pigment Corrector with its carton" loading="lazy" width="1200" height="1500">
+        <img class="product-gallery__primary" src="/img/products/bmelanox-01.jpeg" alt="B-Melanox Night Intensive Pigment Corrector with its carton" loading="lazy" width="1200" height="1500">
         <div class="product-gallery__secondary">
-          <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-04.jpeg" alt="B-Melanox material study" loading="lazy" width="900" height="900">
-          <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/products/bmelanox-06.jpeg" alt="B-Melanox complete presentation" loading="lazy" width="900" height="900">
+          <img src="/img/products/bmelanox-04.jpeg" alt="B-Melanox material study" loading="lazy" width="900" height="900">
+          <img src="/img/products/bmelanox-06.jpeg" alt="B-Melanox complete presentation" loading="lazy" width="900" height="900">
         </div>
       </div>
 
