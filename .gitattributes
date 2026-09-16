@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.blade.php diff=html
+*.css linguist-language=CSS
+*.php diff=php
+/docs export-ignore
+/.github export-ignore

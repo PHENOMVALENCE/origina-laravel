@@ -1,0 +1,14 @@
+---
+description: ORIGINA Laravel project rules
+alwaysApply: true
+---
+
+# ORIGINA Laravel
+
+Read `AGENTS.md` before implementation and follow it as the repository-level authority.
+
+Current phase: frontend-only. Do not add database, authentication, API, commerce, payment, admin persistence or external-integration logic unless the user explicitly expands scope.
+
+Use Blade components, semantic HTML, CSS design tokens, progressive enhancement, WCAG 2.2 AA practices and small Conventional Commits. Preserve approved ORIGINA copy and never invent scientific, clinical, regulatory or efficacy claims.
+
+When implementation changes architecture, security posture, the design system or project scope, update the matching file in `docs/` in the same change.

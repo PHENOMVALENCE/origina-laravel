@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a product or engineering capability
+title: "feat: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / opportunity
+      description: Describe the user or business need before suggesting implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Scientific, regulatory, security, privacy, design or technical constraints.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
