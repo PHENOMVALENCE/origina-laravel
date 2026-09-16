@@ -28,7 +28,10 @@ $pages = [
 ];
 
 foreach ($pages as $uri => [$title, $eyebrow]) {
-    Route::get($uri, fn () => view('pages.placeholder', compact('title', 'eyebrow')));
+    Route::view($uri, 'pages.placeholder', [
+        'title' => $title,
+        'eyebrow' => $eyebrow,
+    ]);
 }
 
 foreach (config('origina.divisions', []) as $division) {
