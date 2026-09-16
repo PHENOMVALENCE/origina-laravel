@@ -1,99 +1,73 @@
-# ORIGINA Laravel — Agent Working Instructions
+# ORIGINA Laravel — Agent Rules
 
-## Mission
+## Purpose
 
-This repository is the Laravel implementation of ORIGINA™, rebuilt from `PHENOMVALENCE/origina-next` with a stricter engineering baseline. ORIGINA is presented as an evidence-led, multi-divisional innovation institution operating at the intersection of biology, clinical science, technology, human wellbeing, product development, and premium brand expression.
-
-The current phase is **frontend-only**. Do not introduce application backend behaviour unless the owner explicitly expands scope.
+This repository re-platforms `PHENOMVALENCE/origina-next` into Laravel 12. The current scope is the public frontend: preserve the approved ORIGINA information architecture, UI/UX, content and assets before backend or commerce work begins.
 
 ## Source of truth
 
-Before changing copy, structure, or visual language, consult:
+For migration work, use this order:
 
-1. `docs/PROJECT_CONTEXT.md`
-2. `docs/DESIGN_SYSTEM.md`
-3. `docs/ARCHITECTURE.md`
-4. the existing `PHENOMVALENCE/origina-next` implementation
-5. the approved public ORIGINA site/content supplied by the owner
+1. `PHENOMVALENCE/origina-next` on `main` for current public UI/UX, copy and asset usage.
+2. `docs/FRONTEND_SCOPE.md` and `docs/MIGRATION_MAP.md` for Laravel parity status.
+3. `docs/DESIGN_SYSTEM.md`, `docs/ARCHITECTURE.md` and approved owner decisions.
 
-Never invent scientific claims, clinical outcomes, approvals, patents, credentials, statistics, product efficacy, regulatory status, or institutional history.
+Do not invent scientific, clinical, efficacy, regulatory, patent, credential or institutional claims.
 
-## Current implementation boundary
+## Current boundary
 
-Allowed now:
-- Laravel 12 application shell
-- Blade views and Blade components
-- semantic HTML
-- CSS design tokens and responsive layouts
-- lightweight progressive-enhancement JavaScript
-- Vite asset pipeline
-- accessibility, metadata, performance and security-header scaffolding
-- static placeholder routes needed to review information architecture
-- tests for public view rendering and architecture boundaries
+Allowed: Blade views/components, semantic HTML, CSS, progressive JavaScript, Vite, local public assets, metadata, accessibility, performance work, public-route tests and documentation.
 
-Not allowed yet:
-- database migrations or production data models
-- authentication or authorization flows
-- checkout, carts, orders, inventory, payments or shipping
-- admin/CMS persistence
-- API endpoints or external integrations
-- contact-form persistence or email delivery
-- analytics persistence
+Deferred unless the owner explicitly expands scope: database models/migrations, authentication, authorization, admin/CMS persistence, APIs, external integrations, enquiry persistence/email, catalogue backend, cart, checkout, payments, orders, inventory, shipping and fulfilment.
 
-When a future feature requires backend work, update `docs/ROADMAP.md` and create an ADR before implementation.
+## Frontend parity rule
 
-## Engineering standards
+The Next.js public frontend is the migration reference. Before calling a route complete, compare:
 
-- PHP: PSR-12, strict types where practical, Laravel conventions, small classes, dependency injection over service location.
-- Views: Blade components for repeated UI; keep business logic out of templates.
-- CSS: consume semantic design tokens; no arbitrary one-off colours unless documented.
-- JavaScript: progressive enhancement only; no frontend framework unless an ADR approves it.
-- Accessibility: WCAG 2.2 AA target; keyboard operation and visible focus are mandatory.
-- Security: treat all future input as hostile; preserve CSRF protection, output escaping, validation, authorization and secure-cookie defaults.
-- Performance: protect Core Web Vitals; avoid unnecessary client JavaScript, third-party scripts and oversized images.
+- content and information hierarchy
+- header/footer/navigation behaviour
+- sections, ordering and calls to action
+- typography, spacing, colour, rules and responsive behaviour
+- imagery, logo/mark usage, alt text and captions
+- interaction states, keyboard behaviour and reduced motion
 
-## Git workflow
+Assets must be served locally from this repository. Do not hotlink the reference repository in production code.
 
-- `main` is the protected/release branch.
-- Active implementation branch for this foundation: `masterchanges`.
-- Future work should use short-lived branches from updated `main`, preferably `feature/<scope>`, `fix/<scope>`, `docs/<scope>` or `chore/<scope>`.
-- Never force-push shared branches.
-- Never merge your own pull request automatically.
-- Keep commits small, coherent and reviewable.
+## Engineering rules
 
-Conventional Commits:
+- Follow Laravel conventions and PSR-12; keep business logic out of Blade.
+- Reuse Blade components for repeated UI.
+- Use semantic design tokens rather than arbitrary colours.
+- Keep JavaScript progressive and small; a new frontend framework requires an ADR.
+- Target WCAG 2.2 AA, visible focus, keyboard operation and reduced-motion support.
+- Preserve Laravel escaping, CSRF/security defaults and secret hygiene.
+- Keep public pages lightweight; use explicit image dimensions and responsive assets where practical.
 
-`type: imperative summary`
+## Git and authorship
 
-Allowed types: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `style`, `build`, `ci`, `chore`.
+All repository work belongs to the human project owner. Agents are implementation tools, not repository authors.
 
-Do not add AI/agent co-author trailers. Commits belong to the repository owner.
+- Use the owner's connected GitHub account and configured Git identity for every branch, commit and PR.
+- Never add an agent, AI system, bot or tool as commit author, committer, co-author, contributor or implementation credit.
+- Never add `Co-authored-by`, `Generated-by`, AI attribution, agent signatures or self-credit to commits, PRs, changelogs, documentation or source comments.
+- If a tool cannot preserve human authorship, stop before committing and leave the change for the owner to commit.
+- Keep commits small and coherent using Conventional Commits: `type: imperative summary`.
+- Use short-lived `feature/*`, `fix/*`, `docs/*`, `refactor/*` or `chore/*` branches.
+- Stacked PRs are allowed while parent work is still under review; target the immediate parent branch and retarget after it merges.
+- Never force-push shared branches or merge a PR automatically. Merge remains an explicit human action.
 
-## Required checks before a PR is ready
+## Validation
+
+Run the checks that apply and report only checks that actually ran:
 
 ```bash
 composer validate --strict
-composer test
-composer analyse
 composer lint:test
-npm ci
+composer analyse
+composer test
 npm run build
 ```
 
-If the local environment cannot execute a check, state that explicitly in the PR body. Never claim a check passed unless it actually ran.
+Use `npm ci` when `package-lock.json` exists; until lockfiles are committed, use the repository's current CI install command and document that limitation.
 
-## Documentation discipline
-
-Architecture changes require documentation in the same PR. Update the relevant file and, when a durable technical decision is being made, add an ADR under `docs/adr/`.
-
-## Design discipline
-
-ORIGINA should feel authoritative before decorative: scientific institution at the parent level, premium/luxury expression through restraint, typography, materiality, photography and division-specific identities. Do not turn the institutional layer into a generic cosmetics storefront.
-
-No gradients, glassmorphism, excessive shadows, decorative pill UI, novelty motion, or template-like SaaS visuals unless explicitly approved. Prefer whitespace, editorial typography, hairline rules, strong imagery and deliberate asymmetry.
-
-## Content safety
-
-Use `™` only where present in approved brand copy. Trademark marks do not imply patent or regulatory approval.
-
-Use conservative scientific language. If evidence is preliminary, say so. Do not write approval language that has not been verified.
+UI changes also require route-by-route responsive, keyboard and visual parity review against `origina-next`. Update documentation in the same PR when scope, architecture, design rules or parity status changes.
