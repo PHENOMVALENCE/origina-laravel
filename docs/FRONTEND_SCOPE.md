@@ -1,40 +1,25 @@
-# Frontend Phase Scope
+# Frontend Scope
 
-## Goal
+## In scope
 
-Create a reviewable Laravel/Blade visual system before committing the project to database and commerce architecture.
+- Laravel 12 public application shell;
+- Blade pages/components;
+- Vite CSS and progressive-enhancement JavaScript;
+- exact migration of approved `origina-next` UI/UX, copy and responsive behaviour;
+- local ORIGINA assets;
+- accessibility, metadata, performance and security-header work;
+- public-route tests and CI.
 
-## Deliverables
+## Out of scope until explicitly approved
 
-- Laravel 12 application shell
-- institutional homepage prototype
-- shared site layout/header/footer
-- foundational Blade components
-- ORIGINA design tokens
-- responsive CSS
-- small navigation JavaScript module
-- route placeholders for the existing institutional information architecture
-- metadata/SEO shell
-- accessibility baseline
-- CI and code-quality configuration
+- database/persistence;
+- authentication and authorization;
+- admin/CMS behaviour;
+- APIs and external integrations;
+- enquiry storage/email delivery;
+- catalogue backend;
+- cart, checkout, payments, orders, inventory, shipping and fulfilment.
 
-## Explicitly deferred
+## Definition of done for a migrated page
 
-- content CMS
-- database
-- user accounts
-- admin authentication
-- cart/checkout
-- orders
-- payment provider integration
-- inventory
-- shipping
-- transactional email
-- persisted enquiries
-- analytics persistence
-
-Static placeholder pages may exist so navigation can be reviewed, but they must not pretend deferred features are implemented.
-
-## Definition of done
-
-The phase is complete when the repository can be cloned, dependencies installed, Laravel booted, assets built, public prototype navigated responsively, quality gates executed, and the design/architecture reviewed before backend work begins.
+The Laravel route matches the approved Next.js route in structure, copy, assets, responsive behaviour and interactions; passes applicable automated checks; and has no undocumented visual deviation.
