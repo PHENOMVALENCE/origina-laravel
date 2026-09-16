@@ -3,15 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.home')->name('home');
+Route::view('/about', 'pages.about')->name('about');
+Route::view('/labs', 'pages.labs')->name('labs');
+Route::view('/divisions/b-melanox', 'pages.divisions.b-melanox')->name('divisions.b-melanox');
 
 $pages = [
-    '/about' => ['About ORIGINA', 'Institution'],
     '/founder' => ['Dr. Elizabeth Consoli', 'Founder'],
     '/africa' => ['Africa Originating', 'Institution'],
     '/biology-first' => ['Biology First™', 'Science'],
     '/culture' => ['Culture & Talent', 'Institution'],
     '/science' => ['Science', 'Science'],
-    '/labs' => ['ORIGINA Labs™', 'Science'],
     '/platforms' => ['Scientific Platforms', 'Science'],
     '/science/evidence' => ['Scientific Evidence', 'Evidence & Quality'],
     '/science/regulatory' => ['Regulatory Science', 'Evidence & Quality'],
@@ -31,6 +32,10 @@ foreach ($pages as $uri => [$title, $eyebrow]) {
 }
 
 foreach (config('origina.divisions', []) as $division) {
+    if ($division['slug'] === 'b-melanox') {
+        continue;
+    }
+
     Route::get('/divisions/'.$division['slug'], fn () => view('pages.placeholder', [
         'title' => $division['name'],
         'eyebrow' => 'ORIGINA Division',
