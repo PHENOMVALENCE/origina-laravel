@@ -1,91 +1,59 @@
 # Next.js → Laravel Migration Map
 
-This file maps the existing `PHENOMVALENCE/origina-next` structure into the Laravel implementation so the re-platforming preserves intent rather than mechanically translating syntax.
+`PHENOMVALENCE/origina-next` is the frontend source of truth for this migration.
 
-## Source principles being carried forward
+## Rules
 
-The Next.js implementation established several durable ideas that remain valid in Laravel:
+- Preserve approved copy, layout, responsive behaviour, navigation and interaction patterns.
+- Preserve the institutional-versus-division visual distinction.
+- Use the same approved assets locally in Laravel.
+- Do not treat migration as a redesign unless a deviation is explicitly approved.
+- Do not port Next.js backend/auth/database behaviour during the frontend phase.
 
-- institutional parent layer versus richer division/product layer
-- editorial, evidence-led homepage rather than a conventional ecommerce landing page
-- Source Serif 4 + Source Sans 3 direction
-- warm-paper institutional surfaces, noir punctuation bands, restrained gold and oxblood accents
-- documentary founder/product photography
-- WCAG-conscious contrast decisions
-- conservative scientific claims
-- shared navigation, footer, hero and section primitives
-- server-rendered public content as the default
+## Core mapping
 
-## Structural mapping
+| Next.js | Laravel |
+|---|---|
+| `src/app/(site)/*` | `resources/views/pages/*` |
+| `src/components/*` | `resources/views/components/*` |
+| `src/app/globals.css` | `resources/css/app.css` |
+| `src/lib/navigation.ts` | `config/origina.php` |
+| `src/lib/content/*` | Blade/config content during frontend phase |
+| `public/img/*` | `public/img/*` |
+| `src/app/favicon.ico` | `public/favicon.ico` |
 
-| Next.js source | Laravel destination | Migration intent |
-|---|---|---|
-| `src/app/(site)/page.tsx` | `resources/views/pages/home.blade.php` | Homepage composition and approved copy |
-| `src/components/HomeHero.tsx` | homepage hero section / future `components/home-hero.blade.php` | Preserve editorial split, single documentary image and calm motion |
-| `src/components/SiteHeader.tsx` | `resources/views/components/site-header.blade.php` | Global navigation, responsive menu and accessibility |
-| `src/components/SiteFooter.tsx` | `resources/views/components/site-footer.blade.php` | Institutional link architecture and closing positioning |
-| `src/components/Section.tsx` | `resources/views/components/section.blade.php` | Tone-based section shell |
-| `src/components/ui/Button.tsx` | `resources/views/components/button.blade.php` | Shared action styling |
-| `src/lib/navigation.ts` | `config/origina.php` initially | Static navigation registry until a content backend is approved |
-| `src/lib/content/*` | Blade/config/content layer to be designed in Phase 2 | Port approved content without inventing claims |
-| `src/app/globals.css` | `resources/css/app.css` | Semantic design tokens and component grammar |
-| `src/lib/metadata.ts` | Blade layout + future metadata service | Canonical, social and structured metadata once production domains are confirmed |
-| `src/db/*`, Drizzle migrations | **not migrated yet** | Backend gate required |
-| `src/app/admin/*` | **not migrated yet** | Identity/admin architecture must be approved first |
-| `src/lib/auth/*` | **not migrated yet** | Use Laravel-native auth/authorization design in backend phase |
+Backend-only Next.js areas (`src/db`, auth, admin persistence, APIs) are intentionally deferred.
 
-## Route migration
+## Current parity status
 
-The Laravel foundation prepares the public route families currently represented by the Next.js project:
+Implemented Laravel pages:
 
 - `/`
 - `/about`
-- `/founder`
-- `/africa`
-- `/biology-first`
-- `/culture`
-- `/science`
 - `/labs`
-- `/platforms`
-- `/science/evidence`
-- `/science/regulatory`
-- `/science/quality`
-- `/science/responsible-science`
-- `/intellectual-property`
-- `/divisions` and division detail routes
-- `/future` and future initiative routes
-- `/contact`
-- `/updates`
-- `/privacy`
-- `/terms`
+- `/divisions/b-melanox`
 
-Only the homepage is currently treated as a real visual prototype. The other routes are placeholders so the information architecture and navigation can be reviewed without prematurely porting every page.
+Remaining public Next.js routes are still migration work and must not be described as fully ported while they remain placeholders.
 
-## Asset migration
+## Assets
 
-Current homepage prototype imagery temporarily references the existing repository's raw GitHub assets. Production migration must:
+Migrated locally from `origina-next`:
 
-1. copy only approved assets into this repository or an ORIGINA-owned asset service;
-2. preserve verified alt text and captions;
-3. generate responsive sizes/formats;
-4. set intrinsic dimensions to protect CLS;
-5. avoid hotlinking GitHub in production;
-6. document licensing/ownership for any new third-party photography.
+- ORIGINA logo and mark;
+- favicon;
+- founder photography (`founder-01` through `founder-09`);
+- current B-Melanox product photography.
 
-## Content migration rule
+Implemented pages must use these local paths rather than GitHub raw URLs.
 
-A copy change during migration is not automatically a "design improvement." Changes to scientific, clinical, regulatory, founder, platform or product claims require owner/scientific approval. When uncertain, preserve the existing approved wording and record the question instead of rewriting it.
+## Page completion checklist
 
-## Frontend completion criteria
+A route is considered migrated only when:
 
-Before backend implementation starts, the public Laravel layer should have:
-
-- all approved institutional pages ported;
-- no broken/placeholder navigation on the review environment;
-- final local/managed assets;
-- responsive QA;
-- accessibility QA;
-- metadata and canonical-domain plan;
-- production CSP design after third-party asset/font decisions;
-- committed dependency lockfiles;
-- passing CI.
+1. structure and copy match the approved Next.js page;
+2. shared header/footer/component behaviour matches;
+3. local assets and captions/alt text are correct;
+4. desktop and mobile layouts are reviewed;
+5. keyboard/focus behaviour is intact;
+6. route tests/build checks pass;
+7. any deliberate difference is documented.

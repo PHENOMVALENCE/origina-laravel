@@ -5,12 +5,14 @@ alwaysApply: true
 
 # ORIGINA Laravel
 
-Read `AGENTS.md` first; it is the repository authority for agents.
+Read `AGENTS.md` before implementation. It is the repository-level authority.
 
-Current scope: public frontend parity with `PHENOMVALENCE/origina-next`. Preserve approved UI/UX, copy and local assets. Do not add database, auth, APIs, commerce, payments, admin persistence or integrations unless the owner explicitly expands scope.
+Current phase is frontend-first. Do not add database, authentication, API, commerce, payment, admin persistence or external-integration behaviour unless the owner explicitly expands scope.
 
-Use Blade components, semantic HTML, project design tokens, progressive enhancement, WCAG 2.2 AA practices and small Conventional Commits.
+For every migrated page, inspect the matching `PHENOMVALENCE/origina-next` route and shared components first. Mirror its UI, UX, copy, responsive behaviour and approved assets unless a deviation is explicitly approved.
 
-All Git authorship and implementation credit belongs to the human project owner. Never add AI/agent authorship, co-author trailers, generated-by markers, signatures or credits. If the active tool cannot commit through the owner's identity, do not commit.
+Use Blade components, semantic HTML, CSS design tokens, progressive enhancement and WCAG 2.2 AA practices. Keep changes in small Conventional Commits.
 
-Update the relevant documentation whenever implementation changes scope, architecture, security, design rules or frontend-parity status.
+Git history belongs to the human maintainer. Never add agent/AI/bot authorship, co-author trailers or implementation credits.
+
+When architecture, security, scope or the design system changes, update the relevant `docs/` file in the same change.

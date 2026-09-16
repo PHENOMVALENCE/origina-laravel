@@ -1,40 +1,38 @@
 # ORIGINA — Laravel
 
-Production-grade Laravel re-platforming of ORIGINA™, an evidence-led multi-divisional innovation institution originating in Dar es Salaam, Tanzania.
+Laravel re-platforming of ORIGINA™ using `PHENOMVALENCE/origina-next` as the approved frontend reference.
 
-The existing `PHENOMVALENCE/origina-next` project is the migration reference. This repository is intentionally starting with a **frontend-only foundation** so visual language, information architecture, security defaults, accessibility and engineering standards can be reviewed before backend and commerce complexity is introduced.
+## Current phase
 
-## Current status
+Frontend-first migration on top of Laravel 12 / Blade / Vite.
 
-**Foundation / frontend prototype. No production backend has been implemented.**
+Implemented:
 
-Implemented on `masterchanges`:
-- Laravel 12 application shell
-- Blade layout and reusable components
-- institutional homepage prototype based on the existing ORIGINA content architecture
-- responsive design system using ORIGINA semantic tokens
-- placeholder public routes for information-architecture review
-- security-header middleware baseline
-- PHPUnit public-route checks
-- Pint and Larastan configuration
-- GitHub Actions CI
-- project-specific system engineering, design, security, accessibility, Git and agent documentation
+- Laravel application shell and shared Blade layout/components;
+- homepage, About, Labs and B-Melanox public experiences;
+- responsive institutional/division design system;
+- security headers, public-route tests, Pint, Larastan and CI;
+- local migration of approved ORIGINA brand, founder and B-Melanox imagery.
 
-Explicitly not implemented yet: database, authentication, admin CMS, APIs, enquiry persistence, catalogue backend, cart, checkout, payments, orders, inventory or fulfilment.
+Still intentionally deferred:
 
-## Requirements
+- database and persistence;
+- authentication/authorization;
+- admin/CMS;
+- APIs and external integrations;
+- enquiries/email delivery;
+- catalogue, cart, checkout, payments, orders, inventory and fulfilment.
 
-- PHP 8.3+
-- Composer 2
-- Node.js 20+
-- npm
+## Frontend parity rule
 
-## Local setup
+`origina-next` is the visual and interaction source of truth during migration. Laravel pages should reproduce its layout, copy, responsive behaviour, navigation, components and assets unless a deviation is explicitly approved and documented.
+
+## Setup
 
 ```bash
 git clone https://github.com/PHENOMVALENCE/origina-laravel.git
 cd origina-laravel
-git checkout masterchanges
+git checkout feature/core-frontend
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -43,7 +41,7 @@ npm run build
 php artisan serve
 ```
 
-For frontend development, run `npm run dev` in a second terminal.
+Use `npm run dev` during frontend development.
 
 ## Quality gates
 
@@ -55,33 +53,17 @@ composer test
 npm run build
 ```
 
-> The first local dependency install should generate `composer.lock` and `package-lock.json`; commit both before treating builds as reproducible/production-ready.
+## Repository rules
 
-## Documentation
+Read `AGENTS.md` before implementation. Git history belongs to the human maintainer: do not add AI/agent/bot authorship, co-author trailers or implementation credits.
 
-| Document | Purpose |
-|---|---|
-| `AGENTS.md` | Rules for AI agents and contributors |
-| `docs/PROJECT_CONTEXT.md` | ORIGINA product and migration context |
-| `docs/ARCHITECTURE.md` | Laravel and future domain architecture |
-| `docs/SYSTEM_ENGINEERING.md` | Non-functional/system standards |
-| `docs/DESIGN_SYSTEM.md` | Institutional + premium visual system |
-| `docs/SECURITY_MODEL.md` | Threat posture and future controls |
-| `docs/ACCESSIBILITY.md` | WCAG 2.2 AA baseline |
-| `docs/TESTING_QA.md` | Automated and visual QA |
-| `docs/FRONTEND_SCOPE.md` | Current phase boundary |
-| `docs/GIT_WORKFLOW.md` | Branch, commit and PR conventions |
-| `docs/ROADMAP.md` | Phased implementation plan |
-| `docs/adr/` | Architecture decision records |
+Core documentation lives in `docs/`, especially:
 
-## Important migration note
+- `PROJECT_CONTEXT.md`
+- `MIGRATION_MAP.md`
+- `DESIGN_SYSTEM.md`
+- `GIT_WORKFLOW.md`
+- `TESTING_QA.md`
+- `ROADMAP.md`
 
-The homepage currently references a small number of existing `origina-next` images from GitHub raw URLs to make the frontend direction immediately reviewable without duplicating binary assets during repository bootstrap. This is temporary. Before deployment, images must be copied into this repository, optimized, given explicit responsive variants and served from ORIGINA-controlled infrastructure.
-
-## Branching
-
-- `main` — reviewed/release baseline
-- `masterchanges` — current foundation implementation branch
-- future work — short-lived `feature/*`, `fix/*`, `docs/*`, `refactor/*`, `chore/*` branches
-
-Open a PR into `main`; do not auto-merge it.
+`main` is the accepted baseline, `masterchanges` is the current integration branch, and active work should use short-lived branches such as `feature/*`, `fix/*`, `docs/*` and `chore/*`.

@@ -1,31 +1,17 @@
-# Accessibility Standard
+# Accessibility
 
-Target: WCAG 2.2 AA for public and administrative interfaces.
+Target: WCAG 2.2 AA.
 
-## Required practices
+Required for public UI:
 
-- one meaningful `h1` per page
-- headings follow document structure
-- skip link to main content
-- landmarks: header/nav/main/footer
-- keyboard operability for all interactive controls
-- visible focus indicators using `:focus-visible`
-- links describe destination or action
-- form controls have programmatic labels and useful error text
-- image alt text describes relevant content; decorative images use empty alt
-- colour is never the only state indicator
-- no autoplaying motion/audio
-- respect `prefers-reduced-motion`
-- touch targets are comfortably operable on mobile
-- maintain sufficient contrast in both institutional and division palettes
+- semantic landmarks/headings;
+- keyboard-operable navigation and controls;
+- visible focus states;
+- meaningful alt text and captions;
+- sufficient contrast in both institutional and division registers;
+- labels/instructions for form controls;
+- reduced-motion support where motion exists;
+- no information conveyed by colour alone;
+- responsive layouts without horizontal overflow.
 
-## QA matrix
-
-At minimum test:
-- keyboard only
-- 200% browser zoom
-- narrow viewport (~320px)
-- system reduced motion
-- light/dark OS preference even if the site does not implement dark mode
-- browser accessibility tree/landmark inspection
-- automated accessibility scan as a supplement, not a substitute for manual checks
+Parity with `origina-next` does not override accessibility. If the source has an accessibility defect, preserve the intended design while fixing the defect and document the difference.

@@ -1,73 +1,92 @@
-# ORIGINA Laravel — Agent Rules
+# ORIGINA Laravel — Agent Instructions
 
 ## Purpose
 
-This repository re-platforms `PHENOMVALENCE/origina-next` into Laravel 12. The current scope is the public frontend: preserve the approved ORIGINA information architecture, UI/UX, content and assets before backend or commerce work begins.
+This repository is the Laravel implementation of ORIGINA™, migrated from `PHENOMVALENCE/origina-next`.
+
+Current scope is frontend-first. Do not add persistence, authentication, APIs, commerce, payments, admin/CMS behaviour or external integrations unless the owner explicitly expands scope.
 
 ## Source of truth
 
-For migration work, use this order:
+For frontend work, use this priority order:
 
-1. `PHENOMVALENCE/origina-next` on `main` for current public UI/UX, copy and asset usage.
-2. `docs/FRONTEND_SCOPE.md` and `docs/MIGRATION_MAP.md` for Laravel parity status.
-3. `docs/DESIGN_SYSTEM.md`, `docs/ARCHITECTURE.md` and approved owner decisions.
+1. `PHENOMVALENCE/origina-next` current `main` implementation
+2. approved ORIGINA brand/content supplied by the owner
+3. `docs/DESIGN_SYSTEM.md`
+4. `docs/MIGRATION_MAP.md`
+5. existing Laravel implementation
 
-Do not invent scientific, clinical, efficacy, regulatory, patent, credential or institutional claims.
+The Laravel UI/UX must mirror the approved Next.js implementation unless a deliberate deviation is documented and approved.
 
-## Current boundary
+Never invent scientific claims, approvals, patents, clinical outcomes, efficacy, credentials, statistics or institutional history.
 
-Allowed: Blade views/components, semantic HTML, CSS, progressive JavaScript, Vite, local public assets, metadata, accessibility, performance work, public-route tests and documentation.
+## Required working method
 
-Deferred unless the owner explicitly expands scope: database models/migrations, authentication, authorization, admin/CMS persistence, APIs, external integrations, enquiry persistence/email, catalogue backend, cart, checkout, payments, orders, inventory, shipping and fulfilment.
+Before changing a page:
 
-## Frontend parity rule
+1. inspect the matching Next.js route and shared components;
+2. identify its layout, copy, states, responsive behaviour, interactions and assets;
+3. reuse the same local brand/product/founder assets in Laravel;
+4. implement with Blade, semantic HTML, CSS tokens and progressive enhancement;
+5. compare the Laravel result against the Next.js source at desktop and mobile widths;
+6. run the relevant checks;
+7. commit one logical change at a time.
 
-The Next.js public frontend is the migration reference. Before calling a route complete, compare:
-
-- content and information hierarchy
-- header/footer/navigation behaviour
-- sections, ordering and calls to action
-- typography, spacing, colour, rules and responsive behaviour
-- imagery, logo/mark usage, alt text and captions
-- interaction states, keyboard behaviour and reduced motion
-
-Assets must be served locally from this repository. Do not hotlink the reference repository in production code.
+Do not replace final assets with remote hotlinks, placeholders or invented imagery.
 
 ## Engineering rules
 
-- Follow Laravel conventions and PSR-12; keep business logic out of Blade.
+- Laravel 12 / PHP 8.3+ conventions.
+- Keep business logic out of Blade.
 - Reuse Blade components for repeated UI.
-- Use semantic design tokens rather than arbitrary colours.
-- Keep JavaScript progressive and small; a new frontend framework requires an ADR.
-- Target WCAG 2.2 AA, visible focus, keyboard operation and reduced-motion support.
-- Preserve Laravel escaping, CSRF/security defaults and secret hygiene.
-- Keep public pages lightweight; use explicit image dimensions and responsive assets where practical.
+- Use semantic design tokens; avoid arbitrary visual one-offs.
+- JavaScript is progressive enhancement only unless an ADR approves otherwise.
+- Target WCAG 2.2 AA, keyboard operation and visible focus.
+- Preserve output escaping, CSRF protection and security headers.
+- Protect performance: avoid unnecessary JS, third-party scripts and oversized media.
 
-## Git and authorship
+## Git ownership and attribution
 
-All repository work belongs to the human project owner. Agents are implementation tools, not repository authors.
+All repository work is owned by the human maintainer.
 
-- Use the owner's connected GitHub account and configured Git identity for every branch, commit and PR.
-- Never add an agent, AI system, bot or tool as commit author, committer, co-author, contributor or implementation credit.
-- Never add `Co-authored-by`, `Generated-by`, AI attribution, agent signatures or self-credit to commits, PRs, changelogs, documentation or source comments.
-- If a tool cannot preserve human authorship, stop before committing and leave the change for the owner to commit.
-- Keep commits small and coherent using Conventional Commits: `type: imperative summary`.
-- Use short-lived `feature/*`, `fix/*`, `docs/*`, `refactor/*` or `chore/*` branches.
-- Stacked PRs are allowed while parent work is still under review; target the immediate parent branch and retarget after it merges.
-- Never force-push shared branches or merge a PR automatically. Merge remains an explicit human action.
+- Commits must be created through the maintainer's connected GitHub account.
+- Use the maintainer's configured Git author/committer identity.
+- Never add AI, agent, bot or assistant names to commit authorship, co-author trailers, PR credits, changelogs or implementation credits.
+- Do not add `Co-authored-by` trailers for agents.
+- Do not describe implementation as authored by an agent.
+- Keep commits small, coherent and reviewable.
+- Never force-push shared branches.
+- Never merge a PR automatically unless the owner explicitly requests it.
+
+Branch model:
+
+- `main` — accepted/release baseline
+- `masterchanges` — current integration branch
+- short-lived work — `feature/*`, `fix/*`, `docs/*`, `refactor/*`, `chore/*`
+
+Use Conventional Commits: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `style`, `build`, `ci`, `chore`.
 
 ## Validation
 
-Run the checks that apply and report only checks that actually ran:
+Before a PR is ready, run the applicable checks:
 
 ```bash
 composer validate --strict
 composer lint:test
 composer analyse
 composer test
+npm ci
 npm run build
 ```
 
-Use `npm ci` when `package-lock.json` exists; until lockfiles are committed, use the repository's current CI install command and document that limitation.
+Never claim a check passed unless it actually ran successfully.
 
-UI changes also require route-by-route responsive, keyboard and visual parity review against `origina-next`. Update documentation in the same PR when scope, architecture, design rules or parity status changes.
+## Documentation
+
+Keep documentation concise and current. Update only the documents affected by a change. Durable architecture decisions require an ADR under `docs/adr/`.
+
+## Design guardrails
+
+ORIGINA should remain scientific, editorial, premium and restrained. Preserve the Next.js visual language rather than redesigning it during migration.
+
+Avoid unapproved gradients, glassmorphism, excessive shadows, decorative pill UI, novelty motion and generic SaaS styling.

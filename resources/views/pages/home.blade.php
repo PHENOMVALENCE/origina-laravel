@@ -61,14 +61,20 @@
   <x-section id="work" tone="sunk" eyebrow="03 · What we do" title="The scientific engine of ORIGINA." intro="From hypothesis to technical file, ORIGINA translates biological questions into evidence, prototypes, and repeatable methods.">
     <div class="indexed-list">
       <a href="/labs"><span>01</span><div><strong>ORIGINA Labs™</strong><p>The institutional R&D engine — research, formulation, clinical science, intellectual property, and manufacturing development.</p></div><em>Enter ORIGINA Labs™</em></a>
-      <a href="/science"><span>02</span><div><strong>Development framework</strong><p>Thirteen disciplined stages connecting scientific curiosity to responsible commercial output.</p></div><em>Examine the framework</em></a>
+      <a href="/science#framework"><span>02</span><div><strong>Development framework</strong><p>Thirteen disciplined stages connecting scientific curiosity to responsible commercial output.</p></div><em>Examine the framework</em></a>
       <a href="/platforms"><span>03</span><div><strong>Science platforms</strong><p>Proprietary platform architecture connecting research direction, evidence and future product expression.</p></div><em>View the platforms</em></a>
     </div>
   </x-section>
 
   <x-section id="divisions" tone="paper" eyebrow="04 · Divisions" title="A scientific institution — not a single brand." intro="Distinct expressions. Shared institution. Products are outputs; brands are expressions.">
+    @php
+      $previewSlugs = ['b-melanox', 'bettyworld', 'novia'];
+      $divisionPreviews = collect(config('origina.divisions', []))
+        ->filter(fn ($division) => in_array($division['slug'], $previewSlugs, true))
+        ->sortBy(fn ($division) => array_search($division['slug'], $previewSlugs, true));
+    @endphp
     <div class="division-grid">
-      @foreach(array_slice(config('origina.divisions', []), 0, 3) as $division)
+      @foreach($divisionPreviews as $division)
         <a class="division-card division-card--{{ $division['tone'] }}" href="/divisions/{{ $division['slug'] }}">
           <span class="division-card__index">ORIGINA / {{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
           <div>
@@ -129,7 +135,10 @@
       <article><span>II</span><h3>Research Institute</h3><p>A future home for deeper investigation and interdisciplinary work.</p></article>
       <article><span>III</span><h3>Ventures</h3><p>New institutional expressions developed with evidence and discipline.</p></article>
     </div>
-    <a class="text-link section-link" href="/future">View the institutional horizon</a>
+    <div class="link-row section-link">
+      <a class="text-link" href="/future">View the institutional horizon</a>
+      <a class="text-link" href="/future#unnamed">Explore the unnamed division</a>
+    </div>
   </x-section>
 
   <section class="closing-cta">
