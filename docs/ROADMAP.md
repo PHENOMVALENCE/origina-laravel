@@ -8,6 +8,7 @@
 - [x] shared layout/components and ORIGINA design tokens
 - [x] security-header baseline
 - [x] approved ORIGINA logo, mark, favicon, founder and B-Melanox assets migrated locally
+- [x] Next.js navigation/footer information architecture mirrored in the Laravel shared shell
 
 ## Frontend migration — active
 
@@ -34,11 +35,11 @@ Remaining Next.js parity work:
 
 - [ ] no public placeholder routes;
 - [ ] every migrated route reviewed against `origina-next` at desktop and mobile widths;
-- [ ] no remote GitHub asset hotlinks on production views;
+- [x] no remote GitHub asset hotlinks on currently implemented production views;
 - [ ] keyboard/focus and WCAG 2.2 AA review complete;
 - [ ] metadata, canonical URLs, sitemap and robots policy complete;
 - [ ] dependency lockfiles committed;
-- [ ] CI green.
+- [ ] CI green on the final frontend migration head.
 
 ## Backend gate
 
