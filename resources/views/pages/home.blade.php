@@ -18,7 +18,7 @@
       </div>
 
       <figure class="home-hero__media reveal">
-        <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-08.jpeg" alt="Dr. Elizabeth Consoli with a multidisciplinary professional community" width="1600" height="1200" fetchpriority="high">
+        <img src="/img/founder/founder-08.jpeg" alt="Dr. Elizabeth Consoli with a multidisciplinary professional community" width="1600" height="1200" fetchpriority="high">
         <figcaption>Expertise grows through community · Dar es Salaam, Tanzania</figcaption>
       </figure>
     </div>
@@ -38,7 +38,7 @@
       </div>
       <div>
         <figure class="editorial-image">
-          <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-03.jpeg" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="1200" height="900">
+          <img src="/img/founder/founder-03.jpeg" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="1200" height="900">
           <figcaption>Science · Community · Recognition</figcaption>
         </figure>
         <p class="body-copy">Skin of colour is ORIGINA's first scientific specialization — populations historically underrepresented within dermatological research, clinical evidence, and product development. It is our starting point, not our limitation.</p>
@@ -61,14 +61,20 @@
   <x-section id="work" tone="sunk" eyebrow="03 · What we do" title="The scientific engine of ORIGINA." intro="From hypothesis to technical file, ORIGINA translates biological questions into evidence, prototypes, and repeatable methods.">
     <div class="indexed-list">
       <a href="/labs"><span>01</span><div><strong>ORIGINA Labs™</strong><p>The institutional R&D engine — research, formulation, clinical science, intellectual property, and manufacturing development.</p></div><em>Enter ORIGINA Labs™</em></a>
-      <a href="/science"><span>02</span><div><strong>Development framework</strong><p>Thirteen disciplined stages connecting scientific curiosity to responsible commercial output.</p></div><em>Examine the framework</em></a>
+      <a href="/science#framework"><span>02</span><div><strong>Development framework</strong><p>Thirteen disciplined stages connecting scientific curiosity to responsible commercial output.</p></div><em>Examine the framework</em></a>
       <a href="/platforms"><span>03</span><div><strong>Science platforms</strong><p>Proprietary platform architecture connecting research direction, evidence and future product expression.</p></div><em>View the platforms</em></a>
     </div>
   </x-section>
 
   <x-section id="divisions" tone="paper" eyebrow="04 · Divisions" title="A scientific institution — not a single brand." intro="Distinct expressions. Shared institution. Products are outputs; brands are expressions.">
+    @php
+      $previewSlugs = ['b-melanox', 'bettyworld', 'novia'];
+      $divisionPreviews = collect(config('origina.divisions', []))
+        ->filter(fn ($division) => in_array($division['slug'], $previewSlugs, true))
+        ->sortBy(fn ($division) => array_search($division['slug'], $previewSlugs, true));
+    @endphp
     <div class="division-grid">
-      @foreach(array_slice(config('origina.divisions', []), 0, 3) as $division)
+      @foreach($divisionPreviews as $division)
         <a class="division-card division-card--{{ $division['tone'] }}" href="/divisions/{{ $division['slug'] }}">
           <span class="division-card__index">ORIGINA / {{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
           <div>
@@ -100,7 +106,7 @@
   <x-section id="founder" tone="sunk" eyebrow="06 · Founder" title="Dr. Elizabeth Consoli">
     <div class="founder-grid">
       <figure class="editorial-image editorial-image--portrait">
-        <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
+        <img src="/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
         <figcaption>Scientific direction · Dar es Salaam</figcaption>
       </figure>
       <div class="founder-copy">
@@ -129,7 +135,10 @@
       <article><span>II</span><h3>Research Institute</h3><p>A future home for deeper investigation and interdisciplinary work.</p></article>
       <article><span>III</span><h3>Ventures</h3><p>New institutional expressions developed with evidence and discipline.</p></article>
     </div>
-    <a class="text-link section-link" href="/future">View the institutional horizon</a>
+    <div class="link-row section-link">
+      <a class="text-link" href="/future">View the institutional horizon</a>
+      <a class="text-link" href="/future#unnamed">Explore the unnamed division</a>
+    </div>
   </x-section>
 
   <section class="closing-cta">
