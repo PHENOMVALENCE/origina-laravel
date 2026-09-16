@@ -10,9 +10,11 @@
   @endunless
   <title>@yield('title', 'ORIGINA — Biology First™')</title>
 
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/parity.css">
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

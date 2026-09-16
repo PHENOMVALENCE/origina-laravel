@@ -1,28 +1,45 @@
-# Contributing to ORIGINA Laravel
+# Contributing
 
-ORIGINA is developed as a production-grade institutional platform. Contributions should preserve scientific credibility, premium visual quality, security, accessibility and long-term maintainability.
+## Before implementation
 
-## Workflow
+1. Read `AGENTS.md`.
+2. Confirm the intended parent branch.
+3. For UI work, inspect the matching `PHENOMVALENCE/origina-next` route and shared components.
+4. Create a focused work branch.
 
-1. Sync with `main`.
-2. Create a focused branch.
-3. Read `AGENTS.md` and the relevant documentation in `docs/`.
-4. Implement one coherent concern at a time.
-5. Add or update tests and documentation.
-6. Run the quality gates.
-7. Open a pull request with context, screenshots for UI work, risks and validation results.
+## Implementation
 
-## Commit format
+- Preserve approved ORIGINA copy and scientific caution.
+- Mirror the Next.js UI/UX during migration unless a deviation is approved.
+- Reuse local approved assets; do not hotlink source-repository images.
+- Keep changes small and coherent.
+- Add/update tests and documentation only where the change requires it.
+
+## Git attribution
+
+All commits and PR implementation history belong to the human maintainer.
+
+Do not add agent, AI, bot or assistant authorship, `Co-authored-by` trailers, changelog credit or PR implementation credit.
 
 Use Conventional Commits, for example:
 
-- `feat: add institutional homepage shell`
-- `style: refine editorial type scale`
-- `docs: define commerce domain boundaries`
-- `fix: restore keyboard navigation in mobile menu`
+```text
+feat: mirror next labs page
+fix: align mobile navigation spacing
+docs: update migration status
+assets: migrate founder photography
+```
 
-## Pull-request quality bar
+## Before opening a PR
 
-A PR should explain why the change exists, not only what files changed. UI PRs must describe responsive behaviour, accessibility considerations and visual-regression risk. Security-sensitive changes must include threat considerations. Architecture changes require an ADR.
+Run the applicable checks:
 
-Do not merge failing CI, bypass review, commit secrets, or mix unrelated refactors with feature work.
+```bash
+composer validate --strict
+composer lint:test
+composer analyse
+composer test
+npm run build
+```
+
+For visual changes, compare desktop and mobile behaviour against `origina-next` and document any approved difference.

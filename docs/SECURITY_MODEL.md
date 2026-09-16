@@ -1,75 +1,30 @@
 # Security Model
 
-## Threat posture
+## Current phase
 
-ORIGINA is expected to become a globally reachable institutional and commerce platform. Its eventual attack surface will include public forms, authentication, administrative tooling, personal data, orders, third-party APIs and payment-provider webhooks. Security design therefore begins before those features exist.
+The application is frontend-first and does not yet include persistence, authentication, APIs, payments or admin workflows.
 
-## Current frontend phase
+Current protections should include:
 
-Even static-facing work must preserve:
+- Laravel output escaping and CSRF defaults;
+- secure session/cookie configuration;
+- explicit security headers;
+- no secrets in source control;
+- conservative third-party script usage;
+- dependency and CI checks.
 
-- Blade escaped output (`{{ }}`) by default
-- Laravel CSRF middleware for future state-changing forms
-- no inline secrets
-- no unreviewed third-party scripts
-- dependency pinning through lockfiles
-- secure response-header plan
-- clear separation between public content and future administrative surfaces
+## Future backend requirements
 
-## Future controls
+Before adding user data, admin access, APIs or commerce, define and review:
 
-### Authentication
+- authentication and authorization model;
+- validation and rate limiting;
+- data classification and retention;
+- audit logging;
+- secret/key management;
+- payment-provider boundaries;
+- file-upload controls;
+- backup/recovery procedures;
+- abuse/fraud controls where applicable.
 
-- Laravel-native session authentication or a well-maintained first-party ecosystem package
-- password hashing through framework APIs
-- session fixation protection
-- rate limiting
-- optional MFA for staff/admin users
-- secure password reset flows
-
-### Authorization
-
-Use policies/gates for resource authorization. UI visibility is not an authorization control.
-
-### Input and output
-
-- Form Requests for validation
-- allow-list fields and enum values
-- server-side validation even when client validation exists
-- escape output by context
-- sanitize intentionally rich HTML through an allow-list sanitizer
-
-### HTTP/session
-
-Production should deliberately configure CSP, HSTS, Referrer-Policy, Permissions-Policy, X-Content-Type-Options, frame restrictions and secure session cookies. CSP should be tested rather than copied blindly.
-
-### Commerce/payments
-
-- do not store raw payment credentials
-- signed webhook verification
-- idempotency keys / deduplication
-- replay resistance
-- order/payment state separation
-- reconciliation jobs
-- audit trails
-
-### Uploads
-
-Future uploads require MIME/content validation, size limits, randomized storage names, non-public default storage, malware scanning where justified, and image re-encoding for image uploads.
-
-### Data privacy
-
-Collect the minimum necessary data. Define lawful purpose, retention, deletion and access controls before production collection. Do not expose customer/order data through predictable identifiers without authorization.
-
-## Security review triggers
-
-Require explicit review when adding:
-- authentication
-- roles/permissions
-- file uploads
-- payment or webhook handlers
-- external APIs
-- admin actions
-- personal-data exports
-- rich-text editing
-- background jobs that mutate financial/order state
+Security-sensitive architecture changes require explicit review and, when durable, an ADR.

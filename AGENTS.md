@@ -1,99 +1,92 @@
-# ORIGINA Laravel — Agent Working Instructions
+# ORIGINA Laravel — Agent Instructions
 
-## Mission
+## Purpose
 
-This repository is the Laravel implementation of ORIGINA™, rebuilt from `PHENOMVALENCE/origina-next` with a stricter engineering baseline. ORIGINA is presented as an evidence-led, multi-divisional innovation institution operating at the intersection of biology, clinical science, technology, human wellbeing, product development, and premium brand expression.
+This repository is the Laravel implementation of ORIGINA™, migrated from `PHENOMVALENCE/origina-next`.
 
-The current phase is **frontend-only**. Do not introduce application backend behaviour unless the owner explicitly expands scope.
+Current scope is frontend-first. Do not add persistence, authentication, APIs, commerce, payments, admin/CMS behaviour or external integrations unless the owner explicitly expands scope.
 
 ## Source of truth
 
-Before changing copy, structure, or visual language, consult:
+For frontend work, use this priority order:
 
-1. `docs/PROJECT_CONTEXT.md`
-2. `docs/DESIGN_SYSTEM.md`
-3. `docs/ARCHITECTURE.md`
-4. the existing `PHENOMVALENCE/origina-next` implementation
-5. the approved public ORIGINA site/content supplied by the owner
+1. `PHENOMVALENCE/origina-next` current `main` implementation
+2. approved ORIGINA brand/content supplied by the owner
+3. `docs/DESIGN_SYSTEM.md`
+4. `docs/MIGRATION_MAP.md`
+5. existing Laravel implementation
 
-Never invent scientific claims, clinical outcomes, approvals, patents, credentials, statistics, product efficacy, regulatory status, or institutional history.
+The Laravel UI/UX must mirror the approved Next.js implementation unless a deliberate deviation is documented and approved.
 
-## Current implementation boundary
+Never invent scientific claims, approvals, patents, clinical outcomes, efficacy, credentials, statistics or institutional history.
 
-Allowed now:
-- Laravel 12 application shell
-- Blade views and Blade components
-- semantic HTML
-- CSS design tokens and responsive layouts
-- lightweight progressive-enhancement JavaScript
-- Vite asset pipeline
-- accessibility, metadata, performance and security-header scaffolding
-- static placeholder routes needed to review information architecture
-- tests for public view rendering and architecture boundaries
+## Required working method
 
-Not allowed yet:
-- database migrations or production data models
-- authentication or authorization flows
-- checkout, carts, orders, inventory, payments or shipping
-- admin/CMS persistence
-- API endpoints or external integrations
-- contact-form persistence or email delivery
-- analytics persistence
+Before changing a page:
 
-When a future feature requires backend work, update `docs/ROADMAP.md` and create an ADR before implementation.
+1. inspect the matching Next.js route and shared components;
+2. identify its layout, copy, states, responsive behaviour, interactions and assets;
+3. reuse the same local brand/product/founder assets in Laravel;
+4. implement with Blade, semantic HTML, CSS tokens and progressive enhancement;
+5. compare the Laravel result against the Next.js source at desktop and mobile widths;
+6. run the relevant checks;
+7. commit one logical change at a time.
 
-## Engineering standards
+Do not replace final assets with remote hotlinks, placeholders or invented imagery.
 
-- PHP: PSR-12, strict types where practical, Laravel conventions, small classes, dependency injection over service location.
-- Views: Blade components for repeated UI; keep business logic out of templates.
-- CSS: consume semantic design tokens; no arbitrary one-off colours unless documented.
-- JavaScript: progressive enhancement only; no frontend framework unless an ADR approves it.
-- Accessibility: WCAG 2.2 AA target; keyboard operation and visible focus are mandatory.
-- Security: treat all future input as hostile; preserve CSRF protection, output escaping, validation, authorization and secure-cookie defaults.
-- Performance: protect Core Web Vitals; avoid unnecessary client JavaScript, third-party scripts and oversized images.
+## Engineering rules
 
-## Git workflow
+- Laravel 12 / PHP 8.3+ conventions.
+- Keep business logic out of Blade.
+- Reuse Blade components for repeated UI.
+- Use semantic design tokens; avoid arbitrary visual one-offs.
+- JavaScript is progressive enhancement only unless an ADR approves otherwise.
+- Target WCAG 2.2 AA, keyboard operation and visible focus.
+- Preserve output escaping, CSRF protection and security headers.
+- Protect performance: avoid unnecessary JS, third-party scripts and oversized media.
 
-- `main` is the protected/release branch.
-- Active implementation branch for this foundation: `masterchanges`.
-- Future work should use short-lived branches from updated `main`, preferably `feature/<scope>`, `fix/<scope>`, `docs/<scope>` or `chore/<scope>`.
-- Never force-push shared branches.
-- Never merge your own pull request automatically.
+## Git ownership and attribution
+
+All repository work is owned by the human maintainer.
+
+- Commits must be created through the maintainer's connected GitHub account.
+- Use the maintainer's configured Git author/committer identity.
+- Never add AI, agent, bot or assistant names to commit authorship, co-author trailers, PR credits, changelogs or implementation credits.
+- Do not add `Co-authored-by` trailers for agents.
+- Do not describe implementation as authored by an agent.
 - Keep commits small, coherent and reviewable.
+- Never force-push shared branches.
+- Never merge a PR automatically unless the owner explicitly requests it.
 
-Conventional Commits:
+Branch model:
 
-`type: imperative summary`
+- `main` — accepted/release baseline
+- `masterchanges` — current integration branch
+- short-lived work — `feature/*`, `fix/*`, `docs/*`, `refactor/*`, `chore/*`
 
-Allowed types: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `style`, `build`, `ci`, `chore`.
+Use Conventional Commits: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `style`, `build`, `ci`, `chore`.
 
-Do not add AI/agent co-author trailers. Commits belong to the repository owner.
+## Validation
 
-## Required checks before a PR is ready
+Before a PR is ready, run the applicable checks:
 
 ```bash
 composer validate --strict
-composer test
-composer analyse
 composer lint:test
+composer analyse
+composer test
 npm ci
 npm run build
 ```
 
-If the local environment cannot execute a check, state that explicitly in the PR body. Never claim a check passed unless it actually ran.
+Never claim a check passed unless it actually ran successfully.
 
-## Documentation discipline
+## Documentation
 
-Architecture changes require documentation in the same PR. Update the relevant file and, when a durable technical decision is being made, add an ADR under `docs/adr/`.
+Keep documentation concise and current. Update only the documents affected by a change. Durable architecture decisions require an ADR under `docs/adr/`.
 
-## Design discipline
+## Design guardrails
 
-ORIGINA should feel authoritative before decorative: scientific institution at the parent level, premium/luxury expression through restraint, typography, materiality, photography and division-specific identities. Do not turn the institutional layer into a generic cosmetics storefront.
+ORIGINA should remain scientific, editorial, premium and restrained. Preserve the Next.js visual language rather than redesigning it during migration.
 
-No gradients, glassmorphism, excessive shadows, decorative pill UI, novelty motion, or template-like SaaS visuals unless explicitly approved. Prefer whitespace, editorial typography, hairline rules, strong imagery and deliberate asymmetry.
-
-## Content safety
-
-Use `™` only where present in approved brand copy. Trademark marks do not imply patent or regulatory approval.
-
-Use conservative scientific language. If evidence is preliminary, say so. Do not write approval language that has not been verified.
+Avoid unapproved gradients, glassmorphism, excessive shadows, decorative pill UI, novelty motion and generic SaaS styling.
