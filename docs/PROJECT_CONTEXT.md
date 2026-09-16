@@ -1,57 +1,30 @@
-# ORIGINA Project Context
+# Project Context
 
-## What ORIGINA is
+ORIGINA™ is being re-platformed from `PHENOMVALENCE/origina-next` to Laravel.
 
-ORIGINA™ is represented in the existing project as a multi-divisional innovation institution built at the intersection of biology, clinical science, technology and human wellbeing, originating in Dar es Salaam, Tanzania. The existing public narrative uses the institutional lines **Biology First™**, **Beginning in Africa. Serving the world.**, and an evidence-led approach to scientific communication.
+## Migration objective
 
-This Laravel repository is not a greenfield rebrand. It is a deliberate re-platforming of the existing ORIGINA work, with room to improve engineering quality and refine the visual execution without fabricating new factual claims.
+Reproduce the approved public ORIGINA experience in Laravel without changing the brand, scientific positioning or interaction model during migration.
 
-## Existing product context
+`origina-next` remains the reference for:
 
-The Next.js project currently contains an institutional public site spanning areas such as:
+- public-route structure;
+- page copy and hierarchy;
+- shared navigation/footer behaviour;
+- typography, spacing, tones and responsive rules;
+- founder, brand and B-Melanox imagery;
+- institutional versus division/product visual registers.
 
-- Institution / About
-- Africa Originating
-- Culture & Talent
-- Founder
-- Biology First™
-- ORIGINA Labs™
-- Science and development framework
-- Evidence, quality, regulatory and responsible science
-- Intellectual property and scientific platforms
-- Divisions including B-Melanox™, BettyWorld, BValence™, DIVINE™, NOVIA™ and Skin Safari™
-- Future institutional initiatives
-- Contact, updates, privacy and terms
+## Current Laravel scope
 
-The existing Next.js implementation also explored backend concerns such as enquiries, publications, admin users and analytics. Those are **reference material only** for this phase and must not be ported yet.
+Frontend-first only. Current production-oriented work includes Blade views/components, CSS, lightweight JavaScript, local assets, accessibility, metadata scaffolding, tests, CI and security headers.
 
-## Product direction for Laravel
+Database, auth, admin/CMS, APIs, enquiry persistence and commerce are intentionally deferred.
 
-The long-term Laravel application is expected to support two complementary experiences:
+## Content rules
 
-1. **Institutional authority** — science, evidence, publications, founder, research, culture, governance, partnerships and global credibility.
-2. **Premium commerce** — products, collections, discovery, ordering, customer accounts, payments and fulfilment when the backend phase is approved.
+Do not invent or strengthen scientific, clinical, regulatory, efficacy, patent, credential or institutional claims. Preserve approved wording unless the owner explicitly approves a change.
 
-The key design constraint is that commerce must not flatten ORIGINA into a conventional storefront. The institutional narrative remains the parent system; products are outputs of the institution and divisions are expressions within it.
+## Current state
 
-## Current phase
-
-Phase 0/1 is deliberately frontend-only. The objective is to lock down:
-
-- repository standards
-- Laravel application structure
-- public information architecture
-- design tokens and component grammar
-- responsive behaviour
-- accessibility baseline
-- performance baseline
-- SEO/metadata structure
-- security defaults that apply even before dynamic features exist
-
-No database-backed feature should be considered complete during this phase.
-
-## Content governance
-
-The existing `origina-next` repository and owner-approved content are sources, not permission to embellish. Scientific and regulatory statements require conservative wording and explicit verification.
-
-Content that needs business or scientific confirmation should be marked in documentation as an open decision rather than silently invented.
+Implemented public experiences: homepage, About, Labs and B-Melanox. Other public Next.js routes remain migration work until their placeholder views are replaced and parity-reviewed.
