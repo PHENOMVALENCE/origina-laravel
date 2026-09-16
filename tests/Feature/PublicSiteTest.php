@@ -42,7 +42,7 @@ class PublicSiteTest extends TestCase
             ->assertSee('Pigmentation is')
             ->assertSee('BMX-24™')
             ->assertSee('The current expression.')
-            ->assertSee('Scientific & regulatory notice');
+            ->assertSee('Scientific & regulatory notice', false);
     }
 
     public function test_reference_public_routes_render_without_backend_dependencies(): void
