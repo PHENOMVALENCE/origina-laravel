@@ -44,7 +44,7 @@
     title="Created for what"
     accent="does not yet exist."
     intro="ORIGINA is an innovation institution dedicated to the discovery, development, and advancement of ideas, technologies, products, systems, and people that improve human life."
-    image="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-01.jpeg"
+    image="/img/founder/founder-01.jpeg"
     alt="Dr. Elizabeth Consoli in her clinical environment"
     caption="Scientific direction · Dar es Salaam"
   />
@@ -96,7 +96,7 @@
   <x-section id="founder" tone="paper" eyebrow="04 · Founder">
     <div class="founder-profile">
       <figure class="editorial-image editorial-image--portrait">
-        <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
+        <img src="/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
         <figcaption>Scientific direction · Dar es Salaam</figcaption>
       </figure>
       <div>
@@ -130,8 +130,8 @@
         </ol>
       </div>
       <div class="photo-pair" aria-label="ORIGINA institutional photography">
-        <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-02.jpeg" alt="Dr. Elizabeth Consoli at a professional event" loading="lazy" width="900" height="1100">
-        <img src="https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/img/founder/founder-09.jpeg" alt="Dr. Elizabeth Consoli in professional conversation" loading="lazy" width="900" height="1100">
+        <img src="/img/founder/founder-02.jpeg" alt="Dr. Elizabeth Consoli at a professional event" loading="lazy" width="900" height="1100">
+        <img src="/img/founder/founder-09.jpeg" alt="Dr. Elizabeth Consoli in professional conversation" loading="lazy" width="900" height="1100">
       </div>
     </div>
   </x-section>
