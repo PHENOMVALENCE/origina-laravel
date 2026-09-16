@@ -15,9 +15,39 @@ class PublicSiteTest extends TestCase
             ->assertSee('Biology First™');
     }
 
+    public function test_about_page_renders_institutional_identity(): void
+    {
+        $this->get('/about')
+            ->assertOk()
+            ->assertSee('Created for what')
+            ->assertSee('does not yet exist.')
+            ->assertSee('What ORIGINA is.')
+            ->assertSee('Emerge from Africa.');
+    }
+
+    public function test_labs_page_renders_research_architecture(): void
+    {
+        $this->get('/labs')
+            ->assertOk()
+            ->assertSee('The scientific engine')
+            ->assertSee('Six connected capabilities.')
+            ->assertSee('From question to repeatable output.')
+            ->assertSee('Research in active development.');
+    }
+
+    public function test_b_melanox_page_renders_scientific_product_positioning(): void
+    {
+        $this->get('/divisions/b-melanox')
+            ->assertOk()
+            ->assertSee('Pigmentation is')
+            ->assertSee('BMX-24™')
+            ->assertSee('The current expression.')
+            ->assertSee('Scientific & regulatory notice', false);
+    }
+
     public function test_reference_public_routes_render_without_backend_dependencies(): void
     {
-        foreach (['/about', '/science', '/labs', '/divisions', '/founder', '/future', '/contact'] as $uri) {
+        foreach (['/about', '/science', '/labs', '/divisions', '/divisions/b-melanox', '/founder', '/future', '/contact'] as $uri) {
             $this->get($uri)->assertOk();
         }
     }
