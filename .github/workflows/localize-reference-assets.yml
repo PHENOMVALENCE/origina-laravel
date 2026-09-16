@@ -1,0 +1,36 @@
+name: Localize reference assets
+
+on:
+  push:
+    branches:
+      - chore/docs-assets-parity
+    paths:
+      - .github/workflows/localize-reference-assets.yml
+
+permissions:
+  contents: write
+
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace reference hotlinks with local paths
+        run: |
+          grep -RIl 'https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/' resources/views \
+            | xargs -r sed -i 's#https://raw.githubusercontent.com/PHENOMVALENCE/origina-next/main/public/#/#g'
+
+      - name: Commit localized references as project owner
+        run: |
+          git config user.name "Valence Mwigani"
+          git config user.email "mwiganivalence@gmail.com"
+          git add resources/views
+          if git diff --cached --quiet; then
+            echo "No reference hotlinks found."
+            exit 0
+          fi
+          git commit -m "fix: serve migrated assets locally"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
