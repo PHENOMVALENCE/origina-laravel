@@ -5,17 +5,18 @@
 - [x] Establish repository workflow and agent rules
 - [x] Capture project context from `origina-next`
 - [x] Define system engineering, architecture, security, accessibility and design standards
-- [ ] Scaffold Laravel 12 frontend application
-- [ ] Add CI quality gates
+- [x] Scaffold Laravel 12 frontend application
+- [x] Add CI quality gates
 
 ## Phase 1 — Visual foundation
 
-- [ ] Build global Blade layout, header and footer
-- [ ] Implement ORIGINA design tokens
-- [ ] Implement homepage prototype
-- [ ] Add institutional placeholder routes for navigation review
-- [ ] Responsive/accessibility QA
+- [x] Build global Blade layout, header and footer
+- [x] Implement ORIGINA design tokens
+- [x] Implement homepage prototype
+- [x] Add institutional placeholder routes for navigation review
+- [ ] Complete in-browser responsive/accessibility QA after dependency install
 - [ ] Replace temporary remotely referenced design assets with optimized local assets
+- [ ] Generate and commit `composer.lock` and `package-lock.json`
 
 ## Phase 2 — Full institutional frontend
 
