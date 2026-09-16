@@ -1,0 +1,220 @@
+.wordmark__seal img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.desktop-nav__item {
+  position: relative;
+}
+
+button.desktop-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.desktop-nav__chevron {
+  display: inline-block;
+  transition: transform 180ms ease;
+}
+
+button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
+  transform: rotate(180deg);
+}
+
+.nav-panel {
+  position: absolute;
+  top: calc(100% + 1.25rem);
+  left: 50%;
+  z-index: 70;
+  min-width: 15rem;
+  transform: translateX(-50%);
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  box-shadow: 0 1rem 2.5rem rgba(27, 23, 20, .12);
+  padding: .45rem;
+}
+
+.nav-panel__link {
+  display: block;
+  padding: .65rem .8rem;
+  color: var(--graphite);
+  font-size: .82rem;
+  text-decoration: none;
+}
+
+.nav-panel__link:hover,
+.nav-panel__link:focus-visible {
+  background: var(--cream);
+  color: var(--oxblood);
+}
+
+.division-page .nav-panel {
+  border-color: rgba(255, 255, 255, .14);
+  background: var(--noir);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .35);
+}
+
+.division-page .nav-panel__link {
+  color: rgba(248, 244, 236, .88);
+}
+
+.division-page .nav-panel__link:hover,
+.division-page .nav-panel__link:focus-visible {
+  background: rgba(255, 255, 255, .05);
+  color: var(--gold-light);
+}
+
+.mobile-nav__bar,
+.mobile-nav__brand,
+.mobile-nav__close,
+.mobile-nav__group,
+.mobile-nav__label,
+.mobile-nav__links,
+.mobile-nav__direct {
+  display: none;
+}
+
+@media (max-width: 63.999rem) {
+  .site-header__actions .button {
+    display: inline-flex;
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-content: center;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav:not([hidden]) {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 0;
+    background: var(--paper);
+  }
+
+  .mobile-nav__bar {
+    display: flex;
+    min-height: var(--header-height);
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem clamp(1rem, 4vw, 2rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .mobile-nav__brand {
+    display: block;
+    font-size: .93rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+  }
+
+  .mobile-nav__close {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-content: center;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .mobile-nav__inner {
+    width: min(100%, 30rem);
+    margin: 0;
+    padding: 1.5rem clamp(1rem, 4vw, 2rem) max(5rem, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .mobile-nav__group {
+    display: block;
+  }
+
+  .mobile-nav__label {
+    display: block;
+    margin: 0 0 .55rem;
+    color: var(--stone);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .mobile-nav__links {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    border-left: 1px solid rgba(122, 23, 27, .3);
+    padding-left: .9rem;
+  }
+
+  .mobile-nav__link {
+    display: block;
+    padding: .32rem 0;
+    border: 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .mobile-nav__direct {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.9rem;
+    line-height: 1.1;
+    text-decoration: none;
+  }
+
+  .mobile-nav__cta {
+    margin-top: .25rem;
+  }
+
+  .division-page .mobile-nav:not([hidden]) {
+    background: var(--noir);
+    color: var(--ivory);
+  }
+
+  .division-page .mobile-nav__bar {
+    border-color: rgba(255, 255, 255, .14);
+  }
+
+  .division-page .mobile-nav__close {
+    border-color: rgba(214, 189, 131, .45);
+    color: var(--ivory);
+  }
+
+  .division-page .mobile-nav__label {
+    color: rgba(248, 244, 236, .58);
+  }
+
+  .division-page .mobile-nav__links {
+    border-color: rgba(214, 189, 131, .35);
+  }
+
+  .division-page .mobile-nav__link {
+    color: rgba(248, 244, 236, .9);
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .site-header__actions .button {
+    display: none;
+  }
+}
