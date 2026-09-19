@@ -23,6 +23,16 @@ class PublicPageController extends Controller
         return $this->renderFromCollection('future', (string) $request->route('contentKey'));
     }
 
+    public function robots(): Response
+    {
+        $body = app()->environment('production')
+            ? "User-agent: *\nAllow: /\nSitemap: ".url('/sitemap.xml')."\n"
+            : "User-agent: *\nDisallow: /\n";
+
+        return response($body, 200)
+            ->header('Content-Type', 'text/plain; charset=UTF-8');
+    }
+
     public function sitemap(): Response
     {
         $urls = collect(config('origina_content.pages', []))
