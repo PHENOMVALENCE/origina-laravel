@@ -443,7 +443,7 @@
     .reveal { animation: rise-in 550ms var(--ease-out) both; }
     .home-hero__media.reveal { animation-delay: 90ms; }
     .motion-reveal { opacity: 0; transform: translateY(1rem); transition: opacity var(--motion-slow) var(--ease-out), transform var(--motion-slow) var(--ease-out); transition-delay: var(--motion-delay, 0ms); }
-    .motion-reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .motion-reveal.is-visible { opacity: 1; transform: none; }
     @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   }
 
