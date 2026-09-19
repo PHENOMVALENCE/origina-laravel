@@ -35,7 +35,7 @@
 - [x] repository-managed media uses local/CDN-ready asset URLs;
 - [x] metadata, sitemap and robots baseline;
 - [x] route/content/error-state automated tests authored;
-- [ ] CI green on final frontend-completion head;
+- [x] CI green on the frontend-completion implementation head;
 - [ ] 320/375px mobile browser review;
 - [ ] ~768px tablet browser review;
 - [ ] ~1440px desktop browser review;
