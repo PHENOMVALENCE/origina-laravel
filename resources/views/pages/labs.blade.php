@@ -130,7 +130,7 @@
         <p>Scientific collaboration begins with a clearly framed problem, an evidence standard, and an honest view of what is known.</p>
       </div>
       <div class="closing-cta__actions">
-        <a class="button button--light" href="/contact?subject=scientific#enquiry-form">Research enquiries</a>
+        <a class="button button--light" href="/contact?subject=scientific">Research enquiries</a>
         <a class="text-link text-link--dark" href="/platforms">Scientific platforms</a>
       </div>
     </div>
