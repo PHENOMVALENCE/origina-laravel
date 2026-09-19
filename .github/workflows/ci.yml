@@ -1,17 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - masterchanges
-      - 'feature/**'
-      - 'fix/**'
-      - 'refactor/**'
   pull_request:
     branches:
       - main
       - masterchanges
+    types:
+      - opened
+  workflow_dispatch:
 
 permissions:
   contents: read
