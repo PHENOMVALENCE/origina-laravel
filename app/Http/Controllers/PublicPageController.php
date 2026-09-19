@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PublicPageController extends Controller
+final class PublicPageController
 {
     public function page(Request $request): View
     {
@@ -35,18 +35,26 @@ class PublicPageController extends Controller
 
     public function sitemap(): Response
     {
-        $urls = collect(config('origina_content.pages', []))
-            ->merge(config('origina_content.divisions', []))
-            ->merge(config('origina_content.future', []))
-            ->pluck('path')
-            ->prepend('/divisions/b-melanox')
-            ->prepend('/labs')
-            ->prepend('/about')
-            ->prepend('/')
-            ->filter()
-            ->unique()
-            ->sort()
-            ->values();
+        $urls = ['/', '/about', '/labs', '/divisions/b-melanox'];
+
+        foreach (['pages', 'divisions', 'future'] as $collection) {
+            $pages = config('origina_content.'.$collection, []);
+
+            if (! is_array($pages)) {
+                continue;
+            }
+
+            foreach ($pages as $page) {
+                if (! is_array($page) || ! isset($page['path']) || ! is_string($page['path'])) {
+                    continue;
+                }
+
+                $urls[] = $page['path'];
+            }
+        }
+
+        $urls = array_values(array_unique($urls));
+        sort($urls);
 
         return response()
             ->view('sitemap', ['urls' => $urls])
