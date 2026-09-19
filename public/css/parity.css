@@ -53,7 +53,7 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
 .nav-panel__link:hover,
 .nav-panel__link:focus-visible {
   background: var(--cream);
-  color: var(--oxblood);
+  color: var(--brand-accent-readable);
   transform: translateX(.18rem);
 }
 
