@@ -7,12 +7,14 @@ alwaysApply: true
 
 Read `AGENTS.md` before implementation. It is the repository-level authority.
 
-Current phase is frontend-first. Do not add database, authentication, API, commerce, payment, admin persistence or external-integration behaviour unless the owner explicitly expands scope.
+Current phase is frontend completion. Do not add database, authentication, APIs, commerce, payments, admin persistence, enquiry persistence or external-integration behaviour unless the owner explicitly expands scope.
 
-For every migrated page, inspect the matching `PHENOMVALENCE/origina-next` route and shared components first. Mirror its UI, UX, copy, responsive behaviour and approved assets unless a deviation is explicitly approved.
+The owner has approved a complete institutional frontend refinement. Use `origina-next` as an approved content/structure reference, not a pixel-lock. Preserve scientific meaning and brand assets while following this repository's design system and frontend architecture.
 
-Use Blade components, semantic HTML, CSS design tokens, progressive enhancement and WCAG 2.2 AA practices. Keep changes in small Conventional Commits.
+Use Blade components, semantic HTML, semantic CSS tokens, native scrolling, progressive enhancement and WCAG 2.2 AA practices.
 
-Git history belongs to the human maintainer. Never add agent/AI/bot authorship, co-author trailers or implementation credits.
+Do not invent claims, regulatory status, patents, clinical outcomes, credentials or operating status for future entities.
 
-When architecture, security, scope or the design system changes, update the relevant `docs/` file in the same change.
+Keep changes in small Conventional Commits. Git history belongs to the human maintainer; never add agent/AI/bot authorship or co-author trailers.
+
+When architecture, security, content governance, scope, assets or the design system changes, update the relevant documentation in the same workstream.
