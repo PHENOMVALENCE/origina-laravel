@@ -95,8 +95,6 @@ if (desktopNav) {
   });
 }
 
-let restoreMenuFocus = true;
-
 const focusableElements = () => {
   if (!mobileNav) return [];
 
@@ -108,7 +106,6 @@ const focusableElements = () => {
 const setMenuState = (open, { restoreFocus = true, immediate = false } = {}) => {
   if (!header || !toggle || !mobileNav) return;
 
-  restoreMenuFocus = restoreFocus;
   toggle.setAttribute('aria-expanded', String(open));
   toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   document.documentElement.classList.toggle('menu-open', open);
