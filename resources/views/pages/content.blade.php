@@ -199,7 +199,7 @@
         @case('contact')
           <div class="contact-panel">
             <div>
-              <p class="lead-serif">{{ $section['title'] ?? 'Contact ORIGINA' }}</p>
+              <p class="lead-serif">Every serious enquiry is read with care.</p>
               <a class="contact-panel__email" href="mailto:{{ $section['email'] }}">{{ $section['email'] }}</a>
               @if(!empty($section['notice']))
                 <p class="contact-panel__notice">{{ $section['notice'] }}</p>
