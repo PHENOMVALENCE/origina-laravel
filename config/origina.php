@@ -118,8 +118,8 @@ return [
             'title' => 'Connect',
             'links' => [
                 ['label' => 'Contact', 'href' => '/contact'],
-                ['label' => 'Collaboration', 'href' => '/contact?subject=scientific#enquiry-form'],
-                ['label' => 'Media', 'href' => '/contact?subject=media#enquiry-form'],
+                ['label' => 'Collaboration', 'href' => '/contact?subject=scientific'],
+                ['label' => 'Media', 'href' => '/contact?subject=media'],
                 ['label' => 'Updates', 'href' => '/updates'],
             ],
         ],

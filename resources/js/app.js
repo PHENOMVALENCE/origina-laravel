@@ -360,3 +360,67 @@ window.addEventListener('resize', () => {
     setMenuState(false, { restoreFocus: false, immediate: true });
   }
 }, { passive: true });
+
+
+const pageProgress = document.querySelector('[data-page-progress]');
+
+const setPageProgress = (value, visible = true) => {
+  if (!pageProgress) return;
+
+  pageProgress.style.setProperty('--page-progress', `${Math.max(0, Math.min(100, value))}%`);
+  pageProgress.style.setProperty('--page-progress-opacity', visible ? '1' : '0');
+};
+
+const resetPageProgress = () => {
+  if (!pageProgress) return;
+
+  setPageProgress(100);
+
+  window.setTimeout(() => {
+    setPageProgress(0, false);
+  }, reducedMotion.matches ? 0 : 180);
+};
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href]');
+  if (!link || event.defaultPrevented) return;
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  if (link.target === '_blank' || link.hasAttribute('download')) return;
+
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+  const destination = new URL(link.href, window.location.href);
+  if (destination.origin !== window.location.origin) return;
+
+  const sameDocument =
+    destination.pathname === window.location.pathname
+    && destination.search === window.location.search
+    && destination.hash;
+
+  if (sameDocument) return;
+
+  setPageProgress(68);
+});
+
+window.addEventListener('beforeunload', () => {
+  setPageProgress(92);
+});
+
+window.addEventListener('pageshow', () => {
+  resetPageProgress();
+});
+
+document.querySelectorAll('img[data-image]').forEach((image) => {
+  const markLoaded = () => {
+    image.dataset.loaded = 'true';
+  };
+
+  if (image.complete) {
+    markLoaded();
+    return;
+  }
+
+  image.addEventListener('load', markLoaded, { once: true });
+  image.addEventListener('error', markLoaded, { once: true });
+});

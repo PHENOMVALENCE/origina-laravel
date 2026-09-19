@@ -98,7 +98,7 @@
       @foreach($products as $product)
         <article class="product-card">
           <figure>
-            <img src="{{ $product['image'] }}" alt="{{ $product['alt'] }}" loading="lazy" width="900" height="1125">
+            <img src="{{ asset(ltrim($product['image'], '/')) }}" alt="{{ $product['alt'] }}" loading="lazy" width="900" height="1125">
           </figure>
           <p class="meta-label">{{ $product['label'] }}</p>
           <h3>{{ $product['title'] }}</h3>
@@ -111,10 +111,10 @@
   <section class="product-dossier">
     <div class="site-shell product-dossier__grid">
       <div class="product-gallery">
-        <img class="product-gallery__primary" src="/img/products/bmelanox-01.jpeg" alt="B-Melanox Night Intensive Pigment Corrector with its carton" loading="lazy" width="1200" height="1500">
+        <img class="product-gallery__primary" src="{{ asset('img/products/bmelanox-01.jpeg') }}" alt="B-Melanox Night Intensive Pigment Corrector with its carton" loading="lazy" width="1200" height="1500">
         <div class="product-gallery__secondary">
-          <img src="/img/products/bmelanox-04.jpeg" alt="B-Melanox material study" loading="lazy" width="900" height="900">
-          <img src="/img/products/bmelanox-06.jpeg" alt="B-Melanox complete presentation" loading="lazy" width="900" height="900">
+          <img src="{{ asset('img/products/bmelanox-04.jpeg') }}" alt="B-Melanox material study" loading="lazy" width="900" height="900">
+          <img src="{{ asset('img/products/bmelanox-06.jpeg') }}" alt="B-Melanox complete presentation" loading="lazy" width="900" height="900">
         </div>
       </div>
 

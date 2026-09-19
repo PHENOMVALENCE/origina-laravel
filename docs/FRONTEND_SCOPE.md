@@ -1,26 +1,55 @@
 # Frontend Scope
 
+## Goal
+
+Complete the public ORIGINA institutional frontend before backend implementation begins.
+
 ## In scope
 
 - Laravel 12 public application shell;
-- Blade pages/components;
+- complete approved public route implementation;
+- Blade pages/components and config-backed institutional content;
+- institutional and division design systems;
 - Vite CSS and progressive-enhancement JavaScript;
-- exact migration of approved `origina-next` UI/UX, copy and responsive behaviour;
-- local ORIGINA assets;
-- accessibility, metadata, performance and security-header work;
-- progressive interaction polish: native scrolling, restrained motion, active section context, keyboard-safe menus and reduced-motion support;
-- public-route tests and CI.
+- responsive navigation and in-page orientation;
+- native scrolling and restrained motion;
+- managed imagery and CDN-ready asset URLs;
+- branded loading/progress behavior;
+- custom 404/500/503 states;
+- canonical, Open Graph and Twitter metadata;
+- sitemap and environment-aware robots policy;
+- accessibility and WCAG 2.2 AA target;
+- performance and layout stability;
+- security-header baseline;
+- public-route/content tests and CI;
+- deployment/readiness documentation.
 
-## Out of scope until explicitly approved
+## Deliberately out of scope
+
+Until explicitly approved:
 
 - database/persistence;
 - authentication and authorization;
-- admin/CMS behaviour;
+- admin/CMS persistence;
 - APIs and external integrations;
-- enquiry storage/email delivery;
+- enquiry submission/storage/email workflow;
 - catalogue backend;
 - cart, checkout, payments, orders, inventory, shipping and fulfilment.
 
-## Definition of done for a migrated page
+The UI must not pretend these systems exist.
 
-The Laravel route matches the approved Next.js route in structure, copy, assets and responsive behaviour; preserves the approved visual identity; uses the shared ORIGINA interaction language for smooth, accessible state changes; passes applicable automated checks; and has no undocumented visual deviation. Smoothness must never rely on scroll-jacking, heavy animation libraries or motion that ignores user preferences.
+## Frontend definition of done
+
+A public route is frontend-complete when:
+
+1. it renders real approved content rather than a placeholder;
+2. it follows the institutional/division design register;
+3. its responsive layout works from narrow mobile through large desktop;
+4. imagery, captions and alt text are appropriate;
+5. keyboard/focus/reduced-motion behavior is correct;
+6. metadata and navigation are correct;
+7. no deferred backend capability is falsely represented;
+8. automated route/build checks pass;
+9. any intentional difference from older references is documented.
+
+The full frontend is complete only when the route matrix, error states, assets, SEO metadata, accessibility review and release checks are all complete.

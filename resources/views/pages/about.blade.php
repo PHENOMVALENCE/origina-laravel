@@ -96,7 +96,7 @@
   <x-section id="founder" tone="paper" eyebrow="04 · Founder">
     <div class="founder-profile">
       <figure class="editorial-image editorial-image--portrait">
-        <img src="/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
+        <img src="{{ asset('img/founder/founder-01.jpeg') }}" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
         <figcaption>Scientific direction · Dar es Salaam</figcaption>
       </figure>
       <div>
@@ -130,8 +130,8 @@
         </ol>
       </div>
       <div class="photo-pair" aria-label="ORIGINA institutional photography">
-        <img src="/img/founder/founder-02.jpeg" alt="Dr. Elizabeth Consoli at a professional event" loading="lazy" width="900" height="1100">
-        <img src="/img/founder/founder-09.jpeg" alt="Dr. Elizabeth Consoli in professional conversation" loading="lazy" width="900" height="1100">
+        <img src="{{ asset('img/founder/founder-02.jpeg') }}" alt="Dr. Elizabeth Consoli at a professional event" loading="lazy" width="900" height="1100">
+        <img src="{{ asset('img/founder/founder-09.jpeg') }}" alt="Dr. Elizabeth Consoli in professional conversation" loading="lazy" width="900" height="1100">
       </div>
     </div>
   </x-section>
