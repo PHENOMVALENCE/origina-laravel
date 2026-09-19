@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.home')->name('home');
@@ -7,56 +8,51 @@ Route::view('/about', 'pages.about')->name('about');
 Route::view('/labs', 'pages.labs')->name('labs');
 Route::view('/divisions/b-melanox', 'pages.divisions.b-melanox')->name('divisions.b-melanox');
 
-$pages = [
-    '/founder' => ['Dr. Elizabeth Consoli', 'Founder'],
-    '/africa' => ['Africa Originating', 'Institution'],
-    '/biology-first' => ['Biology First™', 'Science'],
-    '/culture' => ['Culture & Talent', 'Institution'],
-    '/science' => ['Science', 'Science'],
-    '/platforms' => ['Scientific Platforms', 'Science'],
-    '/science/evidence' => ['Scientific Evidence', 'Evidence & Quality'],
-    '/science/regulatory' => ['Regulatory Science', 'Evidence & Quality'],
-    '/science/quality' => ['Quality & Safety', 'Evidence & Quality'],
-    '/science/responsible-science' => ['Responsible Science', 'Evidence & Quality'],
-    '/intellectual-property' => ['Intellectual Property', 'Institution'],
-    '/divisions' => ['Divisions', 'Institution'],
-    '/future' => ['The Institutional Horizon', 'Future'],
-    '/contact' => ['Enquire with ORIGINA', 'Connect'],
-    '/updates' => ['Updates', 'Institution'],
-    '/privacy' => ['Privacy', 'Legal'],
-    '/terms' => ['Terms', 'Legal'],
+$institutionalPages = [
+    '/founder' => ['founder', 'founder'],
+    '/africa' => ['africa', 'africa'],
+    '/biology-first' => ['biology-first', 'biology-first'],
+    '/culture' => ['culture', 'culture'],
+    '/science' => ['science', 'science'],
+    '/platforms' => ['platforms', 'platforms'],
+    '/science/evidence' => ['evidence', 'science.evidence'],
+    '/science/regulatory' => ['regulatory', 'science.regulatory'],
+    '/science/quality' => ['quality', 'science.quality'],
+    '/science/responsible-science' => ['responsible-science', 'science.responsible'],
+    '/intellectual-property' => ['intellectual-property', 'intellectual-property'],
+    '/divisions' => ['divisions', 'divisions'],
+    '/future' => ['future', 'future'],
+    '/contact' => ['contact', 'contact'],
+    '/updates' => ['updates', 'updates'],
+    '/privacy' => ['privacy', 'privacy'],
+    '/terms' => ['terms', 'terms'],
 ];
 
-foreach ($pages as $uri => [$title, $eyebrow]) {
-    Route::view($uri, 'pages.placeholder', [
-        'title' => $title,
-        'eyebrow' => $eyebrow,
-    ]);
+foreach ($institutionalPages as $uri => [$contentKey, $routeName]) {
+    Route::get($uri, [PublicPageController::class, 'page'])
+        ->defaults('contentKey', $contentKey)
+        ->name($routeName);
 }
 
-foreach (config('origina.divisions', []) as $division) {
-    if ($division['slug'] === 'b-melanox') {
-        continue;
-    }
+$divisionRoutes = [
+    'bettyworld' => 'divisions.bettyworld',
+    'bvalence' => 'divisions.bvalence',
+    'divine' => 'divisions.divine',
+    'novia' => 'divisions.novia',
+    'skin-safari' => 'divisions.skin-safari',
+];
 
-    Route::get('/divisions/'.$division['slug'], fn () => view('pages.placeholder', [
-        'title' => $division['name'],
-        'eyebrow' => 'ORIGINA Division',
-        'dark' => true,
-    ]));
+foreach ($divisionRoutes as $contentKey => $routeName) {
+    Route::get('/divisions/'.$contentKey, [PublicPageController::class, 'division'])
+        ->defaults('contentKey', $contentKey)
+        ->name($routeName);
 }
 
-foreach (['academy', 'ventures', 'research-institute', 'foundation', 'product-divisions', 'unnamed'] as $future) {
-    Route::get('/future/'.$future, fn () => view('pages.placeholder', [
-        'title' => str($future)->replace('-', ' ')->title(),
-        'eyebrow' => 'Future',
-    ]));
+foreach (array_keys(config('origina_content.future', [])) as $contentKey) {
+    Route::get('/future/'.$contentKey, [PublicPageController::class, 'future'])
+        ->defaults('contentKey', $contentKey)
+        ->name('future.'.$contentKey);
 }
 
-Route::get('/robots.txt', function () {
-    $body = app()->environment('production')
-        ? "User-agent: *\nAllow: /\n"
-        : "User-agent: *\nDisallow: /\n";
-
-    return response($body, 200)->header('Content-Type', 'text/plain; charset=UTF-8');
-});
+Route::get('/robots.txt', [PublicPageController::class, 'robots'])->name('robots');
+Route::get('/sitemap.xml', [PublicPageController::class, 'sitemap'])->name('sitemap');
