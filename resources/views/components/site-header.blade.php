@@ -7,7 +7,7 @@
   <div class="site-shell site-header__inner">
     <a class="wordmark" href="/" aria-label="ORIGINA home">
       <span class="wordmark__seal" aria-hidden="true">
-        <img src="/img/brand/origina-mark.png" alt="" width="24" height="24">
+        <img src="{{ asset('img/brand/origina-mark.png') }}" alt="" width="24" height="24">
       </span>
       <span class="wordmark__text">ORIGINA</span>
     </a>
