@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#fdfbf7">
   <meta name="description" content="@yield('description', 'ORIGINA is a multi-divisional innovation institution built at the intersection of biology, clinical science, technology, and human wellbeing.')">
 
