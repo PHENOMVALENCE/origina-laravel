@@ -61,7 +61,7 @@
         <p class="body-copy spaced-copy">Every breakthrough formula, proprietary platform, evaluation protocol, and manufacturing pathway begins here under direct scientific direction.</p>
       </div>
       <figure class="editorial-image editorial-image--portrait">
-        <img src="/img/founder/founder-03.jpeg" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="900" height="1200">
+        <img src="{{ asset('img/founder/founder-03.jpeg') }}" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="900" height="1200">
         <figcaption>Science · Community · Recognition</figcaption>
       </figure>
     </div>
@@ -94,7 +94,7 @@
   <x-section id="research" tone="paper" eyebrow="04 · Horizon">
     <div class="labs-horizon-grid">
       <figure class="editorial-image editorial-image--portrait">
-        <img src="/img/founder/founder-05.jpeg" alt="Dr. Elizabeth Consoli discussing skin-care formulation" loading="lazy" width="900" height="1200">
+        <img src="{{ asset('img/founder/founder-05.jpeg') }}" alt="Dr. Elizabeth Consoli discussing skin-care formulation" loading="lazy" width="900" height="1200">
         <figcaption>Knowledge in practice</figcaption>
       </figure>
       <div>
