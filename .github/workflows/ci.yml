@@ -1,17 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - masterchanges
-      - 'feature/**'
-      - 'fix/**'
-      - 'refactor/**'
   pull_request:
     branches:
       - main
       - masterchanges
+    types:
+      - closed
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,9 +15,12 @@ permissions:
 jobs:
   php:
     name: PHP quality
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || github.ref }}
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
@@ -44,9 +43,12 @@ jobs:
 
   frontend:
     name: Frontend build
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || github.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
