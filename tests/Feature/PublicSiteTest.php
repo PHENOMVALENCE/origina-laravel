@@ -111,6 +111,8 @@ class PublicSiteTest extends TestCase
 
     public function test_custom_not_found_page_preserves_the_institutional_shell(): void
     {
+        config(['app.debug' => false]);
+
         $this->get('/this-route-does-not-exist')
             ->assertNotFound()
             ->assertSee('This page is outside the current map.')
