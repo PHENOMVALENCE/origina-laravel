@@ -1,76 +1,56 @@
-# Frontend Parity Audit
+# Frontend Completion Audit
 
-Reference: `PHENOMVALENCE/origina-next` `main`.
+Reference content/structure: `PHENOMVALENCE/origina-next` `main`.
 
-A route is **complete** only when the Laravel implementation matches the approved Next.js structure, copy, responsive behaviour, interactions and assets, and has passed applicable QA.
+The Laravel frontend is allowed to deliberately refine presentation and interaction under the approved institutional design mandate. “Parity” therefore means preserved approved meaning, information architecture and assets where applicable — not pixel matching.
 
 ## Shared shell
 
-- [x] ORIGINA mark/logo assets are local.
-- [x] Desktop primary navigation and dropdown groups mirror the Next.js information architecture.
-- [x] Mobile navigation uses grouped links, full-screen presentation, Escape handling and scroll lock.
-- [x] Division routes retain the dark header register.
-- [x] Footer groups and legal/governance links mirror the Next.js navigation registry.
-- [x] Favicon is local.
-- [ ] Final in-browser visual comparison at target breakpoints.
+- [x] local ORIGINA brand assets;
+- [x] desktop navigation and grouped information architecture;
+- [x] full-screen mobile navigation with focus containment, Escape handling and scroll lock;
+- [x] institution/division visual layers;
+- [x] complete footer and legal/governance navigation;
+- [x] native-scroll interaction layer and reduced-motion support;
+- [x] canonical/OG/Twitter metadata shell;
+- [x] sitemap and robots endpoints;
+- [x] branded 404/500/503 views;
+- [x] CDN-ready asset boundary;
+- [ ] final in-browser review at target breakpoints.
 
-## Current route status
+## Route implementation status
 
-| Route | Status |
+| Surface | Implementation |
 |---|---|
-| `/` | Implemented; structural parity reviewed; local assets |
-| `/about` | Implemented; final browser parity review pending |
-| `/labs` | Implemented; final browser parity review pending |
-| `/divisions/b-melanox` | Implemented; local product assets; final browser parity review pending |
-| `/founder` | Placeholder |
-| `/africa` | Placeholder |
-| `/biology-first` | Placeholder |
-| `/culture` | Placeholder |
-| `/science` | Placeholder |
-| `/platforms` | Placeholder |
-| `/science/evidence` | Placeholder |
-| `/science/regulatory` | Placeholder |
-| `/science/quality` | Placeholder |
-| `/science/responsible-science` | Placeholder |
-| `/intellectual-property` | Placeholder |
-| `/divisions` | Placeholder |
-| `/divisions/bettyworld` | Placeholder |
-| `/divisions/bvalence` | Placeholder |
-| `/divisions/divine` | Placeholder |
-| `/divisions/novia` | Placeholder |
-| `/divisions/skin-safari` | Placeholder |
-| `/future` | Placeholder |
-| `/future/*` | Placeholder |
-| `/contact` | Placeholder |
-| `/updates` | Placeholder |
-| `/privacy` | Placeholder |
-| `/terms` | Placeholder |
+| Home, About, Labs | dedicated Laravel views |
+| B-Melanox | dedicated division view |
+| Founder, Africa, Biology First, Culture | content-driven institutional renderer |
+| Science, Platforms, Evidence, Regulatory, Quality, Responsible Science | content-driven institutional renderer |
+| Intellectual Property, Divisions index | content-driven institutional renderer |
+| BettyWorld, BValence, DIVINE, NOVIA, Skin Safari | content-driven division renderer |
+| Future index and all future horizon pages | content-driven institutional renderer |
+| Contact, Updates, Privacy, Terms | content-driven institutional/legal renderer |
 
-## Page review checklist
+No approved public route is intentionally routed to the old placeholder view.
 
-Every migrated page must verify:
+## Remaining review work
 
-- content order and approved copy;
-- typography and spacing hierarchy;
-- image crops, captions and alt text;
-- buttons, links and interactive states;
-- keyboard/focus behaviour;
-- reduced-motion behaviour;
-- responsive stacking and overflow;
-- route-specific section navigation where present.
+Before declaring the frontend fully complete:
 
-## Asset parity
+- [ ] browser review around 320/375px mobile;
+- [ ] tablet review around 768px;
+- [ ] desktop review around 1440px;
+- [ ] contrast and keyboard review across light and dark registers;
+- [ ] image crop/quality review;
+- [ ] longest-page scroll/performance review;
+- [ ] final CI on the frontend-completion head.
 
-Copied locally from the Next.js repository:
+## Assets
 
-- `public/img/brand/origina-logo.png`
-- `public/img/brand/origina-mark.png`
-- `public/favicon.ico`
-- `public/img/founder/founder-01.jpeg` through `founder-09.jpeg`
-- all B-Melanox images currently present in `origina-next/public/img/products/`
+Approved media remains repository-managed and must be referenced through Laravel's asset boundary. Production views must not hotlink GitHub assets.
 
-Production views must not hotlink these assets from GitHub.
+See `ASSET_DELIVERY.md`.
 
 ## Exit condition
 
-The frontend migration is not complete while any approved public route remains a placeholder or any implemented route has an unresolved parity difference.
+Frontend completion requires real public pages, coherent institutional design, green quality gates and final responsive/accessibility review. Backend work remains gated separately.
