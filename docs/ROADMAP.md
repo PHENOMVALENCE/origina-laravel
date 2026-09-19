@@ -2,51 +2,67 @@
 
 ## Foundation — complete
 
-- [x] Laravel 12 / Blade / Vite foundation
-- [x] repository, agent and Git rules
-- [x] CI, Pint, Larastan and PHPUnit baseline
-- [x] shared layout/components and ORIGINA design tokens
-- [x] security-header baseline
-- [x] approved ORIGINA logo, mark, favicon, founder and B-Melanox assets migrated locally
-- [x] Next.js navigation/footer information architecture mirrored in the Laravel shared shell
+- [x] Laravel 12 / Blade / Vite foundation;
+- [x] repository, agent and Git rules;
+- [x] CI, Pint, Larastan and PHPUnit baseline;
+- [x] security-header baseline;
+- [x] approved local brand/founder/product assets;
+- [x] shared navigation/footer information architecture.
 
-## Frontend migration — active
+## Frontend implementation — substantially complete
 
-Completed route implementations:
-
-- [x] `/`
-- [x] `/about`
-- [x] `/labs`
-- [x] `/divisions/b-melanox`
-
-Remaining Next.js parity work:
-
-- [ ] Biology First™ and Science hub
-- [ ] evidence, quality, regulatory and responsible-science pages
-- [ ] Founder and Africa Originating
-- [ ] Platforms and intellectual property
-- [ ] Divisions index and remaining divisions
-- [ ] Future surfaces
-- [ ] Updates/publications
-- [ ] Contact UI
-- [ ] Privacy and terms
+- [x] homepage, About and Labs;
+- [x] Founder and Africa Originating;
+- [x] Biology First™, Science and scientific platforms;
+- [x] evidence, quality, regulatory and responsible-science pages;
+- [x] intellectual-property surface;
+- [x] divisions index;
+- [x] B-Melanox, BettyWorld, BValence, DIVINE, NOVIA and Skin Safari;
+- [x] Future index and future horizon pages;
+- [x] Updates archive state;
+- [x] Contact frontend without false backend submission behavior;
+- [x] Privacy and Terms;
+- [x] canonical/OG/Twitter metadata;
+- [x] sitemap and environment-aware robots;
+- [x] custom 404/500/503 states;
+- [x] CDN-ready asset boundary;
+- [x] navigation/loading interaction layer;
+- [x] frontend architecture, asset, SEO, content and deployment documentation.
 
 ## Frontend exit criteria
 
-- [ ] no public placeholder routes;
-- [ ] every migrated route reviewed against `origina-next` at desktop and mobile widths;
-- [x] no remote GitHub asset hotlinks on currently implemented production views;
-- [ ] keyboard/focus and WCAG 2.2 AA review complete;
-- [ ] metadata, canonical URLs, sitemap and robots policy complete;
-- [ ] dependency lockfiles committed;
-- [ ] CI green on the final frontend migration head.
+- [x] no intentionally routed public placeholder pages;
+- [x] repository-managed media uses local/CDN-ready asset URLs;
+- [x] metadata, sitemap and robots baseline;
+- [x] route/content/error-state automated tests authored;
+- [ ] CI green on final frontend-completion head;
+- [ ] 320/375px mobile browser review;
+- [ ] ~768px tablet browser review;
+- [ ] ~1440px desktop browser review;
+- [ ] keyboard/focus and WCAG 2.2 AA review;
+- [ ] image crop/quality review;
+- [ ] longest-page performance/layout-shift review;
+- [ ] production environment/release checklist review.
 
 ## Backend gate
 
-Do not begin persistence/auth/admin/commerce until the owner approves the data model, identity model, content governance, privacy/retention, payment scope and operational requirements.
+Do not begin persistence/auth/admin/commerce simply because the frontend routes exist.
+
+Before backend implementation, approve:
+
+- domain/data model;
+- identity and authorization model;
+- content governance/CMS needs;
+- enquiry workflow and retention;
+- privacy/data-protection requirements;
+- product/catalogue model;
+- payments/order scope;
+- manufacturing/traceability model where applicable;
+- operational ownership and deployment environment.
 
 ## Later phases
 
-1. platform backend: content, identity, enquiries and administration;
-2. commerce: catalogue, inventory, cart, checkout, payments, orders and fulfilment;
-3. production hardening: observability, backups, performance, security, accessibility and release operations.
+1. platform backend — content, identity, enquiries and administration;
+2. commerce — catalogue, inventory, cart, checkout, payments, orders and fulfilment;
+3. manufacturing/traceability — batches, serialized units, authenticity and audit workflows;
+4. production operations — observability, backups, incident response and release operations.
