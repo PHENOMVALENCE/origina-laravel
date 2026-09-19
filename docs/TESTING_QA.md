@@ -12,42 +12,97 @@ composer test
 npm run build
 ```
 
-Tests should cover public-route rendering, important content contracts and security headers without depending on an unapproved backend.
+Automated coverage should verify:
 
-## Frontend parity review
+- dedicated public routes;
+- every config-backed institutional route;
+- every config-backed division route;
+- every future horizon route;
+- absence of the old placeholder copy;
+- required content metadata;
+- sitemap;
+- environment-aware robots;
+- branded 404;
+- security headers.
 
-For each migrated route, compare Laravel against `PHENOMVALENCE/origina-next` at minimum:
+## Browser matrix
 
-- mobile (~375px);
-- tablet (~768px);
-- desktop (~1440px).
+Review at minimum:
+
+- narrow mobile: 320–375px;
+- tablet: ~768px;
+- desktop: ~1440px.
+
+Use at least one Chromium-based browser and, where practical, Safari/WebKit behavior for mobile-sensitive interactions.
+
+## Visual/content review
 
 Check:
 
-- content order and copy;
-- typography and spacing hierarchy;
-- navigation/footer behaviour;
+- institutional versus division color register;
+- title/heading hierarchy;
+- body measure and spacing rhythm;
+- content status wording;
+- navigation/footer behavior;
 - imagery, crops, captions and alt text;
-- interactive states;
-- keyboard focus and menu operation;
-- overflow, wrapping and layout shifts.
+- legal/contact empty states;
+- custom errors;
+- overflow and wrapping;
+- layout shift while images load.
 
-A route is not complete while it is still a placeholder or has an undocumented visual/interaction difference from the approved Next.js implementation.
+## Interaction QA
 
+Verify:
 
-## Motion and interaction QA
+- scrolling remains native;
+- no background scroll while mobile navigation is open;
+- mobile focus stays within the modal menu;
+- Escape closes open navigation;
+- desktop navigation works by keyboard;
+- sticky header/section navigation do not overlap content;
+- active section state follows the page;
+- internal navigation progress never blocks interaction;
+- viewport reveals are subtle and one-time;
+- no interaction requires hover;
+- reduced-motion removes non-essential animation/smooth scrolling.
 
-For pages using the shared interaction layer, also verify:
+## Accessibility QA
 
-- scrolling remains native and responsive; there is no scroll lock outside an intentionally open modal menu;
-- sticky header and in-page navigation do not jump, overlap content or create layout shifts;
-- active in-page navigation follows the section in view and remains horizontally reachable on small screens;
-- viewport reveals occur once, remain subtle and never delay access to content;
-- desktop navigation panels open/close smoothly and remain fully operable by keyboard;
-- the mobile navigation traps focus while open, closes with Escape, restores focus appropriately and prevents background scrolling;
-- buttons, cards and links provide restrained state feedback without moving surrounding layout;
-- `prefers-reduced-motion: reduce` removes non-essential animation and smooth scrolling;
-- no interaction depends on hover alone;
-- motion remains responsive on a mid-range mobile viewport and does not introduce visible jank.
+Review:
 
-When browser performance tooling is available, inspect long tasks and layout shifts while scrolling through the longest public routes. Prefer fixes that reduce JavaScript work and preserve compositor-friendly transform/opacity animation.
+- landmarks and heading order;
+- visible focus;
+- touch-target practicality;
+- contrast on every institutional/division ground;
+- alternative text;
+- color-independent meaning;
+- keyboard-only completion of all public interactions;
+- zoom/reflow at 200%.
+
+## Asset/performance QA
+
+Inspect:
+
+- no GitHub/raw hotlinks;
+- correct `ASSET_URL` behavior where configured;
+- no missing favicon/CSS/JS/images;
+- hero image priority;
+- lazy below-the-fold imagery;
+- long tasks while scrolling;
+- cumulative layout shift;
+- avoidable third-party requests.
+
+## Release QA
+
+Before production promotion, additionally verify:
+
+- `APP_DEBUG=false`;
+- canonical `APP_URL`;
+- production robots allows intended crawling;
+- sitemap uses canonical host;
+- HTTPS;
+- health endpoint;
+- 404/500/503 presentation;
+- logging/monitoring/rollback ownership.
+
+Do not claim browser, performance or accessibility review has passed unless it was actually performed.
