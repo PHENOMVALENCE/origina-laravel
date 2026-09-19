@@ -1,38 +1,44 @@
 # ORIGINA — Laravel
 
-Laravel re-platforming of ORIGINA™ using `PHENOMVALENCE/origina-next` as the approved frontend reference.
+Laravel implementation of ORIGINA™, a science-led multi-divisional institution built around Biology First™, research, evidence, formulation science and long-term institutional capability.
 
 ## Current phase
 
-Frontend-first migration on top of Laravel 12 / Blade / Vite.
+**Frontend completion before backend.**
 
-Implemented:
+The public frontend now includes:
 
-- Laravel application shell and shared Blade layout/components;
-- homepage, About, Labs and B-Melanox public experiences;
-- responsive institutional/division design system;
-- security headers, public-route tests, Pint, Larastan and CI;
-- local migration of approved ORIGINA brand, founder and B-Melanox imagery.
+- Laravel 12 / Blade / Vite application shell;
+- complete institutional route architecture;
+- dedicated Home, About, Labs and B-Melanox experiences;
+- content-driven Founder, Africa, Science, Evidence, Platforms, IP, divisions, future, contact and legal surfaces;
+- institution/division semantic design system;
+- responsive navigation and restrained progressive interactions;
+- local/CDN-ready media delivery;
+- canonical/social metadata, sitemap and robots;
+- branded 404/500/503 states;
+- security headers and route/content tests.
 
 Still intentionally deferred:
 
-- database and persistence;
+- database/persistence;
 - authentication/authorization;
-- admin/CMS;
-- APIs and external integrations;
-- enquiries/email delivery;
+- admin/CMS persistence;
+- APIs/external integrations;
+- enquiry storage/email workflow;
 - catalogue, cart, checkout, payments, orders, inventory and fulfilment.
 
-## Frontend parity rule
+## Reference relationship
 
-`origina-next` is the visual and interaction source of truth during migration. Laravel pages should reproduce its layout, copy, responsive behaviour, navigation, components and assets unless a deviation is explicitly approved and documented.
+`PHENOMVALENCE/origina-next` remains an approved source for content, information architecture and historical frontend intent.
 
-## Setup
+The Laravel design system is the active implementation standard under the approved institutional frontend revision.
+
+## Local setup
 
 ```bash
 git clone https://github.com/PHENOMVALENCE/origina-laravel.git
 cd origina-laravel
-git checkout feature/core-frontend
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -41,7 +47,19 @@ npm run build
 php artisan serve
 ```
 
-Use `npm run dev` during frontend development.
+Use `npm run dev` during active frontend development.
+
+For normal contribution work, branch from the current integration baseline according to `docs/GIT_WORKFLOW.md`.
+
+## Optional asset CDN
+
+Set `ASSET_URL` only when an approved CDN/static asset origin exists:
+
+```dotenv
+ASSET_URL=https://cdn.example.com
+```
+
+Leave it empty for same-origin/local assets.
 
 ## Quality gates
 
@@ -53,17 +71,24 @@ composer test
 npm run build
 ```
 
-## Repository rules
+## Documentation
 
-Read `AGENTS.md` before implementation. Git history belongs to the human maintainer: do not add AI/agent/bot authorship, co-author trailers or implementation credits.
+Read `AGENTS.md` before implementation.
 
-Core documentation lives in `docs/`, especially:
+Core documentation:
 
-- `PROJECT_CONTEXT.md`
-- `MIGRATION_MAP.md`
-- `DESIGN_SYSTEM.md`
-- `GIT_WORKFLOW.md`
-- `TESTING_QA.md`
-- `ROADMAP.md`
+- `DESIGN.md` / `docs/DESIGN_SYSTEM.md`
+- `docs/FRONTEND_ARCHITECTURE.md`
+- `docs/FRONTEND_SCOPE.md`
+- `docs/CONTENT_GOVERNANCE.md`
+- `docs/ASSET_DELIVERY.md`
+- `docs/SEO_METADATA.md`
+- `docs/ACCESSIBILITY.md`
+- `docs/TESTING_QA.md`
+- `docs/DEPLOYMENT.md`
+- `docs/ROADMAP.md`
+- `docs/GIT_WORKFLOW.md`
 
-`main` is the accepted baseline, `masterchanges` is the current integration branch, and active work should use short-lived branches such as `feature/*`, `fix/*`, `docs/*` and `chore/*`.
+Git history belongs to the human maintainer. Do not add AI/agent/bot authorship or co-author trailers.
+
+`main` is the accepted baseline, `masterchanges` is the integration branch, and active work uses focused short-lived branches.
