@@ -50,7 +50,7 @@
 
     <div class="site-header__actions">
       <a class="header-commerce" href="{{ route('shop') }}">Shop</a>
-      <a class="header-commerce" href="{{ route('cart') }}">Bag <span aria-label="items">({{ array_sum(session('cart',[])) }})</span></a>
+      <a class="header-commerce" href="{{ route('cart') }}">Bag <span aria-label="{{ array_sum(session('cart',[])) }} items">({{ array_sum(session('cart',[])) }})</span></a>
       <a class="header-commerce header-commerce--account" href="{{ auth()->check()?route('account.dashboard'):route('login') }}">{{ auth()->check()?'Account':'Sign in' }}</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu" data-menu-toggle>
         <span class="sr-only" data-menu-label>Open navigation</span>
