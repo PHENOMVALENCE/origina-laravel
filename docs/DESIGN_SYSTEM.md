@@ -1,79 +1,148 @@
-# Design System
+# ORIGINA™ Design System
 
-## Source of truth
+## Design objective
 
-During migration, use `PHENOMVALENCE/origina-next` as the approved visual/interaction reference. Reproduce its composition before proposing redesigns.
+ORIGINA should feel like a serious scientific institution with premium execution — not a generic cosmetics store, SaaS product or luxury template.
 
-## Registers
+The active design contract is the Laravel implementation plus this document. `PHENOMVALENCE/origina-next` remains an approved content/structure reference.
 
-### Institutional
+## Institutional palette
 
-Used for ORIGINA parent-level content: homepage, About, Labs, science, founder, Africa, future, governance and legal pages.
+Parent-level pages use a restrained semantic system:
 
-Characteristics:
+| Role | Value | Use |
+|---|---|---|
+| Origina Noir | `#161210` | highest emphasis, primary action, dark bands |
+| Institution Ivory | `#f8f4ec` | light contrast and dark-ground text |
+| Origin Gold | `#b5924a` | rules, fills, selected states, institutional thread |
+| Readable Gold | `#866a2a` | AA-oriented accent text on light ground |
+| Warm Graphite | `#3a332c` | body/supporting text |
+| Paper | `#fdfbf7` | primary institutional canvas |
 
-- warm paper/light surfaces;
-- editorial serif + restrained sans-serif hierarchy;
-- strong whitespace and hairline rules;
-- oxblood/crimson and muted metallic accents;
-- documentary photography;
-- noir sections used as punctuation, not decoration.
+Origin Gold is an identity mark, not ordinary small body text.
 
-### Division/product
+Oxblood/crimson is not the parent institution's default accent. It is principally associated with B-Melanox and semantic error contexts.
 
-Used for individual divisions and product expressions.
+## Division registers
 
-Characteristics:
+Individual division pages scope semantic tokens rather than rewriting shared components.
 
-- can be darker/richer and more sensory;
-- remains scientifically disciplined and editorial;
-- uses product imagery deliberately;
-- avoids generic ecommerce/SaaS visual language.
+Current direction:
 
-## Components
+- B-Melanox — warm charcoal, readable pigment-red accent, oxblood action;
+- BettyWorld — deep ink, antique gold;
+- NOVIA — forest noir, deep sage, warm gold/cream;
+- DIVINE — midnight ground, sovereign gold, imperial burgundy;
+- BValence / Skin Safari — neutral ORIGINA dark register until a confirmed division palette exists.
 
-Prefer shared Blade primitives for:
+Every division still shares ORIGINA typography, layout, interaction, focus behavior and editorial standards.
+
+## Typography
+
+- **Source Serif 4** — institutional headlines, propositions, quotations, display statements.
+- **Source Sans 3** — body copy, navigation, metadata, controls, captions and tables.
+
+Body copy remains sans-serif. Display type uses responsive `clamp()` sizing and controlled line length.
+
+## Geometry and hierarchy
+
+- radius: 0 as a system rule;
+- elevation: none as a hierarchy rule;
+- hierarchy is created by type, whitespace, surface changes and hairline rules;
+- content container follows a disciplined editorial grid;
+- section spacing uses shared tokens;
+- long prose is measure-limited for reading comfort.
+
+## Imagery
+
+Photography is structural evidence, not decoration.
+
+Approved structural ratios:
+
+- 16:9 cinematic;
+- 4:3 editorial;
+- 3:4 portrait;
+- 3:2 feature;
+- 1:1 square.
+
+Every meaningful image needs accurate alt text and, when context matters, a caption. Use intrinsic dimensions. Hero imagery may be eager/high priority; below-the-fold media should be lazy.
+
+See `ASSET_DELIVERY.md`.
+
+## Editorial primitives
+
+Prefer shared primitives for:
 
 - site header/footer;
-- page heroes;
-- sections and tone variants;
-- editorial split layouts;
-- buttons/text links;
-- division cards;
-- image/caption blocks;
-- quote bands;
-- in-page navigation.
+- page hero;
+- section and tone variants;
+- in-page section navigation;
+- split editorial sections;
+- institutional cards;
+- numbered sequences;
+- detail/evidence lists;
+- institutional directories;
+- quotes/statements;
+- legal prose;
+- contact/empty states;
+- managed media;
+- closing CTA.
 
-## Motion and interaction language
+New layouts should reuse these before adding another pattern.
 
-ORIGINA motion should feel quiet, confident and continuous. It exists to preserve orientation, reveal hierarchy and make state changes understandable — never to perform for its own sake.
+## Motion and interaction
 
-### Interaction principles
+ORIGINA motion should feel quiet, confident and continuous.
 
-- Keep the page scroll native. Do not introduce scroll-jacking, mandatory snap points, fake inertia or parallax tied continuously to scroll position.
-- Prefer transform and opacity for animated movement. Avoid layout-changing animation that causes reflow or visible content jumps.
-- Use short state transitions for controls and navigation, and slightly slower entrance motion for editorial content.
-- Keep movement small: viewport reveals should generally travel no more than 8–18px; image/card scale effects should remain subtle.
-- Entrances use the shared ease-out curve; state changes use the shared standard curve; exits should be shorter than entrances.
-- Viewport reveals run once and progressively enhance content. Content must remain available if JavaScript or IntersectionObserver is unavailable.
-- Sticky navigation should preserve context rather than aggressively hide/reappear while the user scrolls.
-- In-page navigation should expose an active section state without forcing the user's scroll position.
-- Mobile navigation is modal while open: lock background scroll, keep keyboard focus inside the menu, support Escape, and restore focus when appropriate.
-- Hover treatment must have a keyboard-focus equivalent where the interaction is meaningful.
-- Honour `prefers-reduced-motion: reduce` by removing non-essential movement and smooth scrolling.
+- native scrolling only;
+- no scroll-jacking, fake inertia, forced snap or parallax;
+- small transform/opacity entrances only where hierarchy benefits;
+- short control/navigation transitions;
+- viewport reveals run once;
+- sticky navigation preserves orientation;
+- mobile navigation is modal, keyboard-contained and Escape-closeable;
+- no information depends on hover alone;
+- `prefers-reduced-motion: reduce` removes non-essential movement and smooth scrolling.
 
-### Performance guardrails
+Do not add an animation framework for effects achievable with CSS, Web Animations API or IntersectionObserver.
 
-- Do not add an animation framework for effects achievable with CSS, the Web Animations API or IntersectionObserver.
-- Continuous scroll work must be minimal and requestAnimationFrame-throttled.
-- Avoid animating expensive paint properties, large filters, background-position loops or continuously running decorative effects.
-- Motion must remain smooth on mid-range mobile hardware and must not delay reading, navigation or interaction.
+## Loading
 
-## Rules
+Do not use a blocking splash screen.
 
-- Use semantic CSS tokens rather than arbitrary one-off values.
-- Keep spacing and type hierarchy consistent with the Next.js source.
-- Preserve responsive behaviour and mobile navigation patterns.
-- Use local approved assets with intrinsic dimensions and accurate alt text.
-- Avoid unapproved gradients, glassmorphism, excessive shadows, novelty motion and decorative pill UI.
-- Any deliberate visual deviation from `origina-next` must be approved and documented.
+Use server-rendered content, intrinsic media dimensions, subtle media placeholders and a lightweight top navigation progress signal. Content must remain available if JavaScript fails.
+
+## Accessibility
+
+Target WCAG 2.2 AA.
+
+Required:
+
+- semantic landmarks and logical headings;
+- one meaningful page `h1`;
+- visible focus;
+- keyboard operation;
+- sufficient contrast;
+- ≥44px practical touch targets where appropriate;
+- meaningful alternative text;
+- reduced-motion support;
+- no color-only communication;
+- responsive layouts without unintended horizontal overflow.
+
+Accessibility outranks exact visual parity with older references.
+
+## Decision order
+
+When design goals conflict:
+
+1. ORIGINA brand identity;
+2. institutional credibility;
+3. scientific/content integrity;
+4. user comprehension;
+5. accessibility;
+6. responsive usability;
+7. performance;
+8. visual sophistication;
+9. decorative novelty.
+
+If something looks interesting but weakens credibility, comprehension or evidence discipline, remove it.

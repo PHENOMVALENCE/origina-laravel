@@ -37,7 +37,6 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
   transform-origin: top center;
   border: 1px solid var(--rule);
   background: rgba(253, 251, 247, .985);
-  box-shadow: 0 1.15rem 3rem rgba(27, 23, 20, .13);
   padding: .45rem;
   backdrop-filter: blur(14px) saturate(120%);
 }
@@ -54,14 +53,13 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
 .nav-panel__link:hover,
 .nav-panel__link:focus-visible {
   background: var(--cream);
-  color: var(--oxblood);
+  color: var(--brand-accent-readable);
   transform: translateX(.18rem);
 }
 
 .division-page .nav-panel {
   border-color: rgba(255, 255, 255, .14);
   background: var(--noir);
-  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .35);
 }
 
 .division-page .nav-panel__link {
@@ -198,7 +196,7 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
     display: flex;
     flex-direction: column;
     gap: .2rem;
-    border-left: 1px solid rgba(122, 23, 27, .3);
+    border-left: 1px solid rgba(181, 146, 74, .42);
     padding-left: .9rem;
   }
 
@@ -214,7 +212,7 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
 
   .mobile-nav__link:hover,
   .mobile-nav__link:focus-visible {
-    color: var(--oxblood);
+    color: var(--brand-accent-readable);
     transform: translateX(.2rem);
   }
 
@@ -229,7 +227,7 @@ button.desktop-nav__link[aria-expanded="true"] .desktop-nav__chevron {
 
   .mobile-nav__direct:hover,
   .mobile-nav__direct:focus-visible {
-    color: var(--oxblood);
+    color: var(--brand-accent-readable);
     transform: translateX(.2rem);
   }
 

@@ -6,7 +6,7 @@ Do not disclose suspected vulnerabilities in a public issue. Report them private
 
 ## Baseline
 
-This project targets a defence-in-depth posture suitable for a globally visible institutional and commerce platform. The frontend-only phase deliberately minimizes attack surface, while the architecture reserves controls for future authentication, commerce, payments, administration and personal-data processing.
+This project targets a defence-in-depth posture suitable for a globally visible institutional and commerce platform. The platform now includes authentication, commerce, administration and personal-data processing. See the implemented controls, operating boundaries and production requirements in the security model.
 
 See `docs/SECURITY_MODEL.md` for the engineering baseline.
 
@@ -19,4 +19,4 @@ See `docs/SECURITY_MODEL.md` for the engineering baseline.
 
 ## Dependency hygiene
 
-Dependencies should be minimal and maintained. CI should run Composer and npm security audits when the project reaches deployment readiness.
+Dependencies should be minimal and maintained. Run Composer and npm security audits before release. Composer audit is included in PHP CI.

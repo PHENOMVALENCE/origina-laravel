@@ -32,7 +32,7 @@
 
     @if($image)
       <figure class="page-hero__media reveal">
-        <img src="{{ $image }}" alt="{{ $alt }}" width="1200" height="1500" fetchpriority="high">
+        <img src="{{ asset(ltrim($image, '/')) }}" alt="{{ $alt }}" width="1200" height="1500" fetchpriority="high" decoding="async" data-image>
         @if($caption)
           <figcaption>{{ $caption }}</figcaption>
         @endif

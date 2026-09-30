@@ -1,59 +1,54 @@
 # Next.js → Laravel Migration Map
 
-`PHENOMVALENCE/origina-next` is the frontend source of truth for this migration.
+`PHENOMVALENCE/origina-next` is an approved source for public content, information architecture and established frontend intent.
 
-## Rules
+The owner has approved a broader Laravel institutional refinement. The Laravel implementation is therefore the active frontend architecture and is not required to reproduce Next.js pixel-for-pixel.
 
-- Preserve approved copy, layout, responsive behaviour, navigation and interaction patterns.
-- Preserve the institutional-versus-division visual distinction.
-- Use the same approved assets locally in Laravel.
-- Do not treat migration as a redesign unless a deviation is explicitly approved.
-- Do not port Next.js backend/auth/database behaviour during the frontend phase.
-
-## Core mapping
+## Mapping
 
 | Next.js | Laravel |
 |---|---|
-| `src/app/(site)/*` | `resources/views/pages/*` |
-| `src/components/*` | `resources/views/components/*` |
-| `src/app/globals.css` | `resources/css/app.css` |
+| `src/app/(site)/*` | dedicated Blade views or `config/origina_content.php` + shared renderer |
+| `src/components/*` | `resources/views/components/*` + controlled page primitives |
+| `src/app/globals.css` | `resources/css/app.css` semantic design system |
 | `src/lib/navigation.ts` | `config/origina.php` |
-| `src/lib/content/*` | Blade/config content during frontend phase |
-| `public/img/*` | `public/img/*` |
-| `src/app/favicon.ico` | `public/favicon.ico` |
+| `src/lib/content/*` | `config/origina_content.php` during frontend phase |
+| `public/img/*` | Laravel `public/img/*` referenced via `asset()` |
+| metadata helpers | shared Blade layout + sitemap/robots routes |
+| Next loading/navigation behavior | lightweight progressive enhancement in `resources/js/app.js` |
 
-Backend-only Next.js areas (`src/db`, auth, admin persistence, APIs) are intentionally deferred.
+Backend-only Next.js concerns such as database access, authentication, admin persistence and APIs remain intentionally deferred.
 
-## Current parity status
+## Dedicated routes
 
-Implemented Laravel pages:
+The following keep bespoke views because their composition is highly specific:
 
-- `/`
-- `/about`
-- `/labs`
-- `/divisions/b-melanox`
+- `/`;
+- `/about`;
+- `/labs`;
+- `/divisions/b-melanox`.
 
-Remaining public Next.js routes are still migration work and must not be described as fully ported while they remain placeholders.
+Other approved public routes use the shared institutional content architecture unless a bespoke layout is justified.
+
+## Content migration rule
+
+Preserve approved scientific meaning and status qualifiers. Do not strengthen claims while moving content between frameworks.
+
+Future entities remain future. Research remains research. Proprietary does not become patented. Regulatory alignment does not become approval.
+
+## Visual migration rule
+
+Preserve ORIGINA identity while applying the active Laravel design standard:
+
+- parent institution uses Noir / Ivory / Origin Gold / Graphite / restrained neutrals;
+- B-Melanox crimson/oxblood does not become the parent accent;
+- individual divisions use scoped semantic themes;
+- typography, accessibility and editorial discipline stay shared.
 
 ## Assets
 
-Migrated locally from `origina-next`:
+Brand, founder and current product media are local. Templates use `asset()`, allowing an optional `ASSET_URL` CDN without changing view code.
 
-- ORIGINA logo and mark;
-- favicon;
-- founder photography (`founder-01` through `founder-09`);
-- current B-Melanox product photography.
+## Completion
 
-Implemented pages must use these local paths rather than GitHub raw URLs.
-
-## Page completion checklist
-
-A route is considered migrated only when:
-
-1. structure and copy match the approved Next.js page;
-2. shared header/footer/component behaviour matches;
-3. local assets and captions/alt text are correct;
-4. desktop and mobile layouts are reviewed;
-5. keyboard/focus behaviour is intact;
-6. route tests/build checks pass;
-7. any deliberate difference is documented.
+A migrated route is not complete until its content, responsive layout, accessibility, navigation, assets and tests are reviewed. See `FRONTEND_SCOPE.md` and `TESTING_QA.md`.

@@ -31,6 +31,8 @@ jobs:
           php artisan key:generate
       - name: Validate Composer
         run: composer validate --strict
+      - name: Dependency audit
+        run: composer audit --no-interaction
       - name: Format check
         run: composer lint:test
       - name: Static analysis
@@ -47,6 +49,40 @@ jobs:
         with:
           node-version: '22'
       - name: Install frontend dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Build assets
         run: npm run build
+
+  mysql:
+    name: MySQL platform and concurrency
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: testing-only
+          MYSQL_DATABASE: origina_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -ptesting-only"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: origina_test
+      DB_USERNAME: root
+      DB_PASSWORD: testing-only
+      MAIL_MAILER: array
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql
+          coverage: none
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: cp .env.example .env && php artisan key:generate
+      - run: composer test

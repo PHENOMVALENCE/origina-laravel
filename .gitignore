@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 .DS_Store
 Thumbs.db
+
+/storage/framework/cache/phpstan/
+/storage/framework/testing/

@@ -1,52 +1,29 @@
-# Roadmap
+# Current platform roadmap
 
-## Foundation — complete
+The owner's 30 September 2026 instruction activates backend, commerce, accounts, administration and API testing. ADR 0002 supersedes the earlier frontend-only gate.
 
-- [x] Laravel 12 / Blade / Vite foundation
-- [x] repository, agent and Git rules
-- [x] CI, Pint, Larastan and PHPUnit baseline
-- [x] shared layout/components and ORIGINA design tokens
-- [x] security-header baseline
-- [x] approved ORIGINA logo, mark, favicon, founder and B-Melanox assets migrated locally
-- [x] Next.js navigation/footer information architecture mirrored in the Laravel shared shell
+## Implemented
 
-## Frontend migration — active
+- Existing institution/science/division/future/legal frontend preserved.
+- Product catalogue, session bag, verified-user checkout and server-priced unpaid orders.
+- Customer overview/history/order tracking/profile/password controls.
+- Accounts, email verification, password reset, active/role checks and expiring Sanctum tokens.
+- Admin overview, products, inventory reconciliation, orders, receipt confirmation, customer access, enquiries and publications.
+- Manufacturing batches, quality review/release, serial generation, printable QR/CSV exports and revoke/verification.
+- Operational audit records, private no-store/noindex responses, scheduler cleanup.
+- Versioned JSON API and protected locally bundled Swagger interface.
+- Transactional regression tests, locked dependencies and production configuration checker/runbooks.
 
-Completed route implementations:
+## Release gates
 
-- [x] `/`
-- [x] `/about`
-- [x] `/labs`
-- [x] `/divisions/b-melanox`
+Complete the production checklist on the actual host: database concurrency, SMTP, approved catalogue/pricing/delivery/terms, backups/restore, domain/TLS, scheduler, physical labels and smoke tests. Code passing checks is not a production deployment.
 
-Remaining Next.js parity work:
+## Future integrations
 
-- [ ] Biology First™ and Science hub
-- [ ] evidence, quality, regulatory and responsible-science pages
-- [ ] Founder and Africa Originating
-- [ ] Platforms and intellectual property
-- [ ] Divisions index and remaining divisions
-- [ ] Future surfaces
-- [ ] Updates/publications
-- [ ] Contact UI
-- [ ] Privacy and terms
-
-## Frontend exit criteria
-
-- [ ] no public placeholder routes;
-- [ ] every migrated route reviewed against `origina-next` at desktop and mobile widths;
-- [x] no remote GitHub asset hotlinks on currently implemented production views;
-- [ ] keyboard/focus and WCAG 2.2 AA review complete;
-- [ ] metadata, canonical URLs, sitemap and robots policy complete;
-- [ ] dependency lockfiles committed;
-- [ ] CI green on the final frontend migration head.
-
-## Backend gate
-
-Do not begin persistence/auth/admin/commerce until the owner approves the data model, identity model, content governance, privacy/retention, payment scope and operational requirements.
-
-## Later phases
-
-1. platform backend: content, identity, enquiries and administration;
-2. commerce: catalogue, inventory, cart, checkout, payments, orders and fulfilment;
-3. production hardening: observability, backups, performance, security, accessibility and release operations.
+- Approved online payment provider and signed webhook reconciliation.
+- Refund/cancellation reconciliation beyond unpaid pending orders.
+- Delivery zones/carriers/tax requirements/discounts/variants where explicitly required.
+- Durable queued mail retries and external observability.
+- Stronger external audit retention and manufacturing evidence-file governance.
+- Additional API management endpoints where a real client needs them.
+- Advanced traceability/fraud/ERP only with documented business scope.

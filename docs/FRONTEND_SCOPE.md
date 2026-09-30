@@ -1,26 +1,7 @@
-# Frontend Scope
+# Active frontend scope
 
-## In scope
+The owner expanded the project on 30 September 2026. Frontend completion now includes the institutional website, commerce journey, customer workspace and admin workspace, backed by real Laravel records/services. See ADR 0002.
 
-- Laravel 12 public application shell;
-- Blade pages/components;
-- Vite CSS and progressive-enhancement JavaScript;
-- exact migration of approved `origina-next` UI/UX, copy and responsive behaviour;
-- local ORIGINA assets;
-- accessibility, metadata, performance and security-header work;
-- progressive interaction polish: native scrolling, restrained motion, active section context, keyboard-safe menus and reduced-motion support;
-- public-route tests and CI.
+Preserve the institution-first hierarchy, approved photography, Source Serif 4/Source Sans 3, semantic division themes, accessible server-rendered components and scientific claim discipline. Operational workspaces may use summary metrics and data tables while institutional pages retain their editorial character.
 
-## Out of scope until explicitly approved
-
-- database/persistence;
-- authentication and authorization;
-- admin/CMS behaviour;
-- APIs and external integrations;
-- enquiry storage/email delivery;
-- catalogue backend;
-- cart, checkout, payments, orders, inventory, shipping and fulfilment.
-
-## Definition of done for a migrated page
-
-The Laravel route matches the approved Next.js route in structure, copy, assets and responsive behaviour; preserves the approved visual identity; uses the shared ORIGINA interaction language for smooth, accessible state changes; passes applicable automated checks; and has no undocumented visual deviation. Smoothness must never rely on scroll-jacking, heavy animation libraries or motion that ignores user preferences.
+Do not simulate payments, inventories, clinical claims or integrations. Show honest empty/unavailable states. New saleable content requires actual approved product information/prices/stock. All new flows must work without JavaScript; confirmations enhance deliberate actions but server rules remain authoritative.

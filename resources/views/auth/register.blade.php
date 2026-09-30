@@ -1,0 +1,5 @@
+@extends('layouts.auth')
+@section('title','Create account — ORIGINA')
+@section('heading','A considered beginning.')
+@section('intro','Create your account to shop, follow your orders and access your product records.')
+@section('form')<h2>Create your account</h2><form action="{{ route('register') }}" method="post" class="form-stack">@csrf<x-field name="name" label="Full name" required autocomplete="name" maxlength="100"/><x-field name="email" label="Email address" type="email" required autocomplete="email"/><x-field name="password" label="Password" type="password" required autocomplete="new-password" minlength="12"/><small>At least 12 characters, including letters and numbers.</small><x-field name="password_confirmation" label="Confirm password" type="password" required autocomplete="new-password"/><label class="checkbox"><input name="consent" type="checkbox" value="1" required>I agree to the <a href="/terms">terms</a> and acknowledge the <a href="/privacy">privacy notice</a>.</label><button class="button">Create account →</button></form><p>Already registered? <a href="{{ route('login') }}">Sign in</a></p>@endsection

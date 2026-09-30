@@ -1,47 +1,43 @@
-# ORIGINA — Laravel
+# ORIGINA™ Laravel platform
 
-Laravel re-platforming of ORIGINA™ using `PHENOMVALENCE/origina-next` as the approved frontend reference.
+ORIGINA is a science-led institution headquartered in Dar es Salaam. Biology First™ governs the public experience; commerce and operations sit beneath that institutional layer.
 
-## Current phase
+## Stack
 
-Frontend-first migration on top of Laravel 12 / Blade / Vite.
+Laravel 12 / PHP 8.3+, Blade, Vite, MySQL in production, SQLite for local development, Sanctum bearer API, locally bundled Swagger UI and printable serialized QR labels. Source Serif 4 + Source Sans 3, semantic institution/division tokens, server-rendered screens and progressive enhancement.
 
-Implemented:
-
-- Laravel application shell and shared Blade layout/components;
-- homepage, About, Labs and B-Melanox public experiences;
-- responsive institutional/division design system;
-- security headers, public-route tests, Pint, Larastan and CI;
-- local migration of approved ORIGINA brand, founder and B-Melanox imagery.
-
-Still intentionally deferred:
-
-- database and persistence;
-- authentication/authorization;
-- admin/CMS;
-- APIs and external integrations;
-- enquiries/email delivery;
-- catalogue, cart, checkout, payments, orders, inventory and fulfilment.
-
-## Frontend parity rule
-
-`origina-next` is the visual and interaction source of truth during migration. Laravel pages should reproduce its layout, copy, responsive behaviour, navigation, components and assets unless a deviation is explicitly approved and documented.
-
-## Setup
+## Local setup
 
 ```bash
-git clone https://github.com/PHENOMVALENCE/origina-laravel.git
-cd origina-laravel
-git checkout feature/core-frontend
 composer install
 cp .env.example .env
 php artisan key:generate
-npm install
+php artisan migrate
+php artisan storage:link
+npm ci
 npm run build
+php artisan origina:admin
 php artisan serve
 ```
 
-Use `npm run dev` during frontend development.
+No default credentials or fabricated saleable products. Add approved catalogue records through `/admin/products`. For local checkout testing set `COMMERCE_CHECKOUT_ENABLED=true`, a deliberate `COMMERCE_SHIPPING_FEE` and clear `COMMERCE_PAYMENT_INSTRUCTIONS` in `.env`. Do not copy test credentials into production.
+
+Local mail defaults to the Laravel log mailer. Configure real SMTP to deliver verification/reset/order messages. The administrator CLI creates a verified account interactively; customer registration requires email verification. Institutional pages remain public.
+
+## Surfaces
+
+| Route | Purpose |
+|---|---|
+| `/`, `/science`, `/labs`, `/divisions`, `/founder`, `/future` | Institution and scientific information |
+| `/shop`, `/shop/{slug}`, `/cart`, `/checkout` | Product discovery through unpaid order placement |
+| `/account`, `/account/orders`, `/account/profile` | Customer dashboard, history, tracking and security |
+| `/admin` | Operational overview |
+| `/admin/products`, `/admin/orders`, `/admin/customers` | Catalogue, fulfilment and access management |
+| `/admin/enquiries`, `/admin/publications` | Incoming conversations and approved publications |
+| `/admin/batches`, `/admin/audit` | Manufacturing, units, labels and audit history |
+| `/admin/api-docs` | Protected Swagger testing interface |
+| `/api/v1` | JSON API; see OpenAPI contract |
+| `/enquire`, `/verify/{token}`, `/updates` | Enquiries, serialized product records and publications |
 
 ## Quality gates
 
@@ -50,20 +46,24 @@ composer validate --strict
 composer lint:test
 composer analyse
 composer test
+npm ci
 npm run build
+composer audit
+npm audit
 ```
 
-## Repository rules
+If a restricted local sandbox prevents PHPStan spawning workers, `vendor/bin/phpstan analyse --debug --memory-limit=1G` runs the same analysis serially. CI uses the normal command.
 
-Read `AGENTS.md` before implementation. Git history belongs to the human maintainer: do not add AI/agent/bot authorship, co-author trailers or implementation credits.
+## Documentation
 
-Core documentation lives in `docs/`, especially:
+Start with [platform architecture](docs/ARCHITECTURE.md), [shopping journey](docs/COMMERCE.md), [administrator handbook](docs/ADMIN_HANDBOOK.md), [API testing](docs/API_TESTING.md), [traceability](docs/TRACEABILITY.md), [deployment](docs/DEPLOYMENT.md) and [production checklist](docs/PRODUCTION_CHECKLIST.md).
 
-- `PROJECT_CONTEXT.md`
-- `MIGRATION_MAP.md`
-- `DESIGN_SYSTEM.md`
-- `GIT_WORKFLOW.md`
-- `TESTING_QA.md`
-- `ROADMAP.md`
+Frontend references remain in `DESIGN.md`, `docs/DESIGN_SYSTEM.md`, `docs/FRONTEND_ARCHITECTURE.md`, `docs/CONTENT_GOVERNANCE.md` and `docs/FRONTEND_PARITY.md`. Operational scope is authorized in [ADR 0002](docs/adr/0002-operational-platform.md).
 
-`main` is the accepted baseline, `masterchanges` is the current integration branch, and active work should use short-lived branches such as `feature/*`, `fix/*`, `docs/*` and `chore/*`.
+## Release boundaries
+
+Checkout creates unpaid orders and reserves inventory. Administrators record actual reconciled receipts; the application does not yet connect to an online payment gateway or automate refunds. Refunds must be reconciled before a future refund workflow is enabled. Shipping uses one configured TZS fee for the supported Tanzanian delivery area. No tax engine, carrier integration, variant/MOQ system or ERP is claimed.
+
+A complete verified-code match cannot independently establish authenticity of physical contents. Manufacturing is batch/serialization/QC release management, not a certified manufacturing execution system.
+
+All contribution ownership remains with Valence Mwigani. Work integrates through `masterchanges`; open a PR and do not auto-merge.

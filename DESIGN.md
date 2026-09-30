@@ -1,12 +1,45 @@
-# ORIGINA Design Standard
+# ORIGINA™ Design Standard
 
-The detailed reference is `docs/DESIGN_SYSTEM.md`.
+The detailed implementation contract is `docs/DESIGN_SYSTEM.md`.
 
-During migration, `PHENOMVALENCE/origina-next` is the approved UI/UX source of truth. Laravel should reproduce its hierarchy, spacing, typography, responsive behaviour, interactions and asset usage unless a deviation is explicitly approved.
+ORIGINA is a science-led institution. The public experience must therefore read as **calm, evidence-forward, elegant, editorial and permanent** before it reads as commercial.
 
-ORIGINA has two visual registers:
+## Core direction
 
-- **Institutional:** scientific, editorial, light, precise and authoritative.
-- **Division/product:** richer and more sensory while remaining restrained and evidence-led.
+> Warm institutional paper, editorial serif, hairline structure and documentary photography — with dark division registers that earn their darkness.
 
-Do not redesign the migration into generic SaaS or luxury-cosmetics patterns. Prefer whitespace, typography, hairline rules, strong photography and deliberate restraint.
+The Laravel frontend may refine the former Next.js implementation. `origina-next` remains an approved source for content, information architecture and established intent, but the Laravel design system is now the active frontend standard.
+
+## Two registers
+
+**Institution** — homepage, About, Labs, science/evidence, founder, Africa, future, contact, legal and the divisions index.
+
+- paper/ivory surfaces;
+- Origina Noir;
+- Origin Gold as a restrained institutional thread;
+- Warm Graphite / readable metadata neutrals;
+- dense but legible editorial hierarchy;
+- squared geometry and hairline rules.
+
+**Division** — individual division routes.
+
+- darker, more sensory grounds;
+- division-specific semantic accent/action colours;
+- same typography, grid, spacing, accessibility and component construction as the institution.
+
+A division colour must never become the parent institution's default identity.
+
+## Non-negotiable exclusions
+
+Do not use:
+
+- generic SaaS card grids as the main visual language;
+- glassmorphism;
+- decorative gradients;
+- rounded-everything interfaces;
+- elevation/shadows as the primary hierarchy system;
+- scroll-jacking, forced snap or parallax;
+- ambient animation with no informational purpose;
+- unsupported scientific or commercial claims.
+
+Authority comes from structure, type, evidence, imagery and restraint.

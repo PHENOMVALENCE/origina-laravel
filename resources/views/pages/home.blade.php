@@ -18,7 +18,7 @@
       </div>
 
       <figure class="home-hero__media reveal">
-        <img src="/img/founder/founder-08.jpeg" alt="Dr. Elizabeth Consoli with a multidisciplinary professional community" width="1600" height="1200" fetchpriority="high">
+        <img src="{{ asset('img/founder/founder-08.jpeg') }}" alt="Dr. Elizabeth Consoli with a multidisciplinary professional community" width="1600" height="1200" fetchpriority="high">
         <figcaption>Expertise grows through community · Dar es Salaam, Tanzania</figcaption>
       </figure>
     </div>
@@ -38,7 +38,7 @@
       </div>
       <div>
         <figure class="editorial-image">
-          <img src="/img/founder/founder-03.jpeg" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="1200" height="900">
+          <img src="{{ asset('img/founder/founder-03.jpeg') }}" alt="Dr. Elizabeth Consoli receiving recognition from dermatology peers" loading="lazy" width="1200" height="900">
           <figcaption>Science · Community · Recognition</figcaption>
         </figure>
         <p class="body-copy">Skin of colour is ORIGINA's first scientific specialization — populations historically underrepresented within dermatological research, clinical evidence, and product development. It is our starting point, not our limitation.</p>
@@ -106,7 +106,7 @@
   <x-section id="founder" tone="sunk" eyebrow="06 · Founder" title="Dr. Elizabeth Consoli">
     <div class="founder-grid">
       <figure class="editorial-image editorial-image--portrait">
-        <img src="/img/founder/founder-01.jpeg" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
+        <img src="{{ asset('img/founder/founder-01.jpeg') }}" alt="Dr. Elizabeth Consoli in her clinical environment" loading="lazy" width="900" height="1200">
         <figcaption>Scientific direction · Dar es Salaam</figcaption>
       </figure>
       <div class="founder-copy">

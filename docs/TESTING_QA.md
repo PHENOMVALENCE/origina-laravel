@@ -1,53 +1,32 @@
-# Testing & QA
+# Testing and QA
 
-## Automated checks
+## Automated suite
 
-Run before a PR is ready:
+`PlatformTest` exercises real Laravel HTTP/service flows with fresh SQLite migrations: registration/verification, login/logout, inactive identity, reset/revocation, role escalation protection, customer record isolation, shopping through unpaid order creation, server-side totals, stock rollback, checkout retries, cancellation, manual receipts, lifecycle transitions, catalogue validation/archive, enquiries/consent/honeypot, manufacturing release/revoke, QR labels/exports, token API, Swagger protection, escaped publications and workspace rendering. `PublicSiteTest` preserves the institution's route/content/security baseline.
+
+SQLite confirms domain behavior but cannot validate MySQL row locking. CI additionally runs the platform suite against MySQL. A dedicated MySQL concurrency test launches separate workers competing for one stock unit; exactly one order must succeed. This test skips when running SQLite and uses a dedicated test database, never production.
+
+## Commands
 
 ```bash
 composer validate --strict
 composer lint:test
 composer analyse
 composer test
+npm ci
 npm run build
+composer audit
+npm audit
+php artisan route:cache
+php artisan view:cache
 ```
 
-Tests should cover public-route rendering, important content contracts and security headers without depending on an unapproved backend.
+Sandbox fallback for prohibited PHPStan worker sockets: `vendor/bin/phpstan analyse --debug --memory-limit=1G`. Do not weaken static analysis or hide errors.
 
-## Frontend parity review
+## Browser review
 
-For each migrated route, compare Laravel against `PHENOMVALENCE/origina-next` at minimum:
+Review institutional homepage, collection, product, bag, checkout, auth, customer overview/order/profile, admin overview/products/order/access/enquiries/batches/publications, Swagger and product verification. Use desktop ~1440, tablet ~768, mobile 375 and narrow 320px. Check horizontal overflow, image framing, heading hierarchy, readable contrast, accessible labels, keyboard focus and reduced motion. Tables intentionally scroll within their own container.
 
-- mobile (~375px);
-- tablet (~768px);
-- desktop (~1440px).
+Verify real CSRF protection through the browser; HTTP feature tests normally bypass CSRF middleware. Ensure full-page/private responses are not cached. Account/API/admin screens must be excluded from indexing. Test SMTP and actual QR packaging on staging before release.
 
-Check:
-
-- content order and copy;
-- typography and spacing hierarchy;
-- navigation/footer behaviour;
-- imagery, crops, captions and alt text;
-- interactive states;
-- keyboard focus and menu operation;
-- overflow, wrapping and layout shifts.
-
-A route is not complete while it is still a placeholder or has an undocumented visual/interaction difference from the approved Next.js implementation.
-
-
-## Motion and interaction QA
-
-For pages using the shared interaction layer, also verify:
-
-- scrolling remains native and responsive; there is no scroll lock outside an intentionally open modal menu;
-- sticky header and in-page navigation do not jump, overlap content or create layout shifts;
-- active in-page navigation follows the section in view and remains horizontally reachable on small screens;
-- viewport reveals occur once, remain subtle and never delay access to content;
-- desktop navigation panels open/close smoothly and remain fully operable by keyboard;
-- the mobile navigation traps focus while open, closes with Escape, restores focus appropriately and prevents background scrolling;
-- buttons, cards and links provide restrained state feedback without moving surrounding layout;
-- `prefers-reduced-motion: reduce` removes non-essential animation and smooth scrolling;
-- no interaction depends on hover alone;
-- motion remains responsive on a mid-range mobile viewport and does not introduce visible jank.
-
-When browser performance tooling is available, inspect long tasks and layout shifts while scrolling through the longest public routes. Prefer fixes that reduce JavaScript work and preserve compositor-friendly transform/opacity animation.
+No passing test is a claim of regulatory, clinical or scientific validation.
