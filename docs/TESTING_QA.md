@@ -1,108 +1,32 @@
-# Testing & QA
+# Testing and QA
 
-## Automated checks
+## Automated suite
 
-Run before a PR is ready:
+`PlatformTest` exercises real Laravel HTTP/service flows with fresh SQLite migrations: registration/verification, login/logout, inactive identity, reset/revocation, role escalation protection, customer record isolation, shopping through unpaid order creation, server-side totals, stock rollback, checkout retries, cancellation, manual receipts, lifecycle transitions, catalogue validation/archive, enquiries/consent/honeypot, manufacturing release/revoke, QR labels/exports, token API, Swagger protection, escaped publications and workspace rendering. `PublicSiteTest` preserves the institution's route/content/security baseline.
+
+SQLite confirms domain behavior but cannot validate MySQL row locking. CI additionally runs the platform suite against MySQL. A dedicated MySQL concurrency test launches separate workers competing for one stock unit; exactly one order must succeed. This test skips when running SQLite and uses a dedicated test database, never production.
+
+## Commands
 
 ```bash
 composer validate --strict
 composer lint:test
 composer analyse
 composer test
+npm ci
 npm run build
+composer audit
+npm audit
+php artisan route:cache
+php artisan view:cache
 ```
 
-Automated coverage should verify:
+Sandbox fallback for prohibited PHPStan worker sockets: `vendor/bin/phpstan analyse --debug --memory-limit=1G`. Do not weaken static analysis or hide errors.
 
-- dedicated public routes;
-- every config-backed institutional route;
-- every config-backed division route;
-- every future horizon route;
-- absence of the old placeholder copy;
-- required content metadata;
-- sitemap;
-- environment-aware robots;
-- branded 404;
-- security headers.
+## Browser review
 
-## Browser matrix
+Review institutional homepage, collection, product, bag, checkout, auth, customer overview/order/profile, admin overview/products/order/access/enquiries/batches/publications, Swagger and product verification. Use desktop ~1440, tablet ~768, mobile 375 and narrow 320px. Check horizontal overflow, image framing, heading hierarchy, readable contrast, accessible labels, keyboard focus and reduced motion. Tables intentionally scroll within their own container.
 
-Review at minimum:
+Verify real CSRF protection through the browser; HTTP feature tests normally bypass CSRF middleware. Ensure full-page/private responses are not cached. Account/API/admin screens must be excluded from indexing. Test SMTP and actual QR packaging on staging before release.
 
-- narrow mobile: 320–375px;
-- tablet: ~768px;
-- desktop: ~1440px.
-
-Use at least one Chromium-based browser and, where practical, Safari/WebKit behavior for mobile-sensitive interactions.
-
-## Visual/content review
-
-Check:
-
-- institutional versus division color register;
-- title/heading hierarchy;
-- body measure and spacing rhythm;
-- content status wording;
-- navigation/footer behavior;
-- imagery, crops, captions and alt text;
-- legal/contact empty states;
-- custom errors;
-- overflow and wrapping;
-- layout shift while images load.
-
-## Interaction QA
-
-Verify:
-
-- scrolling remains native;
-- no background scroll while mobile navigation is open;
-- mobile focus stays within the modal menu;
-- Escape closes open navigation;
-- desktop navigation works by keyboard;
-- sticky header/section navigation do not overlap content;
-- active section state follows the page;
-- internal navigation progress never blocks interaction;
-- viewport reveals are subtle and one-time;
-- no interaction requires hover;
-- reduced-motion removes non-essential animation/smooth scrolling.
-
-## Accessibility QA
-
-Review:
-
-- landmarks and heading order;
-- visible focus;
-- touch-target practicality;
-- contrast on every institutional/division ground;
-- alternative text;
-- color-independent meaning;
-- keyboard-only completion of all public interactions;
-- zoom/reflow at 200%.
-
-## Asset/performance QA
-
-Inspect:
-
-- no GitHub/raw hotlinks;
-- correct `ASSET_URL` behavior where configured;
-- no missing favicon/CSS/JS/images;
-- hero image priority;
-- lazy below-the-fold imagery;
-- long tasks while scrolling;
-- cumulative layout shift;
-- avoidable third-party requests.
-
-## Release QA
-
-Before production promotion, additionally verify:
-
-- `APP_DEBUG=false`;
-- canonical `APP_URL`;
-- production robots allows intended crawling;
-- sitemap uses canonical host;
-- HTTPS;
-- health endpoint;
-- 404/500/503 presentation;
-- logging/monitoring/rollback ownership.
-
-Do not claim browser, performance or accessibility review has passed unless it was actually performed.
+No passing test is a claim of regulatory, clinical or scientific validation.

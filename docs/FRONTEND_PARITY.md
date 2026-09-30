@@ -54,3 +54,8 @@ See `ASSET_DELIVERY.md`.
 ## Exit condition
 
 Frontend completion requires real public pages, coherent institutional design, green quality gates and final responsive/accessibility review. Backend work remains gated separately.
+
+
+## Operational scope update — 30 September 2026
+
+The owner has activated backend, shopping, accounts, administration and API testing. Earlier frontend-only boundaries in this document describe the historical migration phase. Current operational behavior and boundaries are defined in ADR 0002, ARCHITECTURE.md, COMMERCE.md and ADMIN_HANDBOOK.md. Preserve the approved institutional frontend.

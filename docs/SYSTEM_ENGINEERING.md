@@ -49,3 +49,8 @@ Changes affecting architecture, security posture, data handling, backend scope, 
 Durable technical decisions belong in `docs/adr/`.
 
 Do not claim production readiness until roadmap exit criteria, CI, browser review, accessibility, security and deployment checks are complete.
+
+
+## Operational scope update — 30 September 2026
+
+The owner has activated backend, shopping, accounts, administration and API testing. Earlier frontend-only boundaries in this document describe the historical migration phase. Current operational behavior and boundaries are defined in ADR 0002, ARCHITECTURE.md, COMMERCE.md and ADMIN_HANDBOOK.md. Preserve the approved institutional frontend.

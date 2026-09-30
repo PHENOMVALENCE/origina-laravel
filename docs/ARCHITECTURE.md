@@ -1,82 +1,40 @@
-# Architecture
+# Platform architecture
 
-## Current architecture
+## Domain boundaries
 
-- Laravel 12 / PHP 8.3+;
-- Blade server-rendered public views;
-- Vite for CSS/JS assets;
-- lightweight progressive-enhancement JavaScript;
-- config-backed public content during the frontend phase;
-- PHPUnit, Pint and Larastan quality gates.
+| Domain | Records | Enforcement |
+|---|---|---|
+| Identity | users, password_reset_tokens, personal_access_tokens | hashed passwords, verification, active account checks, admin role, expiring tokens |
+| Catalogue | products | approved content, positive integer TZS price, nonnegative available stock, draft/published visibility |
+| Shopping | session cart | quantity 1–99, up to 50 distinct products; availability reviewed at placement |
+| Commerce | orders, order_items | Checkout and OrderWorkflow services; transactions, locks, immutable price/name/SKU snapshots |
+| Communications | enquiries, publications | consent, throttling, honeypot, escaped text, explicit editorial review |
+| Manufacturing | manufacturing_batches, product_units | Traceability service; draft, quality review, release, unit revoke |
+| Verification | verification_scans | random token lookup, active/released/nonexpired predicate, pseudonymous visitor hash |
+| Audit | audit_logs | actor/action/subject/change metadata on operational mutations |
 
-## Public frontend
+Foreign keys preserve historical records. Product removal is unpublishing rather than deletion. Users with orders/publications are not deleted through routine administration. There are no generic mass-assignment endpoints.
 
-The public frontend has two rendering paths.
+## Rendering
 
-### Bespoke editorial pages
+Public institution pages retain bespoke Blade compositions and the approved content registry. Catalogue and publication pages use Eloquent records. Customer/admin layouts are dedicated workspaces sharing the institution's fonts, square geometry, hairline rules and semantic colour tokens. No SPA state store or animation framework is required.
 
-Home, About, Labs and B-Melanox use dedicated Blade views because their composition is unusually specific.
+Business services are reused by web and JSON controllers. Web forms use Laravel CSRF middleware, sessions and validation redirects. APIs accept bearer tokens only: Sanctum's session guard is disabled for the API so cookie-authenticated web sessions cannot bypass CSRF through JSON routes. Customer order reads/cancellations enforce ownership with a 404 response. Every admin group also checks active and verified identity and the admin role.
 
-### Content-driven institutional pages
+## Concurrency and invariants
 
-`PublicPageController` resolves route content from `config/origina_content.php` and renders `resources/views/pages/content.blade.php`.
+Checkout locks the user before checking the unique idempotency key. Product rows are locked in ID order, checked for publication and stock, and decremented inside the order transaction. A failed line rolls back the whole purchase. Keys identify a purchase attempt; retries reuse the same key and return the original order. A key belonging to another account cannot disclose its order.
 
-The content renderer is intentionally constrained to an editorial vocabulary rather than acting as a general page builder.
+Order transitions lock the order; cancellation locks products in ID order and returns inventory exactly once. Payment confirmation requires a unique reference. Confirmed orders require recorded payment; shipping requires a tracking reference. Paid cancellation is blocked because no automated refund reconciliation exists.
 
-Route flow:
+Inventory edits are absolute available-stock reconciliation. Administrators must reconcile quantities against outstanding orders rather than re-entering gross warehouse inventory. Batches and release decisions lock the batch before generating/activating units. Revocation is irreversible through routine UI.
 
-```text
-routes/web.php
-  -> PublicPageController
-  -> config/origina_content.php
-  -> pages/content.blade.php
-  -> shared components
-```
+## Side effects and operations
 
-See `FRONTEND_ARCHITECTURE.md`.
+Order-received mail is registered after the transaction commits; mail failures are reported without undoing a valid order. Account verification/password-reset messages use native Laravel notifications. Configure reliable SMTP and monitor transport errors. There is no durable mail retry queue in this release; order history remains authoritative if delivery fails.
 
-## Navigation/content registries
+Private route responses use no-store/noindex. Uploaded images are validated raster formats, stored with generated names on the public disk and served through the storage link. Product verification tokens never appear in normal model serialization; approved print exports intentionally expose them to admins and are audited.
 
-- `config/origina.php` — navigation, footer and division registry;
-- `config/origina_content.php` — public institutional/division/future page content;
-- dedicated views — composition-heavy pages.
+## Source references
 
-The eventual backend/CMS may replace selected config content, but frontend templates should not assume persistence yet.
-
-## Asset architecture
-
-Vite manages bundled CSS/JS. Public editorial media is repository-managed and referenced through `asset()`.
-
-Optional CDN delivery is configured through `ASSET_URL`, not hard-coded hostnames.
-
-See `ASSET_DELIVERY.md`.
-
-## Metadata and discovery
-
-The shared layout provides canonical and social metadata. Public endpoints provide:
-
-- `/robots.txt`;
-- `/sitemap.xml`;
-- `/up` Laravel health endpoint.
-
-See `SEO_METADATA.md`.
-
-## Boundaries
-
-Do not add database, auth, admin persistence, APIs, enquiry persistence or commerce until explicitly approved.
-
-When backend work begins, keep domain boundaries clear around content, identity, enquiries, catalogue, commerce, payments, orders, manufacturing/traceability and administration.
-
-Durable architecture changes require an ADR.
-
-## Principles
-
-- server-render first;
-- business logic out of Blade;
-- controlled reusable primitives;
-- semantic design tokens;
-- progressive enhancement;
-- graceful no-JavaScript behavior;
-- accessibility/security defaults;
-- external integrations behind explicit boundaries;
-- simple Laravel-native solutions before additional frameworks.
+Laravel 12 native [Sanctum](https://laravel.com/docs/12.x/sanctum) and [email verification](https://laravel.com/docs/12.x/verification) APIs. The approved `origina-next` source remains an institutional structure/content reference. Preserve institutional content governance separately from commercial records.

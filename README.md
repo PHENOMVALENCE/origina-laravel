@@ -1,65 +1,43 @@
-# ORIGINA — Laravel
+# ORIGINA™ Laravel platform
 
-Laravel implementation of ORIGINA™, a science-led multi-divisional institution built around Biology First™, research, evidence, formulation science and long-term institutional capability.
+ORIGINA is a science-led institution headquartered in Dar es Salaam. Biology First™ governs the public experience; commerce and operations sit beneath that institutional layer.
 
-## Current phase
+## Stack
 
-**Frontend completion before backend.**
-
-The public frontend now includes:
-
-- Laravel 12 / Blade / Vite application shell;
-- complete institutional route architecture;
-- dedicated Home, About, Labs and B-Melanox experiences;
-- content-driven Founder, Africa, Science, Evidence, Platforms, IP, divisions, future, contact and legal surfaces;
-- institution/division semantic design system;
-- responsive navigation and restrained progressive interactions;
-- local/CDN-ready media delivery;
-- canonical/social metadata, sitemap and robots;
-- branded 404/500/503 states;
-- security headers and route/content tests.
-
-Still intentionally deferred:
-
-- database/persistence;
-- authentication/authorization;
-- admin/CMS persistence;
-- APIs/external integrations;
-- enquiry storage/email workflow;
-- catalogue, cart, checkout, payments, orders, inventory and fulfilment.
-
-## Reference relationship
-
-`PHENOMVALENCE/origina-next` remains an approved source for content, information architecture and historical frontend intent.
-
-The Laravel design system is the active implementation standard under the approved institutional frontend revision.
+Laravel 12 / PHP 8.3+, Blade, Vite, MySQL in production, SQLite for local development, Sanctum bearer API, locally bundled Swagger UI and printable serialized QR labels. Source Serif 4 + Source Sans 3, semantic institution/division tokens, server-rendered screens and progressive enhancement.
 
 ## Local setup
 
 ```bash
-git clone https://github.com/PHENOMVALENCE/origina-laravel.git
-cd origina-laravel
 composer install
 cp .env.example .env
 php artisan key:generate
-npm install
+php artisan migrate
+php artisan storage:link
+npm ci
 npm run build
+php artisan origina:admin
 php artisan serve
 ```
 
-Use `npm run dev` during active frontend development.
+No default credentials or fabricated saleable products. Add approved catalogue records through `/admin/products`. For local checkout testing set `COMMERCE_CHECKOUT_ENABLED=true`, a deliberate `COMMERCE_SHIPPING_FEE` and clear `COMMERCE_PAYMENT_INSTRUCTIONS` in `.env`. Do not copy test credentials into production.
 
-For normal contribution work, branch from the current integration baseline according to `docs/GIT_WORKFLOW.md`.
+Local mail defaults to the Laravel log mailer. Configure real SMTP to deliver verification/reset/order messages. The administrator CLI creates a verified account interactively; customer registration requires email verification. Institutional pages remain public.
 
-## Optional asset CDN
+## Surfaces
 
-Set `ASSET_URL` only when an approved CDN/static asset origin exists:
-
-```dotenv
-ASSET_URL=https://cdn.example.com
-```
-
-Leave it empty for same-origin/local assets.
+| Route | Purpose |
+|---|---|
+| `/`, `/science`, `/labs`, `/divisions`, `/founder`, `/future` | Institution and scientific information |
+| `/shop`, `/shop/{slug}`, `/cart`, `/checkout` | Product discovery through unpaid order placement |
+| `/account`, `/account/orders`, `/account/profile` | Customer dashboard, history, tracking and security |
+| `/admin` | Operational overview |
+| `/admin/products`, `/admin/orders`, `/admin/customers` | Catalogue, fulfilment and access management |
+| `/admin/enquiries`, `/admin/publications` | Incoming conversations and approved publications |
+| `/admin/batches`, `/admin/audit` | Manufacturing, units, labels and audit history |
+| `/admin/api-docs` | Protected Swagger testing interface |
+| `/api/v1` | JSON API; see OpenAPI contract |
+| `/enquire`, `/verify/{token}`, `/updates` | Enquiries, serialized product records and publications |
 
 ## Quality gates
 
@@ -68,27 +46,24 @@ composer validate --strict
 composer lint:test
 composer analyse
 composer test
+npm ci
 npm run build
+composer audit
+npm audit
 ```
+
+If a restricted local sandbox prevents PHPStan spawning workers, `vendor/bin/phpstan analyse --debug --memory-limit=1G` runs the same analysis serially. CI uses the normal command.
 
 ## Documentation
 
-Read `AGENTS.md` before implementation.
+Start with [platform architecture](docs/ARCHITECTURE.md), [shopping journey](docs/COMMERCE.md), [administrator handbook](docs/ADMIN_HANDBOOK.md), [API testing](docs/API_TESTING.md), [traceability](docs/TRACEABILITY.md), [deployment](docs/DEPLOYMENT.md) and [production checklist](docs/PRODUCTION_CHECKLIST.md).
 
-Core documentation:
+Frontend references remain in `DESIGN.md`, `docs/DESIGN_SYSTEM.md`, `docs/FRONTEND_ARCHITECTURE.md`, `docs/CONTENT_GOVERNANCE.md` and `docs/FRONTEND_PARITY.md`. Operational scope is authorized in [ADR 0002](docs/adr/0002-operational-platform.md).
 
-- `DESIGN.md` / `docs/DESIGN_SYSTEM.md`
-- `docs/FRONTEND_ARCHITECTURE.md`
-- `docs/FRONTEND_SCOPE.md`
-- `docs/CONTENT_GOVERNANCE.md`
-- `docs/ASSET_DELIVERY.md`
-- `docs/SEO_METADATA.md`
-- `docs/ACCESSIBILITY.md`
-- `docs/TESTING_QA.md`
-- `docs/DEPLOYMENT.md`
-- `docs/ROADMAP.md`
-- `docs/GIT_WORKFLOW.md`
+## Release boundaries
 
-Git history belongs to the human maintainer. Do not add AI/agent/bot authorship or co-author trailers.
+Checkout creates unpaid orders and reserves inventory. Administrators record actual reconciled receipts; the application does not yet connect to an online payment gateway or automate refunds. Refunds must be reconciled before a future refund workflow is enabled. Shipping uses one configured TZS fee for the supported Tanzanian delivery area. No tax engine, carrier integration, variant/MOQ system or ERP is claimed.
 
-`main` is the accepted baseline, `masterchanges` is the integration branch, and active work uses focused short-lived branches.
+A complete verified-code match cannot independently establish authenticity of physical contents. Manufacturing is batch/serialization/QC release management, not a certified manufacturing execution system.
+
+All contribution ownership remains with Valence Mwigani. Work integrates through `masterchanges`; open a PR and do not auto-merge.

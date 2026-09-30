@@ -52,3 +52,8 @@ See `CONTENT_GOVERNANCE.md`.
 All approved public route families now have real frontend implementations through either dedicated views or the shared institutional renderer.
 
 Final frontend completion still requires browser/responsive/accessibility review and green quality gates before backend work begins.
+
+
+## Operational scope update — 30 September 2026
+
+The owner has activated backend, shopping, accounts, administration and API testing. Earlier frontend-only boundaries in this document describe the historical migration phase. Current operational behavior and boundaries are defined in ADR 0002, ARCHITECTURE.md, COMMERCE.md and ADMIN_HANDBOOK.md. Preserve the approved institutional frontend.

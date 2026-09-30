@@ -1,68 +1,29 @@
-# Roadmap
+# Current platform roadmap
 
-## Foundation — complete
+The owner's 30 September 2026 instruction activates backend, commerce, accounts, administration and API testing. ADR 0002 supersedes the earlier frontend-only gate.
 
-- [x] Laravel 12 / Blade / Vite foundation;
-- [x] repository, agent and Git rules;
-- [x] CI, Pint, Larastan and PHPUnit baseline;
-- [x] security-header baseline;
-- [x] approved local brand/founder/product assets;
-- [x] shared navigation/footer information architecture.
+## Implemented
 
-## Frontend implementation — substantially complete
+- Existing institution/science/division/future/legal frontend preserved.
+- Product catalogue, session bag, verified-user checkout and server-priced unpaid orders.
+- Customer overview/history/order tracking/profile/password controls.
+- Accounts, email verification, password reset, active/role checks and expiring Sanctum tokens.
+- Admin overview, products, inventory reconciliation, orders, receipt confirmation, customer access, enquiries and publications.
+- Manufacturing batches, quality review/release, serial generation, printable QR/CSV exports and revoke/verification.
+- Operational audit records, private no-store/noindex responses, scheduler cleanup.
+- Versioned JSON API and protected locally bundled Swagger interface.
+- Transactional regression tests, locked dependencies and production configuration checker/runbooks.
 
-- [x] homepage, About and Labs;
-- [x] Founder and Africa Originating;
-- [x] Biology First™, Science and scientific platforms;
-- [x] evidence, quality, regulatory and responsible-science pages;
-- [x] intellectual-property surface;
-- [x] divisions index;
-- [x] B-Melanox, BettyWorld, BValence, DIVINE, NOVIA and Skin Safari;
-- [x] Future index and future horizon pages;
-- [x] Updates archive state;
-- [x] Contact frontend without false backend submission behavior;
-- [x] Privacy and Terms;
-- [x] canonical/OG/Twitter metadata;
-- [x] sitemap and environment-aware robots;
-- [x] custom 404/500/503 states;
-- [x] CDN-ready asset boundary;
-- [x] navigation/loading interaction layer;
-- [x] frontend architecture, asset, SEO, content and deployment documentation.
+## Release gates
 
-## Frontend exit criteria
+Complete the production checklist on the actual host: database concurrency, SMTP, approved catalogue/pricing/delivery/terms, backups/restore, domain/TLS, scheduler, physical labels and smoke tests. Code passing checks is not a production deployment.
 
-- [x] no intentionally routed public placeholder pages;
-- [x] repository-managed media uses local/CDN-ready asset URLs;
-- [x] metadata, sitemap and robots baseline;
-- [x] route/content/error-state automated tests authored;
-- [x] CI green on the frontend-completion implementation head;
-- [ ] 320/375px mobile browser review;
-- [ ] ~768px tablet browser review;
-- [ ] ~1440px desktop browser review;
-- [ ] keyboard/focus and WCAG 2.2 AA review;
-- [ ] image crop/quality review;
-- [ ] longest-page performance/layout-shift review;
-- [ ] production environment/release checklist review.
+## Future integrations
 
-## Backend gate
-
-Do not begin persistence/auth/admin/commerce simply because the frontend routes exist.
-
-Before backend implementation, approve:
-
-- domain/data model;
-- identity and authorization model;
-- content governance/CMS needs;
-- enquiry workflow and retention;
-- privacy/data-protection requirements;
-- product/catalogue model;
-- payments/order scope;
-- manufacturing/traceability model where applicable;
-- operational ownership and deployment environment.
-
-## Later phases
-
-1. platform backend — content, identity, enquiries and administration;
-2. commerce — catalogue, inventory, cart, checkout, payments, orders and fulfilment;
-3. manufacturing/traceability — batches, serialized units, authenticity and audit workflows;
-4. production operations — observability, backups, incident response and release operations.
+- Approved online payment provider and signed webhook reconciliation.
+- Refund/cancellation reconciliation beyond unpaid pending orders.
+- Delivery zones/carriers/tax requirements/discounts/variants where explicitly required.
+- Durable queued mail retries and external observability.
+- Stronger external audit retention and manufacturing evidence-file governance.
+- Additional API management endpoints where a real client needs them.
+- Advanced traceability/fraud/ERP only with documented business scope.

@@ -4,7 +4,7 @@
 
 This repository is the Laravel implementation of ORIGINA™.
 
-Current scope is **frontend completion first**. Do not add persistence, authentication, APIs, commerce, payments, admin/CMS behaviour, enquiry persistence or external integrations unless the owner explicitly expands scope.
+The owner expanded scope on 30 September 2026 to persistence, authentication, commerce, customer/admin dashboards, manufacturing/authenticity and Swagger API testing. Follow ADR 0002 and operational documentation. Preserve the completed institutional frontend. External payment integrations require actual merchant configuration; never simulate successful payment.
 
 ## Source of truth
 
