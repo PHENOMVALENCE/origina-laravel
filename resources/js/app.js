@@ -424,3 +424,9 @@ document.querySelectorAll('img[data-image]').forEach((image) => {
   image.addEventListener('load', markLoaded, { once: true });
   image.addEventListener('error', markLoaded, { once: true });
 });
+
+// Native confirmations keep destructive operations deliberate without a JS dependency.
+document.addEventListener('click', (event) => {
+  const trigger = event.target.closest('[data-confirm]');
+  if (trigger && !window.confirm(trigger.dataset.confirm)) event.preventDefault();
+});

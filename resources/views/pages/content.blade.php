@@ -5,6 +5,7 @@
 @section('body-class', $page['body_class'] ?? '')
 
 @section('content')
+@if(request()->routeIs('contact'))<div class="site-shell contact-action"><a class="button" href="{{ route('enquire') }}">Send an enquiry →</a></div>@endif
   @php
     $hero = $page['hero'] ?? [];
     $heroDark = (bool) ($hero['dark'] ?? false);

@@ -1,0 +1,7 @@
+@extends('layouts.portal')
+@section('workspace','Operations')
+@section('eyebrow','ORIGINA / Operations')
+@section('title','Catalogue')
+@section('heading','A precise product catalogue.')
+@section('subtitle','Manage approved information, pricing and available inventory.')
+@section('content')<div class="section-top"><form method="get" class="filter-row"><x-field name="q" label="Search products" :value="request('q')"/><button class="button">Search</button></form><a href="{{ route('admin.products.create') }}" class="button">Add product +</a></div><section class="workspace-panel"><div class="table-scroll"><table class="data-table"><thead><tr><th>Product</th><th>Division</th><th>Price</th><th>Available</th><th>Visibility</th><th>Manage</th></tr></thead><tbody>@forelse($products as $product)<tr><td><strong>{{ $product->name }}</strong><small class="block">{{ $product->sku }}</small></td><td>{{ $product->division }}</td><td>TZS {{ number_format($product->price) }}</td><td>{{ $product->stock }}</td><td><span class="badge">{{ $product->published?'Published':'Draft' }}</span></td><td><a href="{{ route('admin.products.edit',$product) }}">Edit →</a><form method="post" action="{{ route('admin.products.archive',$product) }}">@csrf<button class="text-button" data-confirm="Remove this product from sale?">Archive</button></form></td></tr>@empty<tr><td colspan="6" class="empty-state">No products. Add approved catalogue records to begin.</td></tr>@endforelse</tbody></table></div>{{ $products->links() }}</section>@endsection

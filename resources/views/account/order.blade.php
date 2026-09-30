@@ -1,0 +1,5 @@
+@extends('layouts.portal')
+@section('title','Order #'.$order->id)
+@section('heading','Order #'.str_pad((string)$order->id,6,'0',STR_PAD_LEFT))
+@section('subtitle','Every step, clearly recorded.')
+@section('content')<ol class="order-steps">@foreach(['pending'=>'Placed','confirmed'=>'Confirmed','processing'=>'Prepared','shipped'=>'Dispatched','delivered'=>'Delivered'] as $stage=>$label)<li @class(['current'=>$order->status===$stage])>@if($order->status===$stage)<strong>{{ $label }}</strong>@else{{ $label }}@endif</li>@endforeach</ol>@if($order->status==='cancelled')<div class="notice">This order has been cancelled.</div>@endif<x-order-detail :order="$order"/>@if($order->payment_status==='unpaid'&&$order->status!=='cancelled')<div class="notice"><strong>Payment is pending</strong><p>{{ config('commerce.payment_instructions') }}</p></div>@endif @if($order->status==='pending'&&$order->payment_status==='unpaid')<form method="post" action="{{ route('account.orders.cancel',$order) }}">@csrf<button class="button button--secondary" data-confirm="Cancel this unpaid order and release its reserved stock?">Cancel unpaid order</button></form>@endif @endsection

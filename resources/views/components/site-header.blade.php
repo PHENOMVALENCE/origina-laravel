@@ -49,7 +49,9 @@
     </nav>
 
     <div class="site-header__actions">
-      <a class="button button--compact" href="/contact">Enquiries</a>
+      <a class="header-commerce" href="{{ route('shop') }}">Shop</a>
+      <a class="header-commerce" href="{{ route('cart') }}">Bag <span aria-label="items">({{ array_sum(session('cart',[])) }})</span></a>
+      <a class="header-commerce header-commerce--account" href="{{ auth()->check()?route('account.dashboard'):route('login') }}">{{ auth()->check()?'Account':'Sign in' }}</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu" data-menu-toggle>
         <span class="sr-only" data-menu-label>Open navigation</span>
         <span aria-hidden="true" data-menu-icon>☰</span>
@@ -82,7 +84,7 @@
           <a href="{{ $item['href'] }}" class="mobile-nav__direct">{{ $item['label'] }}</a>
         @endif
       @endforeach
-      <a href="/contact" class="button mobile-nav__cta">Contact ORIGINA</a>
+      <a href="{{ route('shop') }}" class="mobile-nav__direct">The collection</a><a href="{{ route('cart') }}" class="mobile-nav__direct">Your bag</a><a href="{{ auth()->check()?route('account.dashboard'):route('login') }}" class="mobile-nav__direct">Your account</a><a href="{{ route('enquire') }}" class="button mobile-nav__cta">Contact ORIGINA</a>
     </nav>
   </div>
 </header>
