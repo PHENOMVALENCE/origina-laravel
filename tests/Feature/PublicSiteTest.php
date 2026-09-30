@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PublicSiteTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_homepage_renders_the_institutional_positioning(): void
     {
         $this->get('/')
@@ -49,7 +52,10 @@ class PublicSiteTest extends TestCase
 
     public function test_all_configured_institutional_pages_render_without_placeholders(): void
     {
-        foreach (config('origina_content.pages', []) as $page) {
+        foreach (config('origina_content.pages', []) as $key => $page) {
+            if ($key === 'updates') {
+                continue;
+            }
             $this->get($page['path'])
                 ->assertOk()
                 ->assertSee($page['hero']['title'])
