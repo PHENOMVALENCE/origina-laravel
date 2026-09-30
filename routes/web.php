@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,6 @@ $institutionalPages = [
     '/divisions' => ['divisions', 'divisions'],
     '/future' => ['future', 'future'],
     '/contact' => ['contact', 'contact'],
-    '/updates' => ['updates', 'updates'],
     '/privacy' => ['privacy', 'privacy'],
     '/terms' => ['terms', 'terms'],
 ];
@@ -56,3 +56,7 @@ foreach (array_keys(config('origina_content.future', [])) as $contentKey) {
 
 Route::get('/robots.txt', [PublicPageController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [PublicPageController::class, 'sitemap'])->name('sitemap');
+
+require __DIR__.'/platform.php';
+
+Route::get('/updates', [PublicationController::class, 'index'])->name('updates');

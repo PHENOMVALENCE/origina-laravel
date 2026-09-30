@@ -13,6 +13,11 @@ class SecurityHeaders
         /** @var Response $response */
         $response = $next($request);
 
+        if ($request->is('admin*', 'account*', 'checkout*', 'cart*', 'api*', 'verify*', 'login', 'register', '*password*', 'email*')) {
+            $response->headers->set('Cache-Control', 'private, no-store');
+            $response->headers->set('X-Robots-Tag', 'noindex, nofollow');
+        }
+
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('X-Frame-Options', 'DENY');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');

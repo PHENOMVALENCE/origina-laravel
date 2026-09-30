@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Publication;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +28,7 @@ final class PublicPageController
     public function robots(): Response
     {
         $body = app()->environment('production')
-            ? "User-agent: *\nAllow: /\nSitemap: ".url('/sitemap.xml')."\n"
+            ? "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /account\nDisallow: /cart\nDisallow: /checkout\nDisallow: /api\nDisallow: /verify\nSitemap: ".url('/sitemap.xml')."\n"
             : "User-agent: *\nDisallow: /\n";
 
         return response($body, 200)
@@ -35,7 +37,13 @@ final class PublicPageController
 
     public function sitemap(): Response
     {
-        $urls = ['/', '/about', '/labs', '/divisions/b-melanox'];
+        $urls = ['/', '/about', '/labs', '/divisions/b-melanox', '/shop'];
+        foreach (Product::where('published', true)->cursor() as $product) {
+            $urls[] = '/shop/'.$product->slug;
+        }
+        foreach (Publication::where('status', 'published')->where('published_at', '<=', now())->cursor() as $publication) {
+            $urls[] = '/updates/'.$publication->slug;
+        }
 
         foreach (['pages', 'divisions', 'future'] as $collection) {
             $pages = config('origina_content.'.$collection, []);
