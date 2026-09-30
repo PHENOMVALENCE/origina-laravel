@@ -24,7 +24,7 @@ class CreateAdmin extends Command
                 $this->error($error);
             }
 
-return self::FAILURE;
+            return self::FAILURE;
         }
         DB::transaction(function () use ($data): void {
             $user = User::create($data);

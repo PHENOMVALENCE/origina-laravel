@@ -92,6 +92,6 @@ class TraceabilityController
             $scans = VerificationScan::where('product_unit_id', $unit->id)->count();
         }
 
-        return view('shop.verify',compact('unit','valid','scans'));
+        return view('shop.verify', compact('unit', 'valid', 'scans'));
     }
 }

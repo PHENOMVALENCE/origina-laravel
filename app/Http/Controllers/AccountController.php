@@ -49,6 +49,6 @@ class AccountController
         } $user->save();
         $request->session()->regenerate();
 
-        return back()->with('status','Profile updated.');
+        return back()->with('status', 'Profile updated.');
     }
 }
