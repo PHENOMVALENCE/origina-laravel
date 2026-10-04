@@ -4,9 +4,15 @@ Contract: [`openapi.json`](openapi.json), OpenAPI 3.0.3. Runtime routes: `routes
 
 ## Authentication
 
-Sign in to the administrator web workspace to open Swagger. Send `POST /api/v1/tokens` with email, password and device_name for a verified active account. The returned token expires after eight hours. Paste it into Authorize as a bearer token. Do not commit or share tokens, and do not save them in Swagger authorization persistence. `DELETE /api/v1/tokens/current` revokes the current token. Password changes/reset and account deactivation revoke existing tokens.
+Sign in to the administrator web workspace to open Swagger. Send `POST /api/v1/tokens` with email, password and device_name for a verified active account. The returned token expires after eight hours. Paste it into Authorize as an opaque HTTP bearer token. Do not commit or share tokens, and do not save them in Swagger authorization persistence. `DELETE /api/v1/tokens/current` revokes the current token. Password changes/reset and account deactivation revoke existing tokens.
 
 API bearer authentication is independent of the web session. Customer tokens cannot operate administrator routes; administrators do not bypass ownership on customer-specific routes and should use `/admin/orders` to inspect all orders.
+
+## Contract parity
+
+Automated contract tests validate both directions: every runtime `/api/v1` route must have a matching OpenAPI method/path, and every OpenAPI operation must resolve to a real Laravel route. Protected operations must explicitly declare `bearerAuth`; administrator operations must use the Administration tag and document the `403` role failure. This prevents stale Swagger operations from surviving after runtime routes are removed or changed.
+
+Laravel Sanctum personal access tokens are opaque bearer credentials, not JWTs. Client tooling must treat the token as an opaque secret and must not depend on JWT claims or decoding behavior.
 
 ## Endpoints
 
@@ -44,4 +50,4 @@ Use existing staging product IDs. Generate a new UUID for each new purchase; reu
 
 ## Required regression cases
 
-Test expired/revoked tokens, unverified accounts, cross-customer order IDs, unpublished products, insufficient stock, duplicate checkout keys, paid cancellation, invalid status jumps and duplicate receipt references. Automated coverage is in `tests/Feature/PlatformTest.php`; OpenAPI path coverage is checked against the route registry.
+Test expired/revoked tokens, unverified accounts, cross-customer order IDs, unpublished products, insufficient stock, duplicate checkout keys, paid cancellation, invalid status jumps and duplicate receipt references. Automated flow coverage is in `tests/Feature/PlatformTest.php`; bidirectional contract/security coverage is in the OpenAPI contract tests.
