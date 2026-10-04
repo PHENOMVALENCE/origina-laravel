@@ -19,11 +19,13 @@
 | pending | confirmed | payment recorded as paid |
 | pending | cancelled | unpaid; reserved stock returned |
 | confirmed | processing | paid confirmation already established |
-| processing | shipped | dispatch/tracking reference required |
+| processing | shipped | nonblank dispatch/tracking reference required |
 | shipped | delivered | explicit administrator action |
 | delivered / cancelled | none | terminal |
 
 Customer cancellation uses the same workflow service as admin/API operations. Paid cancellation is blocked until a proper refund process exists. Do not mark an order cancelled externally without reconciling receipt and stock.
+
+Operational references are enforced again at the domain-service boundary, not only in HTTP validation. Payment and tracking references are trimmed before persistence, blank values are rejected, and both are bounded to 150 characters. This protects direct service calls, CLI/testing usage and future integration adapters from bypassing controller validation.
 
 ## Money and inventory
 
