@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\Audit;
 use App\Services\OrderWorkflow;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -42,12 +43,22 @@ class AccountController
     {
         $data = $request->validate(['name' => 'required|string|max:100', 'current_password' => 'required|current_password', 'password' => ['nullable', 'confirmed', Password::min(12)->letters()->numbers()]]);
         $user = $request->user();
+        $nameChanged = $user->name !== $data['name'];
+        $passwordChanged = ! empty($data['password']);
         $user->name = $data['name'];
-        if (! empty($data['password'])) {
+        if ($passwordChanged) {
             $user->password = $data['password'];
             $user->tokens()->delete();
-        } $user->save();
+        }
+        $user->save();
+        if ($nameChanged) {
+            Audit::record('user.profile_updated', $user, ['name_changed' => true]);
+        }
+        if ($passwordChanged) {
+            Audit::record('user.password_changed', $user, ['api_tokens_revoked' => true]);
+        }
         $request->session()->regenerate();
+        $request->session()->regenerateToken();
 
         return back()->with('status', 'Profile updated.');
     }

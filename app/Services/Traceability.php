@@ -20,6 +20,9 @@ class Traceability
             if ($next === 'released' && $batch->expires_on && $batch->expires_on->isPast()) {
                 throw ValidationException::withMessages(['status' => 'Expired batches cannot be released.']);
             }
+            if ($next === 'released' && ! ProductUnit::where('manufacturing_batch_id', $batch->id)->exists()) {
+                throw ValidationException::withMessages(['status' => 'Generate serialized units before releasing this batch.']);
+            }
             $batch->update(['status' => $next, 'quality_notes' => $notes]);
             if ($next === 'released') {
                 ProductUnit::where('manufacturing_batch_id', $batch->id)->where('status', 'created')->update(['status' => 'active']);
