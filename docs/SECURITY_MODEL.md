@@ -8,7 +8,9 @@ Products/enquiries/publications use bounded validation and escaped Blade output.
 
 Money and inventory are recalculated inside database transactions. Ordered snapshots preserve commercial history. Locks protect placement/cancellation/lifecycle changes. Actual receipt references are unique. There is no gateway endpoint accepting arbitrary successful payment claims.
 
-Private/admin/API/cart/checkout/auth/verification responses are no-store/noindex. Existing security headers remain; production HTTPS receives HSTS. Final CSP and proxy trust must reflect actual approved asset/font/CDN hosts before launch. Enquiries reject a honeypot and are throttled. Verification uses random tokens and rate limiting; raw IP/device/location information is not stored in scan records.
+Private/admin/API/cart/checkout/auth/verification responses are no-store/noindex. Baseline headers include MIME sniffing protection, frame denial, strict-origin referrer policy, restrictive permissions policy, cross-origin opener/resource isolation and cross-domain policy denial. Production responses additionally emit a Content Security Policy that limits executable scripts and network connections to the ORIGINA origin, denies plugins and framing, restricts form submissions to the same origin, permits only the approved Google Fonts stylesheet/font hosts and upgrades insecure subresources. Production HTTPS also receives HSTS. Any future CDN, analytics, payment or other third-party browser integration must be deliberately added to the policy and reviewed before launch.
+
+Enquiries reject a honeypot and are throttled. Verification uses random tokens and rate limiting; raw IP/device/location information is not stored in scan records.
 
 Audit records cover operational mutations, receipt confirmation, access changes, batch releases, label exports and unit revocation. Application UI does not edit the audit trail, but privileged database operators can; this is not cryptographic immutability.
 
