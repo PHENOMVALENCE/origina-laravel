@@ -20,13 +20,13 @@ Open an order to review its immutable items and delivery details. Verify actual 
 
 ## Enquiries and publications
 
-Enquiries include name/email/topic/message and consent time. Mark new → in progress → closed as the team follows up. There is no automatic email response to the visitor beyond the submission acknowledgement on screen.
+Enquiries include name/email/topic/message and consent time. Incoming names/messages are trimmed and email addresses are normalized to lowercase before persistence. Receipt is audited with the enquiry record and topic only; message and email contents are deliberately not copied into the audit payload. Mark new → in progress → closed as the team follows up. There is no automatic email response to the visitor beyond the submission acknowledgement on screen.
 
-Publications provide draft/published news, research and update records with title, slug, summary and plain text body. A review checkbox requires explicit claims/rights/privacy review. Content is escaped; no arbitrary HTML or executable scripts are accepted. Unpublish by saving as draft. Scientific institutional pages remain maintained in Git under content review.
+Publications provide draft/published news, research and update records with title, slug, summary and plain text body. A review checkbox requires explicit claims/rights/privacy review. Content is escaped; no arbitrary HTML or executable scripts are accepted. Existing publication updates are serialized with a row lock so concurrent admin edits do not silently overwrite workflow state. The first publication timestamp remains stable while an already-published record is edited; moving back to draft clears it, and a later republish receives a new timestamp. Publication audit records include the prior and resulting state. Scientific institutional pages remain maintained in Git under content review.
 
 ## Manufacturing and authenticity
 
-Create a batch against a product with code, manufacturing date and optional expiry. Generate up to 500 serialized units per request while draft. Submit to quality review with notes/evidence references. Release only after physical quality evidence is approved; release activates non-revoked units. Download private CSV print data or open a unit's printable QR label. Revoke compromised units. See TRACEABILITY.md for the precise verification meaning.
+Create a batch against a product with code, manufacturing date and optional expiry. Generate up to 500 serialized units per request while draft. Submit to quality review with notes/evidence references. Release only after physical quality evidence is approved; release activates non-revoked units. Download private CSV print data or open a unit's printable QR label. Revoked units cannot be printed again and are excluded from subsequent label exports. Repeated revocation is rejected and does not create duplicate audit history. See TRACEABILITY.md for the precise verification meaning.
 
 ## Audit and API laboratory
 
