@@ -36,17 +36,37 @@ class PublicationController
 
     public function save(Request $request, ?Publication $publication = null): RedirectResponse
     {
-        $data = $request->validate(['title' => 'required|string|max:200', 'slug' => ['required', 'max:220', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('publications', 'slug')->ignore($publication?->id)], 'type' => 'required|in:news,research,update', 'summary' => 'required|string|max:1000', 'body' => 'required|string|max:50000', 'status' => 'required|in:draft,published', 'reviewed' => 'accepted']);
+        $data = $request->validate([
+            'title' => 'required|string|max:200',
+            'slug' => ['required', 'max:220', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('publications', 'slug')->ignore($publication?->id)],
+            'type' => 'required|in:news,research,update',
+            'summary' => 'required|string|max:1000',
+            'body' => 'required|string|max:50000',
+            'status' => 'required|in:draft,published',
+            'reviewed' => 'accepted',
+        ]);
         unset($data['reviewed']);
         $data['editor_id'] = $request->user()->id;
-        $data['published_at'] = $data['status'] === 'published' ? (($publication ? $publication->published_at : null) ?? now()) : null;
+
         DB::transaction(function () use ($publication, $data): void {
             if ($publication?->exists) {
-                $publication->update($data);
+                $publication = Publication::whereKey($publication->id)->lockForUpdate()->firstOrFail();
             } else {
-                $publication = Publication::create($data);
-            } Audit::record('publication.saved', $publication, ['status' => $publication->status]);
-        });
+                $publication = new Publication;
+            }
+
+            $fromStatus = $publication->exists ? $publication->status : null;
+            $publishedAt = $publication->published_at;
+            $data['published_at'] = $data['status'] === 'published' ? ($publishedAt ?? now()) : null;
+
+            $publication->fill($data)->save();
+
+            Audit::record('publication.saved', $publication, [
+                'from_status' => $fromStatus,
+                'to_status' => $publication->status,
+                'type' => $publication->type,
+            ]);
+        }, 3);
 
         return redirect()->route('admin.publications')->with('status', 'Publication record saved.');
     }
