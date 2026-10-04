@@ -10,6 +10,9 @@ Code readiness and host readiness are separate. The local build must not be desc
 - [ ] Composer/npm advisories reviewed.
 - [ ] Migration, route cache and view cache rehearsed.
 - [ ] OpenAPI routes match runtime routes and protected Swagger loads.
+- [ ] Profile/password security changes create audit records without secrets and revoke API tokens after password changes.
+- [ ] Manufacturing release rejects expired batches and batches without serialized units.
+- [ ] Order cancellation restores reserved inventory exactly once and paid orders cannot enter the unpaid-cancellation path.
 
 ## Host
 
@@ -19,7 +22,8 @@ Code readiness and host readiness are separate. The local build must not be desc
 - [ ] SMTP sends verification, reset and order notifications to test recipients.
 - [ ] Runtime directories writable; upload storage linked and preserved across releases.
 - [ ] Scheduler runs and expiry/scan cleanup observed.
-- [ ] origina:production-check passes; actual domain /up and asset URLs succeed.
+- [ ] `origina:status` reports the operational platform scope accurately.
+- [ ] `origina:production-check` passes; actual domain `/up` and asset URLs succeed.
 - [ ] Backups and restore drill complete; rollback ownership documented.
 - [ ] Logs/alerts have an operational owner.
 
@@ -32,10 +36,10 @@ Code readiness and host readiness are separate. The local build must not be desc
 - [ ] Payment instructions belong to the institution and actual receipt workflow works.
 - [ ] Unpaid reservation review and manual refund escalation have assigned owners.
 - [ ] Privacy notice, rights/contact process, data retention and hosting access reviewed.
-- [ ] Batch quality evidence, printed labels and physical QR scan quality checked.
+- [ ] Batch quality evidence, serialized unit generation, printed labels and physical QR scan quality checked.
 - [ ] Mobile/tablet/desktop, keyboard and reduced-motion review completed.
 - [ ] Checkout enabled only after preceding gates.
 
 ## Remaining integrations
 
-Online payment provider/webhooks, automated refunds, multi-zone shipping, variants and full ERP are not delivered integrations. Request a separate reviewed implementation before representing them as operational.
+Online payment provider/webhooks, automated refunds, multi-zone shipping, variants and full ERP are not delivered integrations. SMS and online payment must remain disabled until the selected provider, production credentials, signature verification/reconciliation and acceptance tests are complete. Request a separate reviewed implementation before representing them as operational.
