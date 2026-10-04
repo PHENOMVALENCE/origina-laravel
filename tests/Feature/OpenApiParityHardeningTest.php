@@ -105,13 +105,12 @@ class OpenApiParityHardeningTest extends TestCase
         }
     }
 
-    public function test_openapi_declares_the_expected_bearer_scheme(): void
+    public function test_openapi_declares_an_http_bearer_scheme_for_sanctum_tokens(): void
     {
         $scheme = $this->spec()['components']['securitySchemes']['bearerAuth'] ?? null;
 
         $this->assertIsArray($scheme);
         $this->assertSame('http', $scheme['type'] ?? null);
         $this->assertSame('bearer', $scheme['scheme'] ?? null);
-        $this->assertSame('JWT', strtoupper((string) ($scheme['bearerFormat'] ?? 'JWT')));
     }
 }
