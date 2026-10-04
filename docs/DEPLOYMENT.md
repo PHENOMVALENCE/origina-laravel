@@ -26,7 +26,7 @@ SESSION_ENCRYPT=true
 MAIL_MAILER=smtp
 MAIL_HOST=YOUR_SMTP_HOST
 MAIL_PORT=587
-MAIL_USERNAME=YOUR_SMTP_USERNAME
+MAIL_USERNAME=
 MAIL_PASSWORD=SET_SECURELY
 MAIL_FROM_ADDRESS=YOUR_APPROVED_SENDER
 MAIL_FROM_NAME=ORIGINA
@@ -54,6 +54,8 @@ php artisan origina:production-check
 
 Run migrations only after a verified database backup and staging rehearsal. Never run `migrate:fresh` in production. Vite built assets and application code must be from the same commit. Grant write access only to `storage` and `bootstrap/cache`; preserve uploaded media across releases. Create the first administrator with `php artisan origina:admin` through a trusted terminal.
 
+`origina:production-check` is a release-host gate. It validates production/debug mode, application key presence, HTTPS canonical URL, secure/encrypted/HTTP-only session settings, SameSite policy, MySQL selection/reachability, SMTP host and non-placeholder sender, built assets, storage link, writable Laravel runtime directories and safe commercial checkout configuration. It never prints configured secrets. A failed check blocks launch; warnings require an explicit operational decision.
+
 ## Scheduler
 
 Install cron (adjust PHP binary and actual app path):
@@ -75,3 +77,9 @@ The application records unpaid orders and manually reconciled payment receipts. 
 Monitor `/up`, app errors, SMTP failures, failed logins, abnormal API/verification traffic and pending unpaid stock reservations. Do not log passwords/tokens/complete payment credentials. `/up` proves application availability, not a full business transaction.
 
 Back up MySQL and uploaded media securely on a defined schedule; document retention, encryption, owner and restore procedure. Rehearse restore to an isolated host. Keep a known-good release and matching built assets. Roll back code/assets together; assess schema compatibility before database rollback. Never drop live commerce tables to reverse an application release.
+
+## Release evidence
+
+Before switching production traffic or enabling checkout, retain release evidence for the exact commit: green CI URL/commit SHA, `origina:production-check` output, migration result, staging browser QA notes, SMTP test evidence, scheduler observation, backup/restore evidence, physical QR test result and the business-owner approval record for catalogue/pricing/claims/payment instructions.
+
+Use `PRODUCTION_READINESS.md` for the readiness-state model and route/surface acceptance matrix, and `PRODUCTION_CHECKLIST.md` for the final sign-off list. Code-ready, staging-ready and production-accepted are deliberately different states.
