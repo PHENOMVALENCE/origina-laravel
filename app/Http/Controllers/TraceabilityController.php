@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TraceabilityController
@@ -50,16 +51,25 @@ class TraceabilityController
     {
         DB::transaction(function () use ($unit): void {
             $unit = ProductUnit::whereKey($unit->id)->lockForUpdate()->firstOrFail();
+            if ($unit->status === 'revoked') {
+                throw ValidationException::withMessages(['unit' => 'This serialized unit is already revoked.']);
+            }
+            $from = $unit->status;
             $unit->update(['status' => 'revoked']);
-            Audit::record('unit.revoked', $unit);
-        });
+            Audit::record('unit.revoked', $unit, ['from' => $from, 'to' => 'revoked']);
+        }, 3);
 
         return back()->with('status', 'Unit revoked.');
     }
 
     public function export(ManufacturingBatch $batch): StreamedResponse
     {
-        Audit::record('batch.labels_exported', $batch);
+        $exportableCount = ProductUnit::where('manufacturing_batch_id', $batch->id)->where('status', '!=', 'revoked')->count();
+        if ($exportableCount === 0) {
+            throw ValidationException::withMessages(['batch' => 'This batch has no printable serialized units.']);
+        }
+
+        Audit::record('batch.labels_exported', $batch, ['unit_count' => $exportableCount]);
 
         return response()->streamDownload(function () use ($batch): void {
             $stream = fopen('php://output', 'w');
@@ -67,14 +77,19 @@ class TraceabilityController
                 return;
             }
             fputcsv($stream, ['serial', 'verification_url']);
-            foreach (ProductUnit::where('manufacturing_batch_id', $batch->id)->orderBy('id')->cursor() as $unit) {
+            foreach (ProductUnit::where('manufacturing_batch_id', $batch->id)->where('status', '!=', 'revoked')->orderBy('id')->cursor() as $unit) {
                 fputcsv($stream, [$unit->serial, route('verify', $unit->verification_token)]);
-            } fclose($stream);
+            }
+            fclose($stream);
         }, $batch->code.'-labels.csv', ['Content-Type' => 'text/csv', 'Cache-Control' => 'private, no-store']);
     }
 
     public function label(ProductUnit $unit): View
     {
+        if ($unit->status === 'revoked') {
+            throw ValidationException::withMessages(['unit' => 'Revoked units cannot produce printable labels.']);
+        }
+
         $renderer = new ImageRenderer(new RendererStyle(240), new SvgImageBackEnd);
         $qr = base64_encode((new Writer($renderer))->writeString(route('verify', $unit->verification_token)));
         Audit::record('unit.label_viewed', $unit);
