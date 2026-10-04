@@ -11,6 +11,11 @@ class OrderWorkflow
 {
     public function transition(Order $order, string $next, ?string $tracking = null): Order
     {
+        $tracking = $tracking === null ? null : trim($tracking);
+        if ($tracking !== null && mb_strlen($tracking) > 150) {
+            throw ValidationException::withMessages(['tracking_reference' => 'The dispatch or tracking reference may not exceed 150 characters.']);
+        }
+
         return DB::transaction(function () use ($order, $next, $tracking): Order {
             $order = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $allowed = ['pending' => ['confirmed', 'cancelled'], 'confirmed' => ['processing'], 'processing' => ['shipped'], 'shipped' => ['delivered'], 'delivered' => [], 'cancelled' => []];
@@ -23,7 +28,7 @@ class OrderWorkflow
             if ($next === 'cancelled' && $order->payment_status === 'paid') {
                 throw ValidationException::withMessages(['status' => 'Paid orders require a reconciled refund; contact the operations owner.']);
             }
-            if ($next === 'shipped' && ! $tracking) {
+            if ($next === 'shipped' && ($tracking === null || $tracking === '')) {
                 throw ValidationException::withMessages(['tracking_reference' => 'Provide a dispatch or tracking reference.']);
             }
             if ($next === 'cancelled') {
@@ -41,6 +46,11 @@ class OrderWorkflow
 
     public function confirmPayment(Order $order, string $reference): Order
     {
+        $reference = trim($reference);
+        if ($reference === '' || mb_strlen($reference) > 150) {
+            throw ValidationException::withMessages(['payment_reference' => 'Provide a valid payment reference of up to 150 characters.']);
+        }
+
         return DB::transaction(function () use ($order, $reference): Order {
             $order = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             if ($order->status === 'cancelled' || $order->payment_status === 'paid') {
