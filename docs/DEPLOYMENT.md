@@ -2,9 +2,18 @@
 
 ## Host and runtime
 
-Use PHP 8.3+ with Laravel extensions, MySQL 8+ with InnoDB, HTTPS and SMTP. The web document root must be `public/`. Never serve the repository root. Deny dotfiles, `.env`, source/VCS/storage internals and executable uploads. Do not use `artisan serve` in production.
+Use the PHP 8.2 branch with Laravel extensions, MySQL 8+ with InnoDB, HTTPS and SMTP. ORIGINA requires PHP `>=8.2.12 <8.3` to match the maintained local/runtime baseline. For production, use the newest available PHP 8.2 security patch; do not deliberately deploy an old 8.2 patch merely because local development began on 8.2.12. The web document root must be `public/`. Never serve the repository root. Deny dotfiles, `.env`, source/VCS/storage internals and executable uploads. Do not use `artisan serve` in production.
 
-For Hostinger: select a PHP version compatible with the lockfile, create a MySQL database/user, set the domain document root to the application `public` directory, configure environment over SSH, build frontend assets locally or in CI when Node is unavailable, and upload the complete fingerprinted `public/build` directory alongside the matching code. Shared hosting must support symlinks (`storage:link`), writable Laravel runtime directories and a minute-level cron. If it cannot point the document root correctly, use a suitable subdomain/application layout rather than exposing `.env`.
+Before installing dependencies on a host, verify:
+
+```bash
+php -v
+composer runtime:check
+```
+
+Do not use `--ignore-platform-reqs`. A host that cannot provide the supported PHP 8.2 runtime is not an accepted ORIGINA production host.
+
+For Hostinger: select PHP 8.2 using the newest patch offered by the host, create a MySQL database/user, set the domain document root to the application `public` directory, configure environment over SSH, build frontend assets locally or in CI when Node is unavailable, and upload the complete fingerprinted `public/build` directory alongside the matching code. Shared hosting must support symlinks (`storage:link`), writable Laravel runtime directories and a minute-level cron. If it cannot point the document root correctly, use a suitable subdomain/application layout rather than exposing `.env`.
 
 ## Environment
 
@@ -26,7 +35,7 @@ SESSION_ENCRYPT=true
 MAIL_MAILER=smtp
 MAIL_HOST=YOUR_SMTP_HOST
 MAIL_PORT=587
-MAIL_USERNAME=YOUR_SMTP_USERNAME
+MAIL_USERNAME=
 MAIL_PASSWORD=SET_SECURELY
 MAIL_FROM_ADDRESS=YOUR_APPROVED_SENDER
 MAIL_FROM_NAME=ORIGINA
@@ -40,8 +49,13 @@ Values above are instructions/placeholders, not credentials to copy verbatim. Ge
 
 ## Build and release
 
+The dependency lock must be generated against the PHP 8.2 platform baseline. After changing PHP constraints, run `composer update --lock` locally and commit `composer.lock` before cutting a release.
+
 ```bash
+php -v
+composer runtime:check
 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer check-platform-reqs --no-dev
 npm ci
 npm run build
 php artisan migrate --force
