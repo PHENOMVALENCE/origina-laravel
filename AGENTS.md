@@ -37,7 +37,8 @@ Do not replace final assets with remote hotlinks, placeholders or invented image
 
 ## Engineering rules
 
-- Laravel 12 / PHP 8.3+ conventions.
+- Laravel 12 / PHP 8.2 conventions. Application support is `>=8.2.12 <8.3`; CI runs the PHP 8.2 line and production should use the newest available 8.2 security patch.
+- Do not introduce PHP 8.3+ syntax or APIs unless the runtime baseline is explicitly upgraded in a reviewed change.
 - Server-render first.
 - Keep business/domain logic out of Blade.
 - Reuse Blade components and the content registry for repeated public patterns.
@@ -74,7 +75,10 @@ Use Conventional Commits: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `st
 Before a PR is ready, run the applicable checks:
 
 ```bash
+php -v
+composer runtime:check
 composer validate --strict
+composer check-platform-reqs
 composer lint:test
 composer analyse
 composer test
@@ -82,7 +86,7 @@ npm ci
 npm run build
 ```
 
-Never claim a check passed unless it actually ran successfully.
+Never use `--ignore-platform-reqs` to hide PHP incompatibility. Never claim a check passed unless it actually ran successfully.
 
 ## Documentation
 
