@@ -4,9 +4,18 @@ ORIGINA is a science-led institution headquartered in Dar es Salaam. Biology Fir
 
 ## Stack
 
-Laravel 12 / PHP 8.3+, Blade, Vite, MySQL in production, SQLite for local development, Sanctum bearer API, locally bundled Swagger UI and printable serialized QR labels. Source Serif 4 + Source Sans 3, semantic institution/division tokens, server-rendered screens and progressive enhancement.
+Laravel 12 / PHP 8.2, Blade, Vite, MySQL in production, SQLite for local development, Sanctum bearer API, locally bundled Swagger UI and printable serialized QR labels. The supported application runtime is PHP `>=8.2.12 <8.3`, matching the maintainer's local PHP 8.2 line. Production should use the newest available PHP 8.2 security patch rather than staying on an old patch release. Source Serif 4 + Source Sans 3, semantic institution/division tokens, server-rendered screens and progressive enhancement.
 
 ## Local setup
+
+Confirm the runtime first:
+
+```bash
+php -v
+composer runtime:check
+```
+
+Then install and run the application:
 
 ```bash
 composer install
@@ -19,6 +28,8 @@ npm run build
 php artisan origina:admin
 php artisan serve
 ```
+
+If `composer.json` changed its PHP/platform constraints, refresh lock metadata once with `composer update --lock` and commit the resulting `composer.lock` before release. Do not use `--ignore-platform-reqs` to make an incompatible environment appear supported.
 
 No default credentials or fabricated saleable products. Add approved catalogue records through `/admin/products`. For local checkout testing set `COMMERCE_CHECKOUT_ENABLED=true`, a deliberate `COMMERCE_SHIPPING_FEE` and clear `COMMERCE_PAYMENT_INSTRUCTIONS` in `.env`. Do not copy test credentials into production.
 
@@ -42,7 +53,9 @@ Local mail defaults to the Laravel log mailer. Configure real SMTP to deliver ve
 ## Quality gates
 
 ```bash
+composer runtime:check
 composer validate --strict
+composer check-platform-reqs
 composer lint:test
 composer analyse
 composer test

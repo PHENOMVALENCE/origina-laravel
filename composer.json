@@ -6,7 +6,7 @@
   "keywords": ["origina", "laravel", "institutional", "commerce"],
   "license": "proprietary",
   "require": {
-    "php": "^8.3",
+    "php": ">=8.2.12 <8.3",
     "bacon/bacon-qr-code": "^3.0",
     "laravel/framework": "^12.0",
     "laravel/sanctum": "^4.0"
@@ -39,6 +39,7 @@
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
     ],
+    "runtime:check": "@php -r '$v=PHP_VERSION_ID; if ($v < 80212 || $v >= 80300) { fwrite(STDERR, \"ORIGINA requires PHP 8.2.12 or newer within the PHP 8.2 branch. Current: \".PHP_VERSION.PHP_EOL); exit(1); } echo \"PHP runtime compatible: \".PHP_VERSION.PHP_EOL;'",
     "test": [
       "@php artisan config:clear --ansi",
       "@php artisan test"
@@ -50,7 +51,10 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2.12"
+    }
   },
   "minimum-stability": "stable",
   "prefer-stable": true

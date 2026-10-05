@@ -7,30 +7,39 @@ on:
       - masterchanges
     types:
       - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 permissions:
   contents: read
 
+env:
+  ORIGINA_PHP: '8.2'
+
 jobs:
   php:
-    name: PHP quality
+    name: PHP 8.2 quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ env.ORIGINA_PHP }}
           coverage: none
           tools: composer:v2
+      - name: Confirm runtime line
+        run: php -v && composer runtime:check --no-interaction
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Verify locked packages on PHP 8.2
+        run: composer check-platform-reqs --no-dev
       - name: Prepare environment
         run: |
           cp .env.example .env
           php artisan key:generate
-      - name: Validate Composer
-        run: composer validate --strict
+      - name: Validate Composer metadata
+        run: composer validate --strict --no-check-lock
       - name: Dependency audit
         run: composer audit --no-interaction
       - name: Format check
@@ -54,7 +63,7 @@ jobs:
         run: npm run build
 
   mysql:
-    name: MySQL platform and concurrency
+    name: PHP 8.2 / MySQL platform and concurrency
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -79,10 +88,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ env.ORIGINA_PHP }}
           extensions: pdo_mysql
           coverage: none
           tools: composer:v2
+      - run: php -v && composer runtime:check --no-interaction
       - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: composer check-platform-reqs --no-dev
       - run: cp .env.example .env && php artisan key:generate
       - run: composer test
