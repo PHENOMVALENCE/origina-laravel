@@ -11,8 +11,10 @@ class FrontendArchitectureTest extends TestCase
         $modern = resource_path('css/modern.css');
         $site = file_get_contents(resource_path('views/layouts/site.blade.php'));
         $portal = file_get_contents(resource_path('views/layouts/portal.blade.php'));
+        $vite = file_get_contents(base_path('vite.config.js'));
 
         $this->assertFileExists($modern);
+        $this->assertStringContainsString("'resources/css/modern.css'", $vite);
         $this->assertStringContainsString("@vite('resources/css/modern.css')", $site);
         $this->assertStringContainsString("@vite('resources/css/modern.css')", $portal);
 
