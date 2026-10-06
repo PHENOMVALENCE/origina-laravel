@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#fdfbf7">
+  <meta name="theme-color" content="#f6f4ef">
   <meta name="description" content="@yield('description', 'ORIGINA is a multi-divisional innovation institution built at the intersection of biology, clinical science, technology, and human wellbeing.')">
 
   @unless(app()->environment('production'))
@@ -35,6 +35,7 @@
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link rel="stylesheet" href="{{ asset('css/production-refinement.css') }}">
+  @vite('resources/css/modern.css')
   @stack('head')
 </head>
 <body class="@yield('body-class')">

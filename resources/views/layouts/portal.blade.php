@@ -4,11 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f3f1ec">
   <title>@yield('title') — ORIGINA</title>
   <link rel="icon" href="{{ asset('favicon.ico') }}">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link rel="stylesheet" href="{{ asset('css/portal-refinement.css') }}">
+  @vite('resources/css/modern.css')
   @stack('head')
 </head>
 <body class="portal">
